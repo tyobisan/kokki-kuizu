@@ -1,0 +1,18 @@
+{
+  "name": "くにのはたクイズ",
+  "short_name": "くにのはた",
+  "description": "せかいのくにのはたをおぼえよう！",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#FFF9F0",
+  "theme_color": "#FF8C42",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
