@@ -1,15 +1,6 @@
-const CACHE = 'kuni-flag-v8';
-
-const STATIC = [
-  './',
-  './index.html',
-  'https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@400;700&family=Zen+Maru+Gothic:wght@400;700&display=swap',
-];
+const CACHE = 'kuni-flag-v10';
 
 self.addEventListener('install', e => {
-  e.waitUntil(
-    caches.open(CACHE).then(cache => cache.addAll(STATIC).catch(()=>{}))
-  );
   self.skipWaiting();
 });
 
@@ -22,15 +13,28 @@ self.addEventListener('activate', e => {
   self.clients.claim();
 });
 
-// ネット優先→失敗したらキャッシュ（常に最新を取得）
+// index.htmlは常にネットから取得（キャッシュしない）
+// 国旗画像など他のリソースはキャッシュ優先
 self.addEventListener('fetch', e => {
+  const url = new URL(e.request.url);
+  // メインのHTMLは常に最新を取得
+  if (url.pathname.endsWith('/') || url.pathname.endsWith('index.html')) {
+    e.respondWith(
+      fetch(e.request, {cache: 'no-store'}).catch(() => caches.match(e.request))
+    );
+    return;
+  }
+  // その他はキャッシュ優先
   e.respondWith(
-    fetch(e.request).then(res => {
-      if (res && res.status === 200) {
-        const clone = res.clone();
-        caches.open(CACHE).then(c => c.put(e.request, clone));
-      }
-      return res;
-    }).catch(() => caches.match(e.request))
+    caches.match(e.request).then(cached => {
+      if (cached) return cached;
+      return fetch(e.request).then(res => {
+        if (res && res.status === 200) {
+          const clone = res.clone();
+          caches.open(CACHE).then(c => c.put(e.request, clone));
+        }
+        return res;
+      }).catch(() => cached);
+    })
   );
 });
