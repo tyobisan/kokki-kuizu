@@ -68,7 +68,7 @@ body{font-family:'Zen Maru Gothic',sans-serif;background:var(--bg);min-height:10
 .hkbd{display:grid;gap:5px;margin-bottom:10px}
 .kbtn{height:44px;border-radius:11px;border:2px solid #e5e7eb;background:var(--card);font-size:17px;font-weight:700;cursor:pointer;transition:all .1s;color:#333;font-family:inherit}
 .kbtn:active{transform:scale(.92);background:var(--pink);color:#fff;border-color:var(--pink)}
-.kdel{background:#fee2e2;border-color:#fca5a5;color:var(--red);font-size:13px}
+.kdel{background:#fee2e2;border-color:#fca5a5;color:var(--red);font-size:12px;line-height:1.2}
 .fi-fb{text-align:center;font-size:19px;font-weight:900;min-height:30px;margin-bottom:8px}
 .fi-fb.ok{color:var(--green)}.fi-fb.ng{color:var(--red)}
 .hintbtn{background:#fffbeb;border:2px solid var(--sun);border-radius:99px;padding:5px 13px;font-size:12px;font-weight:700;color:#92400e;cursor:pointer;font-family:inherit}
@@ -121,7 +121,9 @@ body{font-family:'Zen Maru Gothic',sans-serif;background:var(--bg);min-height:10
 .mo-name{font-family:'Kaisei Decol',serif;font-size:24px;font-weight:700;color:#222;text-align:center}
 .mo-ruby{font-size:13px;color:#888;text-align:center;margin-bottom:6px}
 .mo-reg{font-size:11px;background:#f0f4ff;color:#4338ca;border-radius:99px;padding:3px 10px;display:inline-block;margin-bottom:14px}
-.mo-desc{font-size:14px;color:#444;line-height:1.8;background:#fffbeb;border-radius:12px;padding:12px;margin-bottom:14px}
+.mo-desc{font-size:15px;color:#333;line-height:2.6;background:#fffbeb;border-radius:12px;padding:14px;margin-bottom:14px}
+.mo-desc ruby{ruby-align:center;display:inline-ruby}
+.mo-desc rt{font-size:10px;color:#777;letter-spacing:0;line-height:1.2}
 .mapbtn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:13px;border-radius:14px;border:none;background:#34a853;color:#fff;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer}
 .mo-close{display:block;width:100%;padding:11px;border-radius:14px;border:2px solid #eee;background:#fff;font-family:inherit;font-size:14px;font-weight:700;color:#888;cursor:pointer;margin-top:8px}
 .mo-food{margin-bottom:14px}
@@ -185,7 +187,7 @@ body{font-family:'Zen Maru Gothic',sans-serif;background:var(--bg);min-height:10
 <!-- RESULT -->
 <div class="res-bg" id="res-bg"><div class="res-card"><span class="res-em" id="res-em">🌟</span><div class="res-title" id="res-ti"></div><div class="res-body" id="res-bo"></div><div class="nsw" id="nsw" style="display:none"><div style="font-size:11px;color:#888;margin-bottom:4px">🎁 あたらしいシールをゲット！</div><img id="nsi" src="" alt=""></div><div class="rbtns"><button class="rbtn p" id="res-next">もう一回！</button><button class="rbtn s" onclick="showHome()">ホーム</button></div></div></div>
 <!-- DICT MODAL -->
-<div class="modal-bg" id="dm-bg" onclick="closeDM(event)"><div class="modal"><img class="mo-flag" id="dm-fl" src="" alt=""><div class="mo-name" id="dm-na"></div><div class="mo-ruby" id="dm-ru"></div><div style="text-align:center"><span class="mo-reg" id="dm-re"></span></div><div style="height:10px"></div><div class="mo-desc" id="dm-de"></div><div class="mo-food"><div class="mo-food-title">🍽️ ゆうめいなたべもの</div><img class="mo-food-img" id="dm-fi" src="" alt="" onerror="this.style.display='none';document.getElementById('dm-fe').style.display='flex'"><div class="mo-food-img-err" id="dm-fe" style="display:none">🍴</div><div class="mo-food-name" id="dm-fn"></div><div class="mo-food-kana" id="dm-fk"></div></div><div class="mo-clock-title">🕐 いまのじこく</div><div class="mo-clock-row"><div class="mo-clock-label"><img class="mo-clock-flag-sm" id="dm-ck-flag" src="" alt=""><span id="dm-ck-name">ー</span></div><div style="text-align:right"><div class="mo-clock-time" id="dm-ck-time">--:--</div></div></div><hr class="mo-clock-divider"><div class="mo-clock-row"><div class="mo-clock-label">🇯🇵 にほん</div><div style="text-align:right"><div class="mo-clock-time" id="dm-ck-jp">--:--</div></div></div><div class="mo-clock-diff" id="dm-ck-diff"></div></div><button class="mapbtn" id="dm-map">🗺️ グーグルマップでみる</button><button class="mo-close" onclick="closeDM()">とじる ✕</button></div></div>
+<div class="modal-bg" id="dm-bg" onclick="closeDM(event)"><div class="modal"><img class="mo-flag" id="dm-fl" src="" alt=""><div class="mo-name" id="dm-na"></div><div class="mo-ruby" id="dm-ru"></div><div style="text-align:center"><span class="mo-reg" id="dm-re"></span></div><div style="height:10px"></div><div class="mo-desc" id="dm-de"></div><div class="mo-food"><div class="mo-food-title">🍽️ <ruby>有名<rt>ゆうめい</rt></ruby>なたべもの</div><img class="mo-food-img" id="dm-fi" src="" alt="" onerror="this.style.display='none';document.getElementById('dm-fe').style.display='flex'"><div class="mo-food-img-err" id="dm-fe" style="display:none">🍴</div><div class="mo-food-name" id="dm-fn"></div><div class="mo-food-kana" id="dm-fk"></div></div><div class="mo-clock-title">🕐 いまの<ruby>時刻<rt>じこく</rt></ruby></div><div class="mo-clock-row"><div class="mo-clock-label"><img class="mo-clock-flag-sm" id="dm-ck-flag" src="" alt=""><span id="dm-ck-name">ー</span></div><div style="text-align:right"><div class="mo-clock-time" id="dm-ck-time">--:--</div></div></div><hr class="mo-clock-divider"><div class="mo-clock-row"><div class="mo-clock-label">🇯🇵 にほん</div><div style="text-align:right"><div class="mo-clock-time" id="dm-ck-jp">--:--</div></div></div><div class="mo-clock-diff" id="dm-ck-diff"></div></div><button class="mapbtn" id="dm-map">🗺️ グーグルマップでみる</button><button class="mo-close" onclick="closeDM()">とじる ✕</button></div></div>
 <!-- TOPBAR -->
 <div class="topbar"><div class="topbar-title" id="tb-title">🌍 せかいのこっきクイズ</div><div style="display:flex;align-items:center;gap:4px;font-size:13px;font-weight:700;color:#555">🏷️<span class="seal-badge" id="seal-n">0</span></div></div>
 <!-- HOME -->
@@ -202,72 +204,194 @@ body{font-family:'Zen Maru Gothic',sans-serif;background:var(--bg);min-height:10
 <div class="screen" id="s-dict"><div class="dtw"><div class="dt-filter" id="dt-fi"></div><div class="dt-grid" id="dt-grid"></div></div></div>
 
 <script>
-const IMG='https://www.asahi-net.or.jp/~yq3t-hruc/img/';
+function flagUrl(c){return`https://flagcdn.com/w160/${c.cc}.png`}
 const WK='https://commons.wikimedia.org/wiki/Special:FilePath/';
 const countries=[
-  {n:'にほん',k:'日本',img:'JPL.GIF',r:'アジア',d:'しろいはたに あかいおひさまがあるよ。にほんは「ひのでるくに」ともよばれていて、おひさまのはたをもっているんだ。',f:{n:'すし',k:'寿司',i:'Sushi_platter.jpg'}},
-  {n:'かんこく',k:'韓国',img:'KRL.GIF',r:'アジア',d:'しろいはたに あおとあかのうずまきともようがあるよ。まわりの4つのもようは てん・ち・みず・ひをあらわしているんだ。',f:{n:'ビビンバ',k:'ビビンバ',i:'Dolsot-bibimbap.jpg'}},
-  {n:'ちゅうごく',k:'中国',img:'CNL.GIF',r:'アジア',d:'あかいはたに きんいろのほしが5つあるよ。おおきなほしがしどうしゃ、4つのちいさなほしはこくみんをあらわすんだ。',f:{n:'ぎょうざ',k:'餃子',i:'Jiaozi_on_a_plate.jpg'}},
-  {n:'インド',k:'インド',img:'INL.GIF',r:'アジア',d:'みどり・しろ・オレンジのよこしまで、まんなかに「ほうりんのしゃりん」があるよ。24ほんのやからなるしゃりんなんだ。',f:{n:'ナン',k:'ナン',i:'Nan_Artisan_Flatbreads.jpg'}},
-  {n:'タイ',k:'タイ',img:'THL.GIF',r:'アジア',d:'あか・しろ・あお・しろ・あかのよこしまで、まんなかのふといあおはタイのおうけをあらわしているよ。',f:{n:'パッタイ',k:'パッタイ',i:'Pad_Thai_kung_Chang_Khien_street_stall.jpg'}},
-  {n:'インドネシア',k:'インドネシア',img:'IDL.GIF',r:'アジア',d:'うえがあか、したがしろのシンプルなはただよ。あかはゆうき、しろはせいじゅんさをあらわすんだ。',f:{n:'ナシゴレン',k:'ナシゴレン',i:'Nasi_goreng_2.jpg'}},
-  {n:'ベトナム',k:'ベトナム',img:'VNL.GIF',r:'アジア',d:'あかいはたのまんなかに きいろいほしがひとつあるよ。あかはかくめい、きいろいほしはひとびとをあらわすんだ。',f:{n:'フォー',k:'フォー',i:'Pho_bo_Hanoi.jpg'}},
-  {n:'マレーシア',k:'マレーシア',img:'MYL.GIF',r:'アジア',d:'あかとしろのしましまと みかづきとほしがあるよ。しましまは14のちほうをあらわしているんだ。',f:{n:'ナシレマ',k:'ナシレマ',i:'Nasi_lemak_on_banana_leaf.jpg'}},
-  {n:'シンガポール',k:'シンガポール',img:'SGL.GIF',r:'アジア',d:'あかとしろのはたに しろいみかづきと5つのほしがあるよ。5つのほしはびょうどう・みんしゅ・へいわ・こうふく・りそうをあらわすんだ。',f:{n:'チリクラブ',k:'チリクラブ',i:'Singapore_Chilli_Crab.jpg'}},
-  {n:'フィリピン',k:'フィリピン',img:'PHL.GIF',r:'アジア',d:'さんかくにたいようとほしがあるはただよ。せんそうのときはあかを上に、へいわなときはあおを上にするんだ。',f:{n:'アドボ',k:'アドボ',i:'Chicken_adobo.jpg'}},
-  {n:'ミャンマー',k:'ミャンマー',img:'MML.GIF',r:'アジア',d:'きいろ・みどり・あかのしましまに しろいほしがあるよ。3しょくはだんけつ・へいわ・ゆうきをあらわすんだ。',f:{n:'モヒンガー',k:'モヒンガー',i:'Mohinga.jpg'}},
-  {n:'カンボジア',k:'カンボジア',img:'KHL.GIF',r:'アジア',d:'あかいはたのまんなかに しろいアンコールワットがあるよ。アンコールワットはカンボジアのゆうめいなおてらなんだ！',f:{n:'アモック',k:'アモック',i:'Fish_amok.jpg'}},
-  {n:'モンゴル',k:'モンゴル',img:'MNL.GIF',r:'アジア',d:'あか・あお・あかのたてしまに きんいろのソヨンボもようがあるよ。ソヨンボはひ・つき・たき火などをあらわすんだ。',f:{n:'ブーズ',k:'ブーズ',i:'Buuz.jpg'}},
-  {n:'パキスタン',k:'パキスタン',img:'PKL.GIF',r:'アジア',d:'みどりのはたに しろいみかづきとほしがあるよ。みどりはイスラムきょう、ひだりのしろいたいはほかのしゅうきょうのひとをあらわすんだ。',f:{n:'ビリヤニ',k:'ビリヤニ',i:'Biryani_in_Pakistan.jpg'}},
-  {n:'バングラデシュ',k:'バングラデシュ',img:'BDL.GIF',r:'アジア',d:'みどりのはたのまんなかに あかいまるがあるよ。みどりはのはら、あかいまるはのぼるおひさまをあらわすんだ。',f:{n:'イリッシュカレー',k:'イリッシュカレー',i:'Ilish.jpg'}},
-  {n:'ネパール',k:'ネパール',img:'NPL.GIF',r:'アジア',d:'せかいでゆいいつ、しかくじゃないはたをもつくにだよ！さんかくを2つかさねたかたちでヒマラヤのやまをあらわすんだ。',f:{n:'ダルバート',k:'ダルバート',i:'Dal_bhat.jpg'}},
-  {n:'サウジアラビア',k:'サウジアラビア',img:'SAL.GIF',r:'アジア',d:'みどりのはたに しろいもじとけんがあるよ。もじは「アッラーのほかにかみはなし」というイスラムきょうのことばなんだ。',f:{n:'カブサ',k:'カブサ',i:'Kabsa.jpg'}},
-  {n:'イスラエル',k:'イスラエル',img:'ILL.GIF',r:'アジア',d:'しろいはたに あおいよこしまとダビデのほし（6かくのほし）があるよ。ユダヤきょうのたいせつなしんぼるなんだ。',f:{n:'ファラフェル',k:'ファラフェル',i:'Falafel_balls.jpg'}},
-  {n:'イラン',k:'イラン',img:'IRL.GIF',r:'アジア',d:'みどり・しろ・あかのしましまで、まんなかにアラビアもじのもんしょうがあるよ。しましまのさかいめにもアラビアもじがならんでいるんだ。',f:{n:'ゴルメサブジ',k:'ゴルメサブジ',i:'Ghormeh_sabzi.jpg'}},
-  {n:'イラク',k:'イラク',img:'IQL.GIF',r:'アジア',d:'あか・しろ・くろのしましまで、まんなかにアラビアもじで「アッラーはおおいなり」とかいてあるよ。',f:{n:'マスグーフ',k:'マスグーフ',i:'Masgouf.jpg'}},
-  {n:'イギリス',k:'イギリス',img:'GBL.GIF',r:'ヨーロッパ',d:'「ユニオンジャック」とよばれるはたで、イングランド・スコットランド・アイルランドの3つのじゅうじをくみあわせているんだ。',f:{n:'フィッシュアンドチップス',k:'フィッシュ＆チップス',i:'Fish_and_chips_blackpool.jpg'}},
-  {n:'イタリア',k:'イタリア',img:'ITL.GIF',r:'ヨーロッパ',d:'みどり・しろ・あかのたてしまだよ。みどりはきぼう、しろはしんこう、あかはあいをあらわすんだ。',f:{n:'ピッツァ',k:'ピッツァ',i:'Pizza-3007395.jpg'}},
-  {n:'ウクライナ',k:'ウクライナ',img:'UAL.GIF',r:'ヨーロッパ',d:'うえがそらいろ、したがきいろのシンプルなはただよ。あおいそら、きいろいこむぎばたけがウクライナのけしきをあらわしているんだ。',f:{n:'ボルシチ',k:'ボルシチ',i:'Borscht.jpg'}},
-  {n:'オーストリア',k:'オーストリア',img:'ATL.GIF',r:'ヨーロッパ',d:'あか・しろ・あかのよこしまのはただよ。むかしのせんそうでよろいのまわりにちがついたすがたをもとにしたといわれているんだ。',f:{n:'ウィンナーシュニッツェル',k:'シュニッツェル',i:'Schnitzel.jpg'}},
-  {n:'オランダ',k:'オランダ',img:'NLL.GIF',r:'ヨーロッパ',d:'あか・しろ・あおのよこしまのはただよ。もとはオレンジ・しろ・あおだったんだけど、いつのまにかあかになったんだ。',f:{n:'ストロープワッフェル',k:'ストロープワッフェル',i:'Stroopwafels.jpg'}},
-  {n:'ギリシャ',k:'ギリシャ',img:'GRL.GIF',r:'ヨーロッパ',d:'あおとしろのしましまが9ほんと、ひだりうえにじゅうじがあるよ。しましまは「じゆうかしぬか」の9もじをあらわすといわれているんだ。',f:{n:'ムサカ',k:'ムサカ',i:'Moussaka.jpg'}},
-  {n:'スイス',k:'スイス',img:'CHL.GIF',r:'ヨーロッパ',d:'あかいはたにしろいじゅうじ。せかいでもめずらしいほぼしかくのはたなんだよ！じゅうじはキリストきょうをあらわすんだ。',f:{n:'チーズフォンデュ',k:'フォンデュ',i:'Cheese_fondue_in_a_caquelon.jpg'}},
-  {n:'スウェーデン',k:'スウェーデン',img:'SEL.GIF',r:'ヨーロッパ',d:'あおいはたにきいろいじゅうじ。このじゅうじもようはきたヨーロッパのくにぐにでよく使われているんだよ。',f:{n:'ミートボール',k:'ミートボール',i:'Swedish_meatballs.jpg'}},
-  {n:'スペイン',k:'スペイン',img:'ESL.GIF',r:'ヨーロッパ',d:'あか・きいろ・あかのよこしまで、まんなかにおうけのもんしょうがあるよ。きいろのたいはふたつのおうこくをあわせたことをあらわしているんだ。',f:{n:'パエリャ',k:'パエリャ',i:'Paella_in_a_frying_pan.jpg'}},
-  {n:'チェコ',k:'チェコ',img:'CZL.GIF',r:'ヨーロッパ',d:'しろとあかのよこしまに あおいさんかくがついたはただよ。もともとチェコスロバキアのはただったのをそのままつかっているんだ。',f:{n:'スビチュコバー',k:'スビチュコバー',i:'Svickova.jpg'}},
-  {n:'デンマーク',k:'デンマーク',img:'DKL.GIF',r:'ヨーロッパ',d:'あかいはたにしろいじゅうじ。「ダンネブロ」とよばれ、せかいでいちばんふるい「いまもつかわれているはた」といわれているんだよ！',f:{n:'スモーブロー',k:'スモーブロー',i:'Smorrebrod.jpg'}},
-  {n:'ドイツ',k:'ドイツ',img:'DEL.GIF',r:'ヨーロッパ',d:'くろ・あか・きんのよこしまのはただよ。このさんしょくは19せいきのじゆうをもとめたうんどうのいろからきているんだ。',f:{n:'ブラートヴルスト',k:'ブラートヴルスト',i:'Bratwurst_1.jpg'}},
-  {n:'ノルウェー',k:'ノルウェー',img:'NOL.GIF',r:'ヨーロッパ',d:'あかいはたにあおとしろのじゅうじだよ。デンマークのはたをもとにして あおいたてすじをくわえてつくったんだ。',f:{n:'サーモングリル',k:'グリルサーモン',i:'Grilled_salmon_fish_2.jpg'}},
-  {n:'ハンガリー',k:'ハンガリー',img:'HUL.GIF',r:'ヨーロッパ',d:'あか・しろ・みどりのよこしまのはただよ。みどりはきぼう、しろはせいじつ、あかはちからをあらわすんだ。',f:{n:'グヤーシュ',k:'グヤーシュ',i:'Goulash_Eger_(edit).jpg'}},
-  {n:'フィンランド',k:'フィンランド',img:'FIL.GIF',r:'ヨーロッパ',d:'しろいはたにあおいじゅうじ。しろはゆき、あおはみずうみをあらわすよ。フィンランドにはみずうみが18まんこもあるんだ！',f:{n:'カレリアンパイ',k:'カレリアンパイ',i:'Karelian_pasties.jpg'}},
-  {n:'フランス',k:'フランス',img:'FRL.GIF',r:'ヨーロッパ',d:'あお・しろ・あかのたてしま「トリコロール」だよ。じゆう・びょうどう・はっきゅうをあらわし、フランスかくめいのときにうまれたんだ。',f:{n:'クロワッサン',k:'クロワッサン',i:'Croissant_auTbeurre.jpg'}},
-  {n:'ポーランド',k:'ポーランド',img:'PLL.GIF',r:'ヨーロッパ',d:'しろとあかのよこしまのはただよ。しろとあかはポーランドおうこくのもんしょうにいるしろいわしからきているんだ。',f:{n:'ピエロギ',k:'ピエロギ',i:'Pierogi_z_miesem.jpg'}},
-  {n:'ポルトガル',k:'ポルトガル',img:'PTL.GIF',r:'ヨーロッパ',d:'みどりとあかのたてしまで、まんなかにおうかんとちきゅうぎのもんしょうがあるよ。ちきゅうぎはだいこうかいじだいをあらわすんだ。',f:{n:'パステルデナタ',k:'エッグタルト',i:'Pastel_de_nata.jpg'}},
-  {n:'ロシア',k:'ロシア',img:'RUL.GIF',r:'ヨーロッパ',d:'しろ・あお・あかのよこしまだよ。17せいきにピョートルだいていがオランダのはたをもとにつくったといわれているんだ。',f:{n:'ブリヌイ',k:'ブリヌイ',i:'Blini.jpg'}},
-  {n:'ルーマニア',k:'ルーマニア',img:'ROL.GIF',r:'ヨーロッパ',d:'あお・きいろ・あかのたてしまのはただよ。もとはフランスのはたのえいきょうをうけているよ。',f:{n:'サルマーレ',k:'サルマーレ',i:'Sarmale_de_porc.jpg'}},
-  {n:'アメリカ',k:'アメリカ',img:'USL.GIF',r:'アメリカ',d:'あかとしろのしましまが13ほんと、あおいしかくに50このほしがあるよ。しましまははじめの13しゅう、50このほしはいまの50しゅうをあらわすんだ。',f:{n:'ハンバーガー',k:'ハンバーガー',i:'Hamburger_(black_bg).jpg'}},
-  {n:'アルゼンチン',k:'アルゼンチン',img:'ARL.GIF',r:'アメリカ',d:'そらいろ・しろ・そらいろのよこしまで、まんなかに「5がつのたいよう」があるよ。このおひさまはどくりつのシンボルなんだ。',f:{n:'アサード',k:'アサード',i:'Asado_de_tira.jpg'}},
-  {n:'ウルグアイ',k:'ウルグアイ',img:'URL.GIF',r:'アメリカ',d:'しろいはたにしましまとたいようがあるよ。「5がつのたいよう」はアルゼンチンのはたとにているんだ。',f:{n:'チビート',k:'チビート',i:'Chivito_Uruguayo.jpg'}},
-  {n:'カナダ',k:'カナダ',img:'CAL.GIF',r:'アメリカ',d:'あかいたてしまにまっかなかえでのはがあるよ。かえでのははカナダのシンボルで、おかねやスポーツのユニフォームにもつかわれているんだ！',f:{n:'プーティン',k:'プーティン',i:'Montreal_poutine.jpg'}},
-  {n:'キューバ',k:'キューバ',img:'CUL.GIF',r:'アメリカ',d:'あおとしろのしましまにあかいさんかくとしろいほしがあるよ。さんかくはじゆう・びょうどう・はっきゅうをあらわすんだ。',f:{n:'ロパビエハ',k:'ロパビエハ',i:'Ropa_vieja_plate.jpg'}},
-  {n:'コロンビア',k:'コロンビア',img:'COL.GIF',r:'アメリカ',d:'きいろ・あお・あかのよこしまだよ。きいろはゆたかさ、あおはうみとそら、あかはゆうきとけつをあらわすんだ。',f:{n:'バンデハパイサ',k:'バンデハパイサ',i:'Bandeja_paisa.jpg'}},
-  {n:'ジャマイカ',k:'ジャマイカ',img:'JML.GIF',r:'アメリカ',d:'くろ・きいろ・みどりのX（バッテン）もようのはただよ。くろはつよさ、みどりはのうぎょう、きいろはひのひかりをあらわすんだ。',f:{n:'ジャークチキン',k:'ジャークチキン',i:'Jerk_chicken_imported_from_flickr.jpg'}},
-  {n:'チリ',k:'チリ',img:'CLL.GIF',r:'アメリカ',d:'あか・しろのよこしまとあおいしかくにしろいほしがひとつあるよ。ほしは「みちびきのほし」をあらわすんだ。',f:{n:'エンパナーダ',k:'エンパナーダ',i:'Empanadas_de_pino.jpg'}},
-  {n:'ブラジル',k:'ブラジル',img:'BRL.GIF',r:'アメリカ',d:'みどりのはたにきいろいひしがたとあおいまるがあるよ。まるにはブラジルのもりをあらわすほしぼしとことばがかいてあるんだ。',f:{n:'フェイジョアーダ',k:'フェイジョアーダ',i:'Feijoada_-_20-11-2006.jpg'}},
-  {n:'ペルー',k:'ペルー',img:'PEL.GIF',r:'アメリカ',d:'あか・しろ・あかのたてしまのシンプルなはただよ。あかはあつちのちのいろ、しろはアンデスのゆきをあらわすんだ。',f:{n:'セビーチェ',k:'セビーチェ',i:'Ceviche_peruano.jpg'}},
-  {n:'メキシコ',k:'メキシコ',img:'MXL.GIF',r:'アメリカ',d:'みどり・しろ・あかのたてしまで、まんなかに「わしがへびをくわえてサボテンにとまっている」もようがあるよ。むかしのアステカのでんせつなんだ。',f:{n:'タコス',k:'タコス',i:'Tacos_de_carnitas,_Toluca.jpg'}},
-  {n:'エジプト',k:'エジプト',img:'EGL.GIF',r:'アフリカ',d:'あか・しろ・くろのよこしまで、まんなかに「サラーフ・アッディーンのわし」があるよ。このわしはつよさのシンボルなんだ。',f:{n:'コシャリ',k:'コシャリ',i:'Koshary.jpg'}},
-  {n:'エチオピア',k:'エチオピア',img:'ETL.GIF',r:'アフリカ',d:'みどり・きいろ・あかのよこしまで、まんなかにあおいまるとほしがあるよ。このさんしょくはアフリカどくりつのシンボルとして ほかのくにのはたにもえいきょうをあたえたんだよ！',f:{n:'インジェラ',k:'インジェラ',i:'Injera_with_tibs_and_ayib.jpg'}},
-  {n:'ガーナ',k:'ガーナ',img:'GHL.GIF',r:'アフリカ',d:'あか・きいろ・みどりのよこしまで まんなかにくろいほしがひとつあるよ。くろいほしは「アフリカのじゆう」をあらわすんだ。',f:{n:'ジョロフライス',k:'ジョロフライス',i:'Jollof_Rice.jpg'}},
-  {n:'ケニア',k:'ケニア',img:'KEL.GIF',r:'アフリカ',d:'くろ・あか・みどりのよこしまに マサイぞくのたてとやりがえがかれているよ。くろはひとびと、あかはけつ、みどりはしぜんをあらわすんだ。',f:{n:'ウガリ',k:'ウガリ',i:'Ugali_Sukuma.jpg'}},
-  {n:'タンザニア',k:'タンザニア',img:'TZL.GIF',r:'アフリカ',d:'みどり・きいろ・くろ・あおののぼりしまがあるよ。みどりはのはら、きいろはしげん、くろはひとびと、あおはうみをあらわすんだ。',f:{n:'ニャマチョマ',k:'ニャマチョマ',i:'Nyama_Choma.jpg'}},
-  {n:'ナイジェリア',k:'ナイジェリア',img:'NGL.GIF',r:'アフリカ',d:'みどり・しろ・みどりのたてしまだよ。みどりはのうぎょうとゆたかなしぜん、しろはへいわをあらわすんだ。',f:{n:'ジョロフライス',k:'ジョロフライス',i:'Jollof_Rice.jpg'}},
-  {n:'みなみアフリカ',k:'南アフリカ',img:'ZAL.GIF',r:'アフリカ',d:'みどり・くろ・きいろ・あか・あおの6しょくでYのかたちをしているよ。いろんなみんぞくがひとつになることをあらわしているんだ。',f:{n:'ブラーイ',k:'ブラーイ',i:'Braai_fire.jpg'}},
-  {n:'モロッコ',k:'モロッコ',img:'MAL.GIF',r:'アフリカ',d:'あかいはたのまんなかにみどりのほしがひとつあるよ。あかはおうけ、みどりのほしはイスラムきょうのシンボルなんだ。',f:{n:'タジン',k:'タジン',i:'Tajine_poulet_citron_confit.jpg'}},
-  {n:'オーストラリア',k:'オーストラリア',img:'AUL.GIF',r:'オセアニア',d:'あおいはたにユニオンジャック・みなみじゅうじのほし・おおきなほしがあるよ。みなみじゅうじはなんてんのほしぼし、おおきなほしはれんぽうのしゅうをあらわすんだ。',f:{n:'ミートパイ',k:'ミートパイ',i:'Australian_meat_pie.jpg'}},
-  {n:'ニュージーランド',k:'ニュージーランド',img:'NZL.GIF',r:'オセアニア',d:'あおいはたにユニオンジャックとみなみじゅうじがあるよ。オーストラリアのはたとにているけど、ほしのいろがちがうんだ！',f:{n:'ハンギ',k:'ハンギ',i:'Hangi_food.jpg'}},
-  {n:'フィジー',k:'フィジー',img:'FJL.GIF',r:'オセアニア',d:'あおいはたにユニオンジャックとたてのもようがあるよ。たてにはさとうきび・やしのき・はとなどフィジーのしぜんがえがかれているんだ。',f:{n:'ロボ',k:'ロボ',i:'Lovo_food.jpg'}},
-  {n:'トンガ',k:'トンガ',img:'TOL.GIF',r:'オセアニア',d:'あかいはたのひだりうえに、しろいしかくにあかいじゅうじがあるよ。トンガのおうさまが「キリストきょうをたいせつにする」とちかったことをあらわしているんだ。',f:{n:'ルプル',k:'ルプル',i:'Lu_pulu.jpg'}},
+  {n:'にほん',k:'日本',cc:'jp',r:'アジア',d:'<ruby>白<rt>しろ</rt></ruby>いはたに<ruby>赤<rt>あか</rt></ruby>いお<ruby>日<rt>ひ</rt></ruby>さまがあるよ。<ruby>日本<rt>にほん</rt></ruby>は「<ruby>日<rt>ひ</rt></ruby>の<ruby>出<rt>で</rt></ruby>るくに」ともよばれているんだ。',f:{n:'すし',k:'寿司',i:'Sushi_platter.jpg'}},
+  {n:'かんこく',k:'韓国',cc:'kr',r:'アジア',d:'<ruby>白<rt>しろ</rt></ruby>いはたに<ruby>青<rt>あお</rt></ruby>と<ruby>赤<rt>あか</rt></ruby>のうずまきもようがあるよ。まわりの4つのもようは<ruby>天<rt>てん</rt></ruby>・<ruby>地<rt>ち</rt></ruby>・<ruby>水<rt>みず</rt></ruby>・<ruby>火<rt>ひ</rt></ruby>をあらわすんだ。',f:{n:'ビビンバ',k:'ビビンバ',i:'Dolsot-bibimbap.jpg'}},
+  {n:'ちゅうごく',k:'中国',cc:'cn',r:'アジア',d:'<ruby>赤<rt>あか</rt></ruby>いはたに<ruby>金<rt>きん</rt></ruby>いろのほしが5つあるよ。おおきなほしが<ruby>指導者<rt>しどうしゃ</rt></ruby>、4つの<ruby>小<rt>ちい</rt></ruby>さなほしは<ruby>国民<rt>こくみん</rt></ruby>をあらわすんだ。',f:{n:'ぎょうざ',k:'餃子',i:'Jiaozi_on_a_plate.jpg'}},
+  {n:'インド',k:'インド',cc:'in',r:'アジア',d:'<ruby>緑<rt>みどり</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・オレンジのよこしまで、まんなかに「<ruby>法輪<rt>ほうりん</rt></ruby>のしゃりん」があるよ。24<ruby>本<rt>ほん</rt></ruby>のやからなるしゃりんなんだ。',f:{n:'ナン',k:'ナン',i:'Nan_Artisan_Flatbreads.jpg'}},
+  {n:'タイ',k:'タイ',cc:'th',r:'アジア',d:'<ruby>赤<rt>あか</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>青<rt>あお</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>のよこしまで、まんなかのふとい<ruby>青<rt>あお</rt></ruby>はタイの<ruby>王家<rt>おうけ</rt></ruby>をあらわしているよ。',f:{n:'パッタイ',k:'パッタイ',i:'Pad_Thai_kung_Chang_Khien_street_stall.jpg'}},
+  {n:'インドネシア',k:'インドネシア',cc:'id',r:'アジア',d:'うえが<ruby>赤<rt>あか</rt></ruby>、したが<ruby>白<rt>しろ</rt></ruby>のシンプルなはただよ。<ruby>赤<rt>あか</rt></ruby>は<ruby>勇気<rt>ゆうき</rt></ruby>、<ruby>白<rt>しろ</rt></ruby>は<ruby>清純<rt>せいじゅん</rt></ruby>さをあらわすんだ。',f:{n:'ナシゴレン',k:'ナシゴレン',i:'Nasi_goreng_2.jpg'}},
+  {n:'ベトナム',k:'ベトナム',cc:'vn',r:'アジア',d:'<ruby>赤<rt>あか</rt></ruby>いはたのまんなかに<ruby>黄色<rt>きいろ</rt></ruby>いほしがひとつあるよ。<ruby>赤<rt>あか</rt></ruby>は<ruby>革命<rt>かくめい</rt></ruby>、<ruby>黄色<rt>きいろ</rt></ruby>いほしは<ruby>人々<rt>ひとびと</rt></ruby>をあらわすんだ。',f:{n:'フォー',k:'フォー',i:'Pho_bo_Hanoi.jpg'}},
+  {n:'マレーシア',k:'マレーシア',cc:'my',r:'アジア',d:'<ruby>赤<rt>あか</rt></ruby>と<ruby>白<rt>しろ</rt></ruby>のしましまとみかづきとほしがあるよ。しましまは14の<ruby>地方<rt>ちほう</rt></ruby>をあらわしているんだ。',f:{n:'ナシレマ',k:'ナシレマ',i:'Nasi_lemak_on_banana_leaf.jpg'}},
+  {n:'シンガポール',k:'シンガポール',cc:'sg',r:'アジア',d:'<ruby>赤<rt>あか</rt></ruby>と<ruby>白<rt>しろ</rt></ruby>のはたに<ruby>白<rt>しろ</rt></ruby>いみかづきと5つのほしがあるよ。5つのほしは<ruby>平等<rt>びょうどう</rt></ruby>・<ruby>民主<rt>みんしゅ</rt></ruby>・<ruby>平和<rt>へいわ</rt></ruby>・<ruby>幸福<rt>こうふく</rt></ruby>・<ruby>理想<rt>りそう</rt></ruby>をあらわすんだ。',f:{n:'チリクラブ',k:'チリクラブ',i:'Singapore_Chilli_Crab.jpg'}},
+  {n:'フィリピン',k:'フィリピン',cc:'ph',r:'アジア',d:'さんかくに<ruby>太陽<rt>たいよう</rt></ruby>とほしがあるはただよ。<ruby>戦争<rt>せんそう</rt></ruby>のときは<ruby>赤<rt>あか</rt></ruby>を<ruby>上<rt>うえ</rt></ruby>に、<ruby>平和<rt>へいわ</rt></ruby>なときは<ruby>青<rt>あお</rt></ruby>を<ruby>上<rt>うえ</rt></ruby>にするんだ。',f:{n:'アドボ',k:'アドボ',i:'Chicken_adobo.jpg'}},
+  {n:'ミャンマー',k:'ミャンマー',cc:'mm',r:'アジア',d:'<ruby>黄色<rt>きいろ</rt></ruby>・<ruby>緑<rt>みどり</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>のしましまに<ruby>白<rt>しろ</rt></ruby>いほしがあるよ。3しょくは<ruby>団結<rt>だんけつ</rt></ruby>・<ruby>平和<rt>へいわ</rt></ruby>・<ruby>勇気<rt>ゆうき</rt></ruby>をあらわすんだ。',f:{n:'モヒンガー',k:'モヒンガー',i:'Mohinga.jpg'}},
+  {n:'カンボジア',k:'カンボジア',cc:'kh',r:'アジア',d:'<ruby>赤<rt>あか</rt></ruby>いはたのまんなかに<ruby>白<rt>しろ</rt></ruby>いアンコールワットがあるよ。アンコールワットはカンボジアの<ruby>有名<rt>ゆうめい</rt></ruby>なお<ruby>寺<rt>てら</rt></ruby>なんだ！',f:{n:'アモック',k:'アモック',i:'Fish_amok.jpg'}},
+  {n:'ラオス',k:'ラオス',cc:'la',r:'アジア',d:'<ruby>赤<rt>あか</rt></ruby>・<ruby>青<rt>あお</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>のよこしまで、まんなかの<ruby>青<rt>あお</rt></ruby>いしましまに<ruby>白<rt>しろ</rt></ruby>いまるがあるよ。まるはメコン<ruby>川<rt>がわ</rt></ruby>にのぼるつきをあらわすんだ。',f:{n:'ラープ',k:'ラープ',i:''}},
+  {n:'ブルネイ',k:'ブルネイ',cc:'bn',r:'アジア',d:'<ruby>黄色<rt>きいろ</rt></ruby>のはたに<ruby>白<rt>しろ</rt></ruby>と<ruby>黒<rt>くろ</rt></ruby>のたいかくせんがはいっていて、まんなかにもんしょうがあるよ。<ruby>黄色<rt>きいろ</rt></ruby>はスルタンをあらわすんだ。',f:{n:'ナシレマ',k:'ナシレマ',i:''}},
+  {n:'ひがしティモール',k:'東ティモール',cc:'tl',r:'アジア',d:'<ruby>黒<rt>くろ</rt></ruby>・<ruby>黄色<rt>きいろ</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>のたてしまで、ひだりに<ruby>白<rt>しろ</rt></ruby>いほしがあるよ。2002<ruby>年<rt>ねん</rt></ruby>に<ruby>独立<rt>どくりつ</rt></ruby>した<ruby>新<rt>あたら</rt></ruby>しいくになんだ。',f:{n:'イカンペペ',k:'イカンペペ',i:''}},
+  {n:'モンゴル',k:'モンゴル',cc:'mn',r:'アジア',d:'<ruby>赤<rt>あか</rt></ruby>・<ruby>青<rt>あお</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>のたてしまに<ruby>金<rt>きん</rt></ruby>いろのソヨンボもようがあるよ。ソヨンボは<ruby>火<rt>ひ</rt></ruby>・つき・たき<ruby>火<rt>び</rt></ruby>などをあらわすんだ。',f:{n:'ブーズ',k:'ブーズ',i:'Buuz.jpg'}},
+  {n:'パキスタン',k:'パキスタン',cc:'pk',r:'アジア',d:'<ruby>緑<rt>みどり</rt></ruby>のはたに<ruby>白<rt>しろ</rt></ruby>いみかづきとほしがあるよ。<ruby>緑<rt>みどり</rt></ruby>はイスラム<ruby>教<rt>きょう</rt></ruby>、ひだりの<ruby>白<rt>しろ</rt></ruby>いたいはほかの<ruby>宗教<rt>しゅうきょう</rt></ruby>の<ruby>人<rt>ひと</rt></ruby>をあらわすんだ。',f:{n:'ビリヤニ',k:'ビリヤニ',i:'Biryani_in_Pakistan.jpg'}},
+  {n:'バングラデシュ',k:'バングラデシュ',cc:'bd',r:'アジア',d:'<ruby>緑<rt>みどり</rt></ruby>のはたのまんなかに<ruby>赤<rt>あか</rt></ruby>いまるがあるよ。<ruby>緑<rt>みどり</rt></ruby>はのはら、<ruby>赤<rt>あか</rt></ruby>いまるはのぼるお<ruby>日<rt>ひ</rt></ruby>さまをあらわすんだ。',f:{n:'イリッシュカレー',k:'イリッシュ',i:'Ilish.jpg'}},
+  {n:'ネパール',k:'ネパール',cc:'np',r:'アジア',d:'<ruby>世界<rt>せかい</rt></ruby>でゆいいつ、しかくじゃないはたをもつくにだよ！さんかくを2つかさねたかたちでヒマラヤの<ruby>山<rt>やま</rt></ruby>をあらわすんだ。',f:{n:'ダルバート',k:'ダルバート',i:'Dal_bhat.jpg'}},
+  {n:'スリランカ',k:'スリランカ',cc:'lk',r:'アジア',d:'<ruby>赤<rt>あか</rt></ruby>いはたに<ruby>黄色<rt>きいろ</rt></ruby>いライオンが<ruby>剣<rt>けん</rt></ruby>をもっているよ。ライオンは<ruby>勇気<rt>ゆうき</rt></ruby>をあらわし、<ruby>緑<rt>みどり</rt></ruby>とオレンジのたてしまもあるんだ。',f:{n:'ライスアンドカレー',k:'ライスカレー',i:''}},
+  {n:'モルジブ',k:'モルディブ',cc:'mv',r:'アジア',d:'<ruby>赤<rt>あか</rt></ruby>いはたに<ruby>緑<rt>みどり</rt></ruby>のしかくと<ruby>白<rt>しろ</rt></ruby>いみかづきがあるよ。うつくしいうみにかこまれたしまのくになんだ。',f:{n:'マスリハ',k:'マスリハ',i:''}},
+  {n:'ブータン',k:'ブータン',cc:'bt',r:'アジア',d:'オレンジと<ruby>赤<rt>あか</rt></ruby>のたいかくせんのはたに<ruby>白<rt>しろ</rt></ruby>いりゅうがあるよ。りゅうはほうせきをにぎっていて、くにをまもっているんだ。',f:{n:'エマダッシ',k:'エマダッシ',i:''}},
+  {n:'アフガニスタン',k:'アフガニスタン',cc:'af',r:'アジア',d:'<ruby>黒<rt>くろ</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>・<ruby>緑<rt>みどり</rt></ruby>のたてしまで、まんなかにもんしょうがあるよ。もんしょうにはモスクとアラビアもじがかいてあるんだ。',f:{n:'カブリプラウ',k:'カブリプラウ',i:''}},
+  {n:'サウジアラビア',k:'サウジアラビア',cc:'sa',r:'アジア',d:'<ruby>緑<rt>みどり</rt></ruby>のはたに<ruby>白<rt>しろ</rt></ruby>いもじと<ruby>剣<rt>けん</rt></ruby>があるよ。もじは「アッラーのほかにかみはなし」というイスラム<ruby>教<rt>きょう</rt></ruby>のことばなんだ。',f:{n:'カブサ',k:'カブサ',i:'Kabsa.jpg'}},
+  {n:'アラブしゅちょうこくれんぽう',k:'アラブ首長国連邦',cc:'ae',r:'アジア',d:'<ruby>緑<rt>みどり</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>黒<rt>くろ</rt></ruby>のよこしまとひだりに<ruby>赤<rt>あか</rt></ruby>いたてしまがあるよ。7つの<ruby>首長国<rt>しゅちょうこく</rt></ruby>があつまってできたくになんだ。',f:{n:'マチュブース',k:'マチュブース',i:''}},
+  {n:'イスラエル',k:'イスラエル',cc:'il',r:'アジア',d:'<ruby>白<rt>しろ</rt></ruby>いはたに<ruby>青<rt>あお</rt></ruby>いよこしまとダビデのほし（6かくのほし）があるよ。ユダヤ<ruby>教<rt>きょう</rt></ruby>のたいせつなシンボルなんだ。',f:{n:'ファラフェル',k:'ファラフェル',i:'Falafel_balls.jpg'}},
+  {n:'イラン',k:'イラン',cc:'ir',r:'アジア',d:'<ruby>緑<rt>みどり</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>のしましまで、まんなかにアラビアもじのもんしょうがあるよ。しましまのさかいめにもアラビアもじがならんでいるんだ。',f:{n:'ゴルメサブジ',k:'ゴルメサブジ',i:'Ghormeh_sabzi.jpg'}},
+  {n:'イラク',k:'イラク',cc:'iq',r:'アジア',d:'<ruby>赤<rt>あか</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>黒<rt>くろ</rt></ruby>のしましまで、まんなかにアラビアもじで「アッラーはおおいなり」とかいてあるよ。',f:{n:'マスグーフ',k:'マスグーフ',i:'Masgouf.jpg'}},
+  {n:'トルコ',k:'トルコ',cc:'tr',r:'アジア',d:'<ruby>赤<rt>あか</rt></ruby>いはたに<ruby>白<rt>しろ</rt></ruby>いみかづきとほしがあるよ。みかづきとほしはイスラム<ruby>教<rt>きょう</rt></ruby>のシンボルで、オスマン<ruby>帝国<rt>ていこく</rt></ruby>の<ruby>時代<rt>じだい</rt></ruby>からつかわれているんだ。',f:{n:'ケバブ',k:'ケバブ',i:''}},
+  {n:'シリア',k:'シリア',cc:'sy',r:'アジア',d:'<ruby>赤<rt>あか</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>黒<rt>くろ</rt></ruby>のしましまで、まんなかに<ruby>緑<rt>みどり</rt></ruby>のほしが2つあるよ。ほしはふたつのおもな<ruby>地方<rt>ちほう</rt></ruby>をあらわすんだ。',f:{n:'フムス',k:'フムス',i:''}},
+  {n:'レバノン',k:'レバノン',cc:'lb',r:'アジア',d:'<ruby>白<rt>しろ</rt></ruby>いはたに<ruby>赤<rt>あか</rt></ruby>いよこしまとまんなかに<ruby>緑<rt>みどり</rt></ruby>のスギの<ruby>木<rt>き</rt></ruby>があるよ。スギの<ruby>木<rt>き</rt></ruby>はレバノンのシンボルで、<ruby>長<rt>なが</rt></ruby>い<ruby>歴史<rt>れきし</rt></ruby>をあらわすんだ。',f:{n:'ファラフェル',k:'ファラフェル',i:''}},
+  {n:'ヨルダン',k:'ヨルダン',cc:'jo',r:'アジア',d:'<ruby>黒<rt>くろ</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>緑<rt>みどり</rt></ruby>のよこしまにひだり<ruby>赤<rt>あか</rt></ruby>いさんかくと<ruby>白<rt>しろ</rt></ruby>いほしがあるよ。ほしはアラブの<ruby>団結<rt>だんけつ</rt></ruby>をあらわすんだ。',f:{n:'マンサフ',k:'マンサフ',i:''}},
+  {n:'クウェート',k:'クウェート',cc:'kw',r:'アジア',d:'<ruby>緑<rt>みどり</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>のよこしまにひだりに<ruby>黒<rt>くろ</rt></ruby>いたいかくもようがあるよ。<ruby>緑<rt>みどり</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>・<ruby>黒<rt>くろ</rt></ruby>はアラブの<ruby>国<rt>くに</rt></ruby>のいろなんだ。',f:{n:'マチュブース',k:'マチュブース',i:''}},
+  {n:'バーレーン',k:'バーレーン',cc:'bh',r:'アジア',d:'<ruby>白<rt>しろ</rt></ruby>と<ruby>赤<rt>あか</rt></ruby>のはたでさかいめがギザギザになっているよ。ギザギザは5つで、イスラム<ruby>教<rt>きょう</rt></ruby>のだいじな5つのことをあらわすんだ。',f:{n:'マチュブース',k:'マチュブース',i:''}},
+  {n:'カタール',k:'カタール',cc:'qa',r:'アジア',d:'マルーンと<ruby>白<rt>しろ</rt></ruby>のさかいめがギザギザのはただよ。バーレーンのはたとにているけど、カタールのいろはもっとこいんだ。',f:{n:'カウーズ',k:'カウーズ',i:''}},
+  {n:'オマーン',k:'オマーン',cc:'om',r:'アジア',d:'<ruby>赤<rt>あか</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>緑<rt>みどり</rt></ruby>のはたでひだりうえにこっかのもんしょうがあるよ。もんしょうには<ruby>剣<rt>けん</rt></ruby>とたんとうがえがかれているんだ。',f:{n:'マスグーフ',k:'マスグーフ',i:''}},
+  {n:'イエメン',k:'イエメン',cc:'ye',r:'アジア',d:'<ruby>赤<rt>あか</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>黒<rt>くろ</rt></ruby>のよこしまのシンプルなはただよ。アラブのくにぐにによくみられるいろのくみあわせなんだ。',f:{n:'ブリヤニ',k:'ブリヤニ',i:''}},
+  {n:'カザフスタン',k:'カザフスタン',cc:'kz',r:'アジア',d:'そらいろのはたに<ruby>金<rt>きん</rt></ruby>いろのわしと<ruby>太陽<rt>たいよう</rt></ruby>とつたのもようがあるよ。そらいろは<ruby>平和<rt>へいわ</rt></ruby>とゆたかさをあらわすんだ。',f:{n:'ベシュバルマク',k:'ベシュバルマク',i:''}},
+  {n:'ウズベキスタン',k:'ウズベキスタン',cc:'uz',r:'アジア',d:'そらいろ・<ruby>白<rt>しろ</rt></ruby>・<ruby>緑<rt>みどり</rt></ruby>のよこしまにみかづきとほしがあるよ。そらいろはそら、<ruby>緑<rt>みどり</rt></ruby>はしぜん、<ruby>白<rt>しろ</rt></ruby>は<ruby>平和<rt>へいわ</rt></ruby>をあらわすんだ。',f:{n:'プロフ',k:'プロフ',i:''}},
+  {n:'キルギス',k:'キルギス',cc:'kg',r:'アジア',d:'<ruby>赤<rt>あか</rt></ruby>いはたに<ruby>金<rt>きん</rt></ruby>いろの<ruby>太陽<rt>たいよう</rt></ruby>とそのまんなかにゲルの<ruby>天井<rt>てんじょう</rt></ruby>のもようがあるよ。ゲルはキルギスの<ruby>伝統<rt>でんとう</rt></ruby>のテントの<ruby>家<rt>いえ</rt></ruby>なんだ。',f:{n:'ベシュバルマク',k:'ベシュバルマク',i:''}},
+  {n:'タジキスタン',k:'タジキスタン',cc:'tj',r:'アジア',d:'<ruby>赤<rt>あか</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>緑<rt>みどり</rt></ruby>のよこしまで、まんなかに<ruby>金<rt>きん</rt></ruby>の<ruby>冠<rt>かんむり</rt></ruby>と7つのほしがあるよ。<ruby>冠<rt>かんむり</rt></ruby>はこっかをあらわすんだ。',f:{n:'クルティテ',k:'クルティテ',i:''}},
+  {n:'トルクメニスタン',k:'トルクメニスタン',cc:'tm',r:'アジア',d:'<ruby>緑<rt>みどり</rt></ruby>のはたにひだりのたてしまにじゅうたんのもようがあって、5つのじゅうたんもようは<ruby>地方<rt>ちほう</rt></ruby>をあらわすんだ。',f:{n:'プロフ',k:'プロフ',i:''}},
+  {n:'アゼルバイジャン',k:'アゼルバイジャン',cc:'az',r:'アジア',d:'そらいろ・<ruby>赤<rt>あか</rt></ruby>・<ruby>緑<rt>みどり</rt></ruby>のよこしまにみかづきとほしがあるよ。そらいろはトルコ<ruby>系<rt>けい</rt></ruby>のみんぞく、<ruby>緑<rt>みどり</rt></ruby>はイスラム<ruby>教<rt>きょう</rt></ruby>をあらわすんだ。',f:{n:'ドルマ',k:'ドルマ',i:''}},
+  {n:'アルメニア',k:'アルメニア',cc:'am',r:'アジア',d:'<ruby>赤<rt>あか</rt></ruby>・<ruby>青<rt>あお</rt></ruby>・オレンジのよこしまのはただよ。<ruby>赤<rt>あか</rt></ruby>はかこの<ruby>苦難<rt>くなん</rt></ruby>、<ruby>青<rt>あお</rt></ruby>はきぼう、オレンジは<ruby>勇気<rt>ゆうき</rt></ruby>と<ruby>仕事<rt>しごと</rt></ruby>をあらわすんだ。',f:{n:'ドルマ',k:'ドルマ',i:''}},
+  {n:'ジョージア',k:'ジョージア',cc:'ge',r:'アジア',d:'<ruby>白<rt>しろ</rt></ruby>いはたに<ruby>赤<rt>あか</rt></ruby>いじゅうじがひとつおおきくあって、4すみにもちいさいじゅうじがあるよ。「ごじゅうじのはた」とよばれているんだ。',f:{n:'ヒンカリ',k:'ヒンカリ',i:''}},
+  {n:'パレスチナ',k:'パレスチナ',cc:'ps',r:'アジア',d:'<ruby>黒<rt>くろ</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>緑<rt>みどり</rt></ruby>のよこしまにひだり<ruby>赤<rt>あか</rt></ruby>いさんかくがあるよ。アラブのくにぐにのいろをつかっているんだ。',f:{n:'マクルーバ',k:'マクルーバ',i:''}},
+  {n:'イギリス',k:'イギリス',cc:'gb',r:'ヨーロッパ',d:'「ユニオンジャック」とよばれるはたで、イングランド・スコットランド・アイルランドの3つのじゅうじをくみあわせているんだ。',f:{n:'フィッシュアンドチップス',k:'フィッシュ＆チップス',i:'Fish_and_chips_blackpool.jpg'}},
+  {n:'フランス',k:'フランス',cc:'fr',r:'ヨーロッパ',d:'<ruby>青<rt>あお</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>のたてしま「トリコロール」だよ。<ruby>自由<rt>じゆう</rt></ruby>・<ruby>平等<rt>びょうどう</rt></ruby>・<ruby>博愛<rt>はくあい</rt></ruby>をあらわし、フランス<ruby>革命<rt>かくめい</rt></ruby>のときにうまれたんだ。',f:{n:'クロワッサン',k:'クロワッサン',i:'Croissant_auTbeurre.jpg'}},
+  {n:'ドイツ',k:'ドイツ',cc:'de',r:'ヨーロッパ',d:'<ruby>黒<rt>くろ</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>・<ruby>金<rt>きん</rt></ruby>のよこしまのはただよ。このさんしょくは19<ruby>世紀<rt>せいき</rt></ruby>の<ruby>自由<rt>じゆう</rt></ruby>をもとめたうんどうのいろからきているんだ。',f:{n:'ブラートヴルスト',k:'ソーセージ',i:'Bratwurst_1.jpg'}},
+  {n:'イタリア',k:'イタリア',cc:'it',r:'ヨーロッパ',d:'<ruby>緑<rt>みどり</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>のたてしまだよ。<ruby>緑<rt>みどり</rt></ruby>はきぼう、<ruby>白<rt>しろ</rt></ruby>は<ruby>信仰<rt>しんこう</rt></ruby>、<ruby>赤<rt>あか</rt></ruby>は<ruby>愛<rt>あい</rt></ruby>をあらわすんだ。',f:{n:'ピッツァ',k:'ピッツァ',i:'Pizza-3007395.jpg'}},
+  {n:'スペイン',k:'スペイン',cc:'es',r:'ヨーロッパ',d:'<ruby>赤<rt>あか</rt></ruby>・<ruby>黄色<rt>きいろ</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>のよこしまで、まんなかに<ruby>王家<rt>おうけ</rt></ruby>のもんしょうがあるよ。<ruby>黄色<rt>きいろ</rt></ruby>のたいはふたつの<ruby>王国<rt>おうこく</rt></ruby>をあわせたことをあらわしているんだ。',f:{n:'パエリャ',k:'パエリャ',i:'Paella_in_a_frying_pan.jpg'}},
+  {n:'ポルトガル',k:'ポルトガル',cc:'pt',r:'ヨーロッパ',d:'<ruby>緑<rt>みどり</rt></ruby>と<ruby>赤<rt>あか</rt></ruby>のたてしまで、まんなかに<ruby>王冠<rt>おうかん</rt></ruby>と<ruby>地球儀<rt>ちきゅうぎ</rt></ruby>のもんしょうがあるよ。<ruby>地球儀<rt>ちきゅうぎ</rt></ruby>は<ruby>大航海時代<rt>だいこうかいじだい</rt></ruby>をあらわすんだ。',f:{n:'パステルデナタ',k:'エッグタルト',i:'Pastel_de_nata.jpg'}},
+  {n:'オランダ',k:'オランダ',cc:'nl',r:'ヨーロッパ',d:'<ruby>赤<rt>あか</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>青<rt>あお</rt></ruby>のよこしまのはただよ。もとはオレンジ・<ruby>白<rt>しろ</rt></ruby>・<ruby>青<rt>あお</rt></ruby>だったんだけど、いつのまにか<ruby>赤<rt>あか</rt></ruby>になったんだ。',f:{n:'ストロープワッフェル',k:'ストロープワッフェル',i:'Stroopwafels.jpg'}},
+  {n:'ベルギー',k:'ベルギー',cc:'be',r:'ヨーロッパ',d:'<ruby>黒<rt>くろ</rt></ruby>・<ruby>黄色<rt>きいろ</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>のたてしまのはただよ。フランスのたてしまのはたをもとにして、ベルギーのもんしょうのいろをつかったんだ。',f:{n:'ワッフル',k:'ワッフル',i:''}},
+  {n:'スイス',k:'スイス',cc:'ch',r:'ヨーロッパ',d:'<ruby>赤<rt>あか</rt></ruby>いはたに<ruby>白<rt>しろ</rt></ruby>いじゅうじ。<ruby>世界<rt>せかい</rt></ruby>でもめずらしいほぼしかくのはたなんだよ！じゅうじはキリスト<ruby>教<rt>きょう</rt></ruby>をあらわすんだ。',f:{n:'チーズフォンデュ',k:'チーズフォンデュ',i:'Cheese_fondue_in_a_caquelon.jpg'}},
+  {n:'オーストリア',k:'オーストリア',cc:'at',r:'ヨーロッパ',d:'<ruby>赤<rt>あか</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>のよこしまのはただよ。むかしの<ruby>戦争<rt>せんそう</rt></ruby>でよろいのまわりにちがついたすがたをもとにしたといわれているんだ。',f:{n:'シュニッツェル',k:'シュニッツェル',i:'Schnitzel.jpg'}},
+  {n:'スウェーデン',k:'スウェーデン',cc:'se',r:'ヨーロッパ',d:'<ruby>青<rt>あお</rt></ruby>いはたに<ruby>黄色<rt>きいろ</rt></ruby>いじゅうじ。このじゅうじもようはきたヨーロッパのくにぐにでよく<ruby>使<rt>つか</rt></ruby>われているんだよ。',f:{n:'ミートボール',k:'ミートボール',i:'Swedish_meatballs.jpg'}},
+  {n:'ノルウェー',k:'ノルウェー',cc:'no',r:'ヨーロッパ',d:'<ruby>赤<rt>あか</rt></ruby>いはたに<ruby>青<rt>あお</rt></ruby>と<ruby>白<rt>しろ</rt></ruby>のじゅうじだよ。デンマークのはたをもとにして<ruby>青<rt>あお</rt></ruby>いたてすじをくわえてつくったんだ。',f:{n:'グリルサーモン',k:'グリルサーモン',i:'Grilled_salmon_fish_2.jpg'}},
+  {n:'デンマーク',k:'デンマーク',cc:'dk',r:'ヨーロッパ',d:'<ruby>赤<rt>あか</rt></ruby>いはたに<ruby>白<rt>しろ</rt></ruby>いじゅうじ。「ダンネブロ」とよばれ、<ruby>世界<rt>せかい</rt></ruby>でいちばんふるい「いまもつかわれているはた」といわれているんだよ！',f:{n:'スモーブロー',k:'スモーブロー',i:'Smorrebrod.jpg'}},
+  {n:'フィンランド',k:'フィンランド',cc:'fi',r:'ヨーロッパ',d:'<ruby>白<rt>しろ</rt></ruby>いはたに<ruby>青<rt>あお</rt></ruby>いじゅうじ。<ruby>白<rt>しろ</rt></ruby>はゆき、<ruby>青<rt>あお</rt></ruby>はみずうみをあらわすよ。フィンランドにはみずうみが18<ruby>万<rt>まん</rt></ruby>こもあるんだ！',f:{n:'カレリアンパイ',k:'カレリアンパイ',i:'Karelian_pasties.jpg'}},
+  {n:'アイスランド',k:'アイスランド',cc:'is',r:'ヨーロッパ',d:'<ruby>青<rt>あお</rt></ruby>いはたに<ruby>赤<rt>あか</rt></ruby>と<ruby>白<rt>しろ</rt></ruby>のじゅうじがあるよ。<ruby>青<rt>あお</rt></ruby>はうみ、<ruby>赤<rt>あか</rt></ruby>は<ruby>火山<rt>かざん</rt></ruby>、<ruby>白<rt>しろ</rt></ruby>はこおりをあらわすんだ。<ruby>火山<rt>かざん</rt></ruby>がたくさんあるんだよ！',f:{n:'スカイル',k:'スカイル',i:''}},
+  {n:'アイルランド',k:'アイルランド',cc:'ie',r:'ヨーロッパ',d:'<ruby>緑<rt>みどり</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・オレンジのたてしまだよ。<ruby>緑<rt>みどり</rt></ruby>はカトリック<ruby>教<rt>きょう</rt></ruby>、オレンジはプロテスタント、<ruby>白<rt>しろ</rt></ruby>は<ruby>平和<rt>へいわ</rt></ruby>をあらわすんだ。',f:{n:'アイリッシュシチュー',k:'アイリッシュシチュー',i:''}},
+  {n:'ルクセンブルク',k:'ルクセンブルク',cc:'lu',r:'ヨーロッパ',d:'<ruby>赤<rt>あか</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・みずいろのよこしまだよ。オランダのはたとにているけど、したの<ruby>青<rt>あお</rt></ruby>がもっとあさいんだ。',f:{n:'ジュッド',k:'ジュッド',i:''}},
+  {n:'モナコ',k:'モナコ',cc:'mc',r:'ヨーロッパ',d:'うえが<ruby>赤<rt>あか</rt></ruby>、したが<ruby>白<rt>しろ</rt></ruby>のシンプルなはただよ。インドネシアのはたとそっくりだけど、モナコのほうがちょっとよこながなんだ。',f:{n:'バルバジュアン',k:'バルバジュアン',i:''}},
+  {n:'サンマリノ',k:'サンマリノ',cc:'sm',r:'ヨーロッパ',d:'うえがそらいろ、したが<ruby>白<rt>しろ</rt></ruby>のはたにもんしょうがあるよ。イタリアにかこまれたとても<ruby>小<rt>ちい</rt></ruby>さなくにで、<ruby>世界<rt>せかい</rt></ruby>でいちばんふるいきょうわこくなんだ。',f:{n:'パスタ',k:'パスタ',i:''}},
+  {n:'バチカン',k:'バチカン',cc:'va',r:'ヨーロッパ',d:'<ruby>黄色<rt>きいろ</rt></ruby>と<ruby>白<rt>しろ</rt></ruby>のたてしまで、<ruby>白<rt>しろ</rt></ruby>いところにかぎと<ruby>冠<rt>かんむり</rt></ruby>のもんしょうがあるよ。<ruby>世界<rt>せかい</rt></ruby>でいちばん<ruby>小<rt>ちい</rt></ruby>さなくにで、ローマきょうこうのおひざもとなんだ。',f:{n:'スパゲッティ',k:'スパゲッティ',i:''}},
+  {n:'アンドラ',k:'アンドラ',cc:'ad',r:'ヨーロッパ',d:'<ruby>青<rt>あお</rt></ruby>・<ruby>黄色<rt>きいろ</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>のたてしまで、まんなかにもんしょうがあるよ。フランスとスペインにかこまれた<ruby>小<rt>ちい</rt></ruby>さなくになんだ。',f:{n:'エスカルダ',k:'エスカルダ',i:''}},
+  {n:'リヒテンシュタイン',k:'リヒテンシュタイン',cc:'li',r:'ヨーロッパ',d:'<ruby>青<rt>あお</rt></ruby>と<ruby>赤<rt>あか</rt></ruby>のよこしまで、ひだりうえに<ruby>金<rt>きん</rt></ruby>いろの<ruby>冠<rt>かんむり</rt></ruby>があるよ。スイスとオーストリアにかこまれた<ruby>小<rt>ちい</rt></ruby>さなくになんだ。',f:{n:'ケースクノプフレ',k:'ケースクノプフレ',i:''}},
+  {n:'マルタ',k:'マルタ',cc:'mt',r:'ヨーロッパ',d:'<ruby>白<rt>しろ</rt></ruby>と<ruby>赤<rt>あか</rt></ruby>のたてしまで、ひだりうえにじゅうじきしょうのもんしょうがあるよ。ちゅうかいの<ruby>美<rt>うつく</rt></ruby>しいしまのくになんだ。',f:{n:'パスティッツィ',k:'パスティッツィ',i:''}},
+  {n:'ロシア',k:'ロシア',cc:'ru',r:'ヨーロッパ',d:'<ruby>白<rt>しろ</rt></ruby>・<ruby>青<rt>あお</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>のよこしまだよ。17<ruby>世紀<rt>せいき</rt></ruby>にピョートル<ruby>大帝<rt>だいてい</rt></ruby>がオランダのはたをもとにつくったといわれているんだ。',f:{n:'ブリヌイ',k:'ブリヌイ',i:'Blini.jpg'}},
+  {n:'ウクライナ',k:'ウクライナ',cc:'ua',r:'ヨーロッパ',d:'うえがそらいろ、したが<ruby>黄色<rt>きいろ</rt></ruby>のシンプルなはただよ。<ruby>青<rt>あお</rt></ruby>いそら、<ruby>黄色<rt>きいろ</rt></ruby>いこむぎばたけがウクライナのけしきをあらわしているんだ。',f:{n:'ボルシチ',k:'ボルシチ',i:'Borscht.jpg'}},
+  {n:'ポーランド',k:'ポーランド',cc:'pl',r:'ヨーロッパ',d:'<ruby>白<rt>しろ</rt></ruby>と<ruby>赤<rt>あか</rt></ruby>のよこしまのはただよ。<ruby>白<rt>しろ</rt></ruby>と<ruby>赤<rt>あか</rt></ruby>はポーランド<ruby>王国<rt>おうこく</rt></ruby>のもんしょうにいる<ruby>白<rt>しろ</rt></ruby>いわしからきているんだ。',f:{n:'ピエロギ',k:'ピエロギ',i:'Pierogi_z_miesem.jpg'}},
+  {n:'チェコ',k:'チェコ',cc:'cz',r:'ヨーロッパ',d:'<ruby>白<rt>しろ</rt></ruby>と<ruby>赤<rt>あか</rt></ruby>のよこしまに<ruby>青<rt>あお</rt></ruby>いさんかくがついたはただよ。もともとチェコスロバキアのはただったのをそのままつかっているんだ。',f:{n:'スビチュコバー',k:'スビチュコバー',i:'Svickova.jpg'}},
+  {n:'スロバキア',k:'スロバキア',cc:'sk',r:'ヨーロッパ',d:'<ruby>白<rt>しろ</rt></ruby>・<ruby>青<rt>あお</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>のよこしまで、ひだりにじゅうじのもんしょうがあるよ。タトラさんの<ruby>山<rt>やま</rt></ruby>がかかれているんだ。',f:{n:'ブリンゾベハルシュキ',k:'ブリンゾベハルシュキ',i:''}},
+  {n:'ハンガリー',k:'ハンガリー',cc:'hu',r:'ヨーロッパ',d:'<ruby>赤<rt>あか</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>緑<rt>みどり</rt></ruby>のよこしまのはただよ。<ruby>緑<rt>みどり</rt></ruby>はきぼう、<ruby>白<rt>しろ</rt></ruby>はせいじつ、<ruby>赤<rt>あか</rt></ruby>はちからをあらわすんだ。',f:{n:'グヤーシュ',k:'グヤーシュ',i:'Goulash_Eger_(edit).jpg'}},
+  {n:'ルーマニア',k:'ルーマニア',cc:'ro',r:'ヨーロッパ',d:'<ruby>青<rt>あお</rt></ruby>・<ruby>黄色<rt>きいろ</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>のたてしまのはただよ。もとはフランスのはたのえいきょうをうけているよ。',f:{n:'サルマーレ',k:'サルマーレ',i:'Sarmale_de_porc.jpg'}},
+  {n:'ブルガリア',k:'ブルガリア',cc:'bg',r:'ヨーロッパ',d:'<ruby>白<rt>しろ</rt></ruby>・<ruby>緑<rt>みどり</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>のよこしまのはただよ。<ruby>緑<rt>みどり</rt></ruby>はのうぎょう、<ruby>赤<rt>あか</rt></ruby>は<ruby>勇気<rt>ゆうき</rt></ruby>と<ruby>自由<rt>じゆう</rt></ruby>をあらわすんだ。',f:{n:'バニツァ',k:'バニツァ',i:''}},
+  {n:'ギリシャ',k:'ギリシャ',cc:'gr',r:'ヨーロッパ',d:'<ruby>青<rt>あお</rt></ruby>と<ruby>白<rt>しろ</rt></ruby>のしましまが9<ruby>本<rt>ほん</rt></ruby>と、ひだりうえにじゅうじがあるよ。しましまは「<ruby>自由<rt>じゆう</rt></ruby>かしぬか」の9もじをあらわすといわれているんだ。',f:{n:'ムサカ',k:'ムサカ',i:'Moussaka.jpg'}},
+  {n:'セルビア',k:'セルビア',cc:'rs',r:'ヨーロッパ',d:'<ruby>赤<rt>あか</rt></ruby>・<ruby>青<rt>あお</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>のよこしまで、ひだりにもんしょうがあるよ。もんしょうには<ruby>冠<rt>かんむり</rt></ruby>とわしがかかれているんだ。',f:{n:'チェバピ',k:'チェバピ',i:''}},
+  {n:'クロアチア',k:'クロアチア',cc:'hr',r:'ヨーロッパ',d:'<ruby>赤<rt>あか</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>青<rt>あお</rt></ruby>のよこしまで、まんなかにあかと<ruby>白<rt>しろ</rt></ruby>のチェスいたもようのもんしょうがあるよ。チェスいたもようはクロアチアのシンボルなんだ。',f:{n:'パスティツァーダ',k:'パスティツァーダ',i:''}},
+  {n:'スロベニア',k:'スロベニア',cc:'si',r:'ヨーロッパ',d:'<ruby>白<rt>しろ</rt></ruby>・<ruby>青<rt>あお</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>のよこしまで、ひだりうえにもんしょうがあるよ。もんしょうにはトリグラフという<ruby>山<rt>やま</rt></ruby>がかかれているんだ。',f:{n:'ポティカ',k:'ポティカ',i:''}},
+  {n:'ボスニアヘルツェゴビナ',k:'ボスニア・ヘルツェゴビナ',cc:'ba',r:'ヨーロッパ',d:'<ruby>青<rt>あお</rt></ruby>いはたに<ruby>黄色<rt>きいろ</rt></ruby>いさんかくと<ruby>白<rt>しろ</rt></ruby>いほしがならんでいるよ。さんかくはこくないの3つのみんぞくをあらわすんだ。',f:{n:'チェバピ',k:'チェバピ',i:''}},
+  {n:'モンテネグロ',k:'モンテネグロ',cc:'me',r:'ヨーロッパ',d:'<ruby>金<rt>きん</rt></ruby>のふちどりの<ruby>赤<rt>あか</rt></ruby>いはたに<ruby>金<rt>きん</rt></ruby>いろのわしのもんしょうがあるよ。とてもかっこいいデザインのはたなんだ。',f:{n:'ヤグニャチャ',k:'ヤグニャチャ',i:''}},
+  {n:'アルバニア',k:'アルバニア',cc:'al',r:'ヨーロッパ',d:'<ruby>赤<rt>あか</rt></ruby>いはたに<ruby>黒<rt>くろ</rt></ruby>いあたまがふたつあるわしがいるよ。このわしはアルバニアのシンボルで、<ruby>長<rt>なが</rt></ruby>い<ruby>歴史<rt>れきし</rt></ruby>をもつんだ。',f:{n:'タベ',k:'タベ',i:''}},
+  {n:'きたマケドニア',k:'北マケドニア',cc:'mk',r:'ヨーロッパ',d:'<ruby>赤<rt>あか</rt></ruby>いはたに<ruby>黄色<rt>きいろ</rt></ruby>い<ruby>太陽<rt>たいよう</rt></ruby>があるよ。<ruby>太陽<rt>たいよう</rt></ruby>からは8<ruby>本<rt>ほん</rt></ruby>のひかりがでていて、<ruby>輝<rt>かがや</rt></ruby>く<ruby>太陽<rt>たいよう</rt></ruby>をあらわすんだ。',f:{n:'タベ',k:'タベ',i:''}},
+  {n:'コソボ',k:'コソボ',cc:'xk',r:'ヨーロッパ',d:'<ruby>青<rt>あお</rt></ruby>いはたに<ruby>黄色<rt>きいろ</rt></ruby>いこくのかたちとほしがならんでいるよ。2008<ruby>年<rt>ねん</rt></ruby>に<ruby>独立<rt>どくりつ</rt></ruby>した<ruby>新<rt>あたら</rt></ruby>しいくになんだ。',f:{n:'フリア',k:'フリア',i:''}},
+  {n:'エストニア',k:'エストニア',cc:'ee',r:'ヨーロッパ',d:'<ruby>青<rt>あお</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>黒<rt>くろ</rt></ruby>のよこしまのはただよ。<ruby>青<rt>あお</rt></ruby>はそら、<ruby>白<rt>しろ</rt></ruby>はゆき、<ruby>黒<rt>くろ</rt></ruby>はつちをあらわすんだ。',f:{n:'ムルギ',k:'ムルギ',i:''}},
+  {n:'ラトビア',k:'ラトビア',cc:'lv',r:'ヨーロッパ',d:'こい<ruby>赤<rt>あか</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・こい<ruby>赤<rt>あか</rt></ruby>のよこしまのシンプルなはただよ。このあかいろは「ラトビアの<ruby>赤<rt>あか</rt></ruby>」とよばれているんだ。',f:{n:'グレイビー',k:'グレイビー',i:''}},
+  {n:'リトアニア',k:'リトアニア',cc:'lt',r:'ヨーロッパ',d:'<ruby>黄色<rt>きいろ</rt></ruby>・<ruby>緑<rt>みどり</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>のよこしまのはただよ。<ruby>黄色<rt>きいろ</rt></ruby>は<ruby>太陽<rt>たいよう</rt></ruby>、<ruby>緑<rt>みどり</rt></ruby>はしぜん、<ruby>赤<rt>あか</rt></ruby>は<ruby>愛<rt>あい</rt></ruby>と<ruby>勇気<rt>ゆうき</rt></ruby>をあらわすんだ。',f:{n:'ジェマイチュカイ',k:'ジェマイチュカイ',i:''}},
+  {n:'ベラルーシ',k:'ベラルーシ',cc:'by',r:'ヨーロッパ',d:'<ruby>赤<rt>あか</rt></ruby>と<ruby>緑<rt>みどり</rt></ruby>のよこしまで、ひだりに<ruby>白<rt>しろ</rt></ruby>と<ruby>赤<rt>あか</rt></ruby>のじゅうたんもようがあるよ。じゅうたんもようはベラルーシの<ruby>伝統<rt>でんとう</rt></ruby>をあらわすんだ。',f:{n:'ドラニキ',k:'ドラニキ',i:''}},
+  {n:'モルドバ',k:'モルドバ',cc:'md',r:'ヨーロッパ',d:'<ruby>青<rt>あお</rt></ruby>・<ruby>黄色<rt>きいろ</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>のたてしまで、まんなかにわしのもんしょうがあるよ。ルーマニアのはたとにているけどもんしょうがあるのがちがうんだ。',f:{n:'ママリガ',k:'ママリガ',i:''}},
+  {n:'アメリカ',k:'アメリカ',cc:'us',r:'アメリカ',d:'<ruby>赤<rt>あか</rt></ruby>と<ruby>白<rt>しろ</rt></ruby>のしましまが13<ruby>本<rt>ほん</rt></ruby>と、<ruby>青<rt>あお</rt></ruby>いしかくに50この<ruby>星<rt>ほし</rt></ruby>があるよ。しましまははじめの13<ruby>州<rt>しゅう</rt></ruby>、50この<ruby>星<rt>ほし</rt></ruby>はいまの50<ruby>州<rt>しゅう</rt></ruby>をあらわすんだ。',f:{n:'ハンバーガー',k:'ハンバーガー',i:'Hamburger_(black_bg).jpg'}},
+  {n:'カナダ',k:'カナダ',cc:'ca',r:'アメリカ',d:'<ruby>赤<rt>あか</rt></ruby>いたてしまにまっかなかえでのはがあるよ。かえでのははカナダのシンボルで、お<ruby>金<rt>かね</rt></ruby>やスポーツのユニフォームにもつかわれているんだ！',f:{n:'プーティン',k:'プーティン',i:'Montreal_poutine.jpg'}},
+  {n:'メキシコ',k:'メキシコ',cc:'mx',r:'アメリカ',d:'<ruby>緑<rt>みどり</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>のたてしまで、まんなかに「わしがへびをくわえてサボテンにとまっている」もようがあるよ。むかしのアステカの<ruby>伝説<rt>でんせつ</rt></ruby>なんだ。',f:{n:'タコス',k:'タコス',i:'Tacos_de_carnitas,_Toluca.jpg'}},
+  {n:'グアテマラ',k:'グアテマラ',cc:'gt',r:'アメリカ',d:'そらいろと<ruby>白<rt>しろ</rt></ruby>のたてしまで、まんなかにケツァールという<ruby>鳥<rt>とり</rt></ruby>と<ruby>剣<rt>けん</rt></ruby>がかいてあるよ。ケツァールは<ruby>自由<rt>じゆう</rt></ruby>のシンボルなんだ。',f:{n:'ペピアン',k:'ペピアン',i:''}},
+  {n:'ベリーズ',k:'ベリーズ',cc:'bz',r:'アメリカ',d:'<ruby>青<rt>あお</rt></ruby>いはたに<ruby>赤<rt>あか</rt></ruby>いよこしまとまんなかにもんしょうがあるよ。もんしょうにはふたりのきこりと<ruby>船<rt>ふね</rt></ruby>がかいてあるんだ。',f:{n:'ライスアンドビーンズ',k:'ライスアンドビーンズ',i:''}},
+  {n:'ホンジュラス',k:'ホンジュラス',cc:'hn',r:'アメリカ',d:'そらいろ・<ruby>白<rt>しろ</rt></ruby>・そらいろのよこしまでまんなかに5つのほしがあるよ。5つのほしはちゅうおうアメリカの<ruby>連邦<rt>れんぽう</rt></ruby>をあらわすんだ。',f:{n:'バレアダス',k:'バレアダス',i:''}},
+  {n:'エルサルバドル',k:'エルサルバドル',cc:'sv',r:'アメリカ',d:'<ruby>青<rt>あお</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>青<rt>あお</rt></ruby>のよこしまでまんなかにもんしょうがあるよ。「ちゅうおうアメリカの<ruby>連邦<rt>れんぽう</rt></ruby>にかえろう」というねがいがこめられているんだ。',f:{n:'プペサス',k:'プペサス',i:''}},
+  {n:'ニカラグア',k:'ニカラグア',cc:'ni',r:'アメリカ',d:'<ruby>青<rt>あお</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>青<rt>あお</rt></ruby>のよこしまでまんなかにさんかく<ruby>山<rt>やま</rt></ruby>とにじのもんしょうがあるよ。',f:{n:'ガジョピント',k:'ガジョピント',i:''}},
+  {n:'コスタリカ',k:'コスタリカ',cc:'cr',r:'アメリカ',d:'<ruby>青<rt>あお</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>青<rt>あお</rt></ruby>のよこしまで、まんなかの<ruby>赤<rt>あか</rt></ruby>いたいにもんしょうがあるよ。コスタリカは<ruby>平和<rt>へいわ</rt></ruby>のくにとして<ruby>有名<rt>ゆうめい</rt></ruby>なんだ。',f:{n:'ガジョピント',k:'ガジョピント',i:''}},
+  {n:'パナマ',k:'パナマ',cc:'pa',r:'アメリカ',d:'<ruby>白<rt>しろ</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>青<rt>あお</rt></ruby>のよっつのしかくで、ほしがひとつずつはいっているよ。パナマうんがのあるくにとして<ruby>有名<rt>ゆうめい</rt></ruby>なんだ。',f:{n:'サンコチョ',k:'サンコチョ',i:''}},
+  {n:'キューバ',k:'キューバ',cc:'cu',r:'アメリカ',d:'<ruby>青<rt>あお</rt></ruby>と<ruby>白<rt>しろ</rt></ruby>のしましまに<ruby>赤<rt>あか</rt></ruby>いさんかくと<ruby>白<rt>しろ</rt></ruby>いほしがあるよ。さんかくは<ruby>自由<rt>じゆう</rt></ruby>・<ruby>平等<rt>びょうどう</rt></ruby>・<ruby>博愛<rt>はくあい</rt></ruby>をあらわすんだ。',f:{n:'ロパビエハ',k:'ロパビエハ',i:'Ropa_vieja_plate.jpg'}},
+  {n:'ジャマイカ',k:'ジャマイカ',cc:'jm',r:'アメリカ',d:'<ruby>黒<rt>くろ</rt></ruby>・<ruby>黄色<rt>きいろ</rt></ruby>・<ruby>緑<rt>みどり</rt></ruby>のX（バッテン）もようのはただよ。<ruby>黒<rt>くろ</rt></ruby>はつよさ、<ruby>緑<rt>みどり</rt></ruby>はのうぎょう、<ruby>黄色<rt>きいろ</rt></ruby>はひのひかりをあらわすんだ。',f:{n:'ジャークチキン',k:'ジャークチキン',i:'Jerk_chicken_imported_from_flickr.jpg'}},
+  {n:'ハイチ',k:'ハイチ',cc:'ht',r:'アメリカ',d:'<ruby>青<rt>あお</rt></ruby>と<ruby>赤<rt>あか</rt></ruby>のよこしまでまんなかにもんしょうがあるよ。フランスから<ruby>独立<rt>どくりつ</rt></ruby>した<ruby>最初<rt>さいしょ</rt></ruby>の<ruby>国<rt>くに</rt></ruby>として<ruby>有名<rt>ゆうめい</rt></ruby>なんだ。',f:{n:'グリオ',k:'グリオ',i:''}},
+  {n:'ドミニカきょうわこく',k:'ドミニカ共和国',cc:'do',r:'アメリカ',d:'<ruby>青<rt>あお</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>青<rt>あお</rt></ruby>のしかくもようでまんなかにもんしょうがあるよ。はたのもんしょうに「<ruby>聖書<rt>せいしょ</rt></ruby>」がかかれているめずらしい<ruby>国<rt>くに</rt></ruby>なんだ。',f:{n:'マングー',k:'マングー',i:''}},
+  {n:'トリニダードトバゴ',k:'トリニダード・トバゴ',cc:'tt',r:'アメリカ',d:'<ruby>赤<rt>あか</rt></ruby>いはたに<ruby>黒<rt>くろ</rt></ruby>と<ruby>白<rt>しろ</rt></ruby>のたいかくせんがあるよ。<ruby>黒<rt>くろ</rt></ruby>はちきゅう、<ruby>白<rt>しろ</rt></ruby>はうみ、<ruby>赤<rt>あか</rt></ruby>はひのひかりをあらわすんだ。',f:{n:'ダブル',k:'ダブル',i:''}},
+  {n:'バルバドス',k:'バルバドス',cc:'bb',r:'アメリカ',d:'<ruby>青<rt>あお</rt></ruby>・<ruby>黄色<rt>きいろ</rt></ruby>・<ruby>青<rt>あお</rt></ruby>のたてしまで、まんなかにポセイドンのさんぼこがあるよ。<ruby>美<rt>うつく</rt></ruby>しいうみにかこまれたしまのくになんだ。',f:{n:'ククー',k:'ククー',i:''}},
+  {n:'コロンビア',k:'コロンビア',cc:'co',r:'アメリカ',d:'<ruby>黄色<rt>きいろ</rt></ruby>・<ruby>青<rt>あお</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>のよこしまだよ。<ruby>黄色<rt>きいろ</rt></ruby>はゆたかさ、<ruby>青<rt>あお</rt></ruby>はうみとそら、<ruby>赤<rt>あか</rt></ruby>は<ruby>勇気<rt>ゆうき</rt></ruby>をあらわすんだ。',f:{n:'バンデハパイサ',k:'バンデハパイサ',i:'Bandeja_paisa.jpg'}},
+  {n:'ベネズエラ',k:'ベネズエラ',cc:'ve',r:'アメリカ',d:'<ruby>黄色<rt>きいろ</rt></ruby>・<ruby>青<rt>あお</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>のよこしまで、まんなかには8つのほしがあるよ。コロンビアのはたとにているけどほしがあるのがちがうんだ。',f:{n:'パベジョンクリオジョ',k:'パベジョン',i:''}},
+  {n:'ガイアナ',k:'ガイアナ',cc:'gy',r:'アメリカ',d:'<ruby>緑<rt>みどり</rt></ruby>のはたに<ruby>黄色<rt>きいろ</rt></ruby>いさんかくと<ruby>黒<rt>くろ</rt></ruby>と<ruby>赤<rt>あか</rt></ruby>のもようがあるよ。「ゴールデンアロー」とよばれているんだ。',f:{n:'ペッパーポット',k:'ペッパーポット',i:''}},
+  {n:'スリナム',k:'スリナム',cc:'sr',r:'アメリカ',d:'<ruby>緑<rt>みどり</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>緑<rt>みどり</rt></ruby>のよこしまで、まんなかに<ruby>黄色<rt>きいろ</rt></ruby>のほしがあるよ。<ruby>緑<rt>みどり</rt></ruby>はのうぎょう、<ruby>赤<rt>あか</rt></ruby>はかくしんをあらわすんだ。',f:{n:'ライスと豆',k:'ライスと豆',i:''}},
+  {n:'エクアドル',k:'エクアドル',cc:'ec',r:'アメリカ',d:'<ruby>黄色<rt>きいろ</rt></ruby>・<ruby>青<rt>あお</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>のよこしまで、まんなかにもんしょうがあるよ。コロンビアのはたとにているけどもんしょうがあるよ。',f:{n:'セビーチェ',k:'セビーチェ',i:''}},
+  {n:'ペルー',k:'ペルー',cc:'pe',r:'アメリカ',d:'<ruby>赤<rt>あか</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>のたてしまのシンプルなはただよ。<ruby>赤<rt>あか</rt></ruby>はあつちのちのいろ、<ruby>白<rt>しろ</rt></ruby>はアンデスのゆきをあらわすんだ。',f:{n:'セビーチェ',k:'セビーチェ',i:'Ceviche_peruano.jpg'}},
+  {n:'ボリビア',k:'ボリビア',cc:'bo',r:'アメリカ',d:'<ruby>赤<rt>あか</rt></ruby>・<ruby>黄色<rt>きいろ</rt></ruby>・<ruby>緑<rt>みどり</rt></ruby>のよこしまだよ。<ruby>赤<rt>あか</rt></ruby>は<ruby>勇気<rt>ゆうき</rt></ruby>、<ruby>黄色<rt>きいろ</rt></ruby>はしげん、<ruby>緑<rt>みどり</rt></ruby>はしぜんをあらわすんだ。',f:{n:'サルテニャス',k:'サルテニャス',i:''}},
+  {n:'パラグアイ',k:'パラグアイ',cc:'py',r:'アメリカ',d:'<ruby>赤<rt>あか</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>青<rt>あお</rt></ruby>のよこしまで、おもてとうらでもんしょうがちがうめずらしいはただよ。<ruby>世界<rt>せかい</rt></ruby>でゆいいつ<ruby>両面<rt>りょうめん</rt></ruby>でちがうもんしょうのはたなんだ！',f:{n:'ソパパラグアジャ',k:'ソパパラグアジャ',i:''}},
+  {n:'チリ',k:'チリ',cc:'cl',r:'アメリカ',d:'<ruby>赤<rt>あか</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>のよこしまと<ruby>青<rt>あお</rt></ruby>いしかくに<ruby>白<rt>しろ</rt></ruby>いほしがひとつあるよ。ほしは「みちびきのほし」をあらわすんだ。',f:{n:'エンパナーダ',k:'エンパナーダ',i:'Empanadas_de_pino.jpg'}},
+  {n:'アルゼンチン',k:'アルゼンチン',cc:'ar',r:'アメリカ',d:'そらいろ・<ruby>白<rt>しろ</rt></ruby>・そらいろのよこしまで、まんなかに「5がつの<ruby>太陽<rt>たいよう</rt></ruby>」があるよ。このお<ruby>日<rt>ひ</rt></ruby>さまは<ruby>独立<rt>どくりつ</rt></ruby>のシンボルなんだ。',f:{n:'アサード',k:'アサード',i:'Asado_de_tira.jpg'}},
+  {n:'ウルグアイ',k:'ウルグアイ',cc:'uy',r:'アメリカ',d:'<ruby>白<rt>しろ</rt></ruby>いはたにしましまと<ruby>太陽<rt>たいよう</rt></ruby>があるよ。「5がつの<ruby>太陽<rt>たいよう</rt></ruby>」はアルゼンチンのはたとにているんだ。',f:{n:'チビート',k:'チビート',i:'Chivito_Uruguayo.jpg'}},
+  {n:'ブラジル',k:'ブラジル',cc:'br',r:'アメリカ',d:'<ruby>緑<rt>みどり</rt></ruby>のはたに<ruby>黄色<rt>きいろ</rt></ruby>いひしがたと<ruby>青<rt>あお</rt></ruby>いまるがあるよ。まるにはブラジルのもりをあらわすほしぼしとことばがかいてあるんだ。',f:{n:'フェイジョアーダ',k:'フェイジョアーダ',i:'Feijoada_-_20-11-2006.jpg'}},
+  {n:'エジプト',k:'エジプト',cc:'eg',r:'アフリカ',d:'<ruby>赤<rt>あか</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>黒<rt>くろ</rt></ruby>のよこしまで、まんなかに「サラーフ・アッディーンのわし」があるよ。このわしはつよさのシンボルなんだ。',f:{n:'コシャリ',k:'コシャリ',i:'Koshary.jpg'}},
+  {n:'リビア',k:'リビア',cc:'ly',r:'アフリカ',d:'<ruby>黒<rt>くろ</rt></ruby>いはたに<ruby>赤<rt>あか</rt></ruby>と<ruby>緑<rt>みどり</rt></ruby>のよこしまとみかづきとほしがあるよ。<ruby>革命<rt>かくめい</rt></ruby>のはたが2011<ruby>年<rt>ねん</rt></ruby>にふっかつしたんだ。',f:{n:'クスクス',k:'クスクス',i:''}},
+  {n:'チュニジア',k:'チュニジア',cc:'tn',r:'アフリカ',d:'<ruby>赤<rt>あか</rt></ruby>いはたに<ruby>白<rt>しろ</rt></ruby>いまるとみかづきとほしがあるよ。<ruby>赤<rt>あか</rt></ruby>はけつと<ruby>自由<rt>じゆう</rt></ruby>のじょうねつをあらわすんだ。',f:{n:'クスクス',k:'クスクス',i:''}},
+  {n:'アルジェリア',k:'アルジェリア',cc:'dz',r:'アフリカ',d:'<ruby>緑<rt>みどり</rt></ruby>と<ruby>白<rt>しろ</rt></ruby>のたてしまにあかいみかづきとほしがあるよ。<ruby>緑<rt>みどり</rt></ruby>はイスラム<ruby>教<rt>きょう</rt></ruby>、<ruby>白<rt>しろ</rt></ruby>は<ruby>平和<rt>へいわ</rt></ruby>をあらわすんだ。',f:{n:'クスクス',k:'クスクス',i:''}},
+  {n:'モロッコ',k:'モロッコ',cc:'ma',r:'アフリカ',d:'<ruby>赤<rt>あか</rt></ruby>いはたのまんなかに<ruby>緑<rt>みどり</rt></ruby>のほしがひとつあるよ。<ruby>赤<rt>あか</rt></ruby>は<ruby>王家<rt>おうけ</rt></ruby>、<ruby>緑<rt>みどり</rt></ruby>のほしはイスラム<ruby>教<rt>きょう</rt></ruby>のシンボルなんだ。',f:{n:'タジン',k:'タジン',i:'Tajine_poulet_citron_confit.jpg'}},
+  {n:'モーリタニア',k:'モーリタニア',cc:'mr',r:'アフリカ',d:'<ruby>緑<rt>みどり</rt></ruby>のはたに<ruby>金<rt>きん</rt></ruby>のみかづきとほしがあって、うえしたに<ruby>金<rt>きん</rt></ruby>のよこしまがあるよ。イスラム<ruby>教<rt>きょう</rt></ruby>のシンボルカラーをつかっているんだ。',f:{n:'メシュイ',k:'メシュイ',i:''}},
+  {n:'セネガル',k:'セネガル',cc:'sn',r:'アフリカ',d:'<ruby>緑<rt>みどり</rt></ruby>・<ruby>黄色<rt>きいろ</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>のたてしまで、まんなかの<ruby>黄色<rt>きいろ</rt></ruby>に<ruby>緑<rt>みどり</rt></ruby>のほしがあるよ。ほしは<ruby>団結<rt>だんけつ</rt></ruby>のシンボルなんだ。',f:{n:'チェブジェン',k:'チェブジェン',i:''}},
+  {n:'ガンビア',k:'ガンビア',cc:'gm',r:'アフリカ',d:'<ruby>赤<rt>あか</rt></ruby>・<ruby>青<rt>あお</rt></ruby>・<ruby>緑<rt>みどり</rt></ruby>のよこしまでさかいめに<ruby>白<rt>しろ</rt></ruby>いせんがあるよ。<ruby>青<rt>あお</rt></ruby>いたいはガンビア<ruby>川<rt>がわ</rt></ruby>をあらわしているんだ。',f:{n:'ドモダ',k:'ドモダ',i:''}},
+  {n:'ギニアビサウ',k:'ギニアビサウ',cc:'gw',r:'アフリカ',d:'<ruby>赤<rt>あか</rt></ruby>・<ruby>黄色<rt>きいろ</rt></ruby>・<ruby>緑<rt>みどり</rt></ruby>のたてしまでひだりに<ruby>黒<rt>くろ</rt></ruby>いほしがあるよ。',f:{n:'ジョロフライス',k:'ジョロフライス',i:''}},
+  {n:'ギニア',k:'ギニア',cc:'gn',r:'アフリカ',d:'<ruby>赤<rt>あか</rt></ruby>・<ruby>黄色<rt>きいろ</rt></ruby>・<ruby>緑<rt>みどり</rt></ruby>のたてしまのはただよ。フランスのはたをうらがえしたようなかんじで、アフリカの<ruby>解放<rt>かいほう</rt></ruby>のいろをつかっているんだ。',f:{n:'フフ',k:'フフ',i:''}},
+  {n:'シエラレオネ',k:'シエラレオネ',cc:'sl',r:'アフリカ',d:'<ruby>緑<rt>みどり</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>青<rt>あお</rt></ruby>のよこしまのはただよ。<ruby>緑<rt>みどり</rt></ruby>はのうぎょう、<ruby>白<rt>しろ</rt></ruby>は<ruby>平和<rt>へいわ</rt></ruby>、<ruby>青<rt>あお</rt></ruby>はよこはまをあらわすんだ。',f:{n:'フフ',k:'フフ',i:''}},
+  {n:'リベリア',k:'リベリア',cc:'lr',r:'アフリカ',d:'<ruby>赤<rt>あか</rt></ruby>と<ruby>白<rt>しろ</rt></ruby>のしましまにひだりうえに<ruby>青<rt>あお</rt></ruby>いしかくとほしがあるよ。アメリカのはたのえいきょうをうけているんだ。',f:{n:'フフ',k:'フフ',i:''}},
+  {n:'コートジボワール',k:'コートジボワール',cc:'ci',r:'アフリカ',d:'オレンジ・<ruby>白<rt>しろ</rt></ruby>・<ruby>緑<rt>みどり</rt></ruby>のたてしまだよ。フランスのトリコロールをもとにしているよ。',f:{n:'フトゥ',k:'フトゥ',i:''}},
+  {n:'ガーナ',k:'ガーナ',cc:'gh',r:'アフリカ',d:'<ruby>赤<rt>あか</rt></ruby>・<ruby>黄色<rt>きいろ</rt></ruby>・<ruby>緑<rt>みどり</rt></ruby>のよこしまでまんなかに<ruby>黒<rt>くろ</rt></ruby>いほしがひとつあるよ。<ruby>黒<rt>くろ</rt></ruby>いほしは「アフリカの<ruby>自由<rt>じゆう</rt></ruby>」をあらわすんだ。',f:{n:'ジョロフライス',k:'ジョロフライス',i:'Jollof_Rice.jpg'}},
+  {n:'トーゴ',k:'トーゴ',cc:'tg',r:'アフリカ',d:'<ruby>緑<rt>みどり</rt></ruby>と<ruby>黄色<rt>きいろ</rt></ruby>のしましまでひだりうえに<ruby>赤<rt>あか</rt></ruby>いしかくとほしがあるよ。5<ruby>本<rt>ほん</rt></ruby>のしましまは5<ruby>地方<rt>ちほう</rt></ruby>をあらわすんだ。',f:{n:'フフ',k:'フフ',i:''}},
+  {n:'ベナン',k:'ベナン',cc:'bj',r:'アフリカ',d:'<ruby>緑<rt>みどり</rt></ruby>のたてしまに<ruby>黄色<rt>きいろ</rt></ruby>と<ruby>赤<rt>あか</rt></ruby>のよこしまがくっついているよ。<ruby>緑<rt>みどり</rt></ruby>はきぼう、<ruby>黄色<rt>きいろ</rt></ruby>はゆたかさ、<ruby>赤<rt>あか</rt></ruby>は<ruby>勇気<rt>ゆうき</rt></ruby>をあらわすんだ。',f:{n:'アクプェッサ',k:'アクプェッサ',i:''}},
+  {n:'ナイジェリア',k:'ナイジェリア',cc:'ng',r:'アフリカ',d:'<ruby>緑<rt>みどり</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>緑<rt>みどり</rt></ruby>のたてしまだよ。<ruby>緑<rt>みどり</rt></ruby>はのうぎょうとゆたかなしぜん、<ruby>白<rt>しろ</rt></ruby>は<ruby>平和<rt>へいわ</rt></ruby>をあらわすんだ。',f:{n:'ジョロフライス',k:'ジョロフライス',i:'Jollof_Rice.jpg'}},
+  {n:'カメルーン',k:'カメルーン',cc:'cm',r:'アフリカ',d:'<ruby>緑<rt>みどり</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>・<ruby>黄色<rt>きいろ</rt></ruby>のたてしまで、まんなかに<ruby>黄色<rt>きいろ</rt></ruby>のほしがひとつあるよ。<ruby>緑<rt>みどり</rt></ruby>はなんぶのもり、<ruby>黄色<rt>きいろ</rt></ruby>はきたのそうげんをあらわすんだ。',f:{n:'エルンドゥ',k:'エルンドゥ',i:''}},
+  {n:'チャド',k:'チャド',cc:'td',r:'アフリカ',d:'<ruby>青<rt>あお</rt></ruby>・<ruby>黄色<rt>きいろ</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>のたてしまだよ。フランスのはたとにているけど、<ruby>青<rt>あお</rt></ruby>がこいんだ。',f:{n:'ダラバ',k:'ダラバ',i:''}},
+  {n:'ニジェール',k:'ニジェール',cc:'ne',r:'アフリカ',d:'オレンジ・<ruby>白<rt>しろ</rt></ruby>・<ruby>緑<rt>みどり</rt></ruby>のよこしまで、まんなかの<ruby>白<rt>しろ</rt></ruby>にオレンジのまるがあるよ。オレンジはさはら、<ruby>緑<rt>みどり</rt></ruby>はさぐあを、まるは<ruby>太陽<rt>たいよう</rt></ruby>をあらわすんだ。',f:{n:'トウチクチク',k:'トウチクチク',i:''}},
+  {n:'マリ',k:'マリ',cc:'ml',r:'アフリカ',d:'<ruby>緑<rt>みどり</rt></ruby>・<ruby>黄色<rt>きいろ</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>のたてしまのはただよ。アフリカ<ruby>解放<rt>かいほう</rt></ruby>のいろをつかっているんだ。',f:{n:'ジョロフライス',k:'ジョロフライス',i:''}},
+  {n:'ブルキナファソ',k:'ブルキナファソ',cc:'bf',r:'アフリカ',d:'<ruby>赤<rt>あか</rt></ruby>と<ruby>緑<rt>みどり</rt></ruby>のよこしまで、まんなかに<ruby>黄色<rt>きいろ</rt></ruby>のほしがあるよ。<ruby>赤<rt>あか</rt></ruby>は<ruby>革命<rt>かくめい</rt></ruby>、<ruby>緑<rt>みどり</rt></ruby>ののぞみ、ほしはガイダンスをあらわすんだ。',f:{n:'リ',k:'リ',i:''}},
+  {n:'スーダン',k:'スーダン',cc:'sd',r:'アフリカ',d:'<ruby>赤<rt>あか</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>黒<rt>くろ</rt></ruby>のよこしまにひだりに<ruby>緑<rt>みどり</rt></ruby>のさんかくがあるよ。アラブのくにぐにのいろをつかっているんだ。',f:{n:'フル',k:'フル',i:''}},
+  {n:'エチオピア',k:'エチオピア',cc:'et',r:'アフリカ',d:'<ruby>緑<rt>みどり</rt></ruby>・<ruby>黄色<rt>きいろ</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>のよこしまで、まんなかに<ruby>青<rt>あお</rt></ruby>いまるとほしがあるよ。このさんしょくはアフリカ<ruby>独立<rt>どくりつ</rt></ruby>のシンボルとして<ruby>他<rt>ほか</rt></ruby>のくにのはたにもえいきょうをあたえたんだよ！',f:{n:'インジェラ',k:'インジェラ',i:'Injera_with_tibs_and_ayib.jpg'}},
+  {n:'ジブチ',k:'ジブチ',cc:'dj',r:'アフリカ',d:'そらいろと<ruby>緑<rt>みどり</rt></ruby>のたいかくせんではたをわってひだりに<ruby>白<rt>しろ</rt></ruby>いさんかくと<ruby>赤<rt>あか</rt></ruby>いほしがあるよ。',f:{n:'スクマウィキ',k:'スクマウィキ',i:''}},
+  {n:'エリトリア',k:'エリトリア',cc:'er',r:'アフリカ',d:'<ruby>緑<rt>みどり</rt></ruby>・<ruby>青<rt>あお</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>のさんかくもようで、ひだりの<ruby>赤<rt>あか</rt></ruby>いさんかくに<ruby>黄色<rt>きいろ</rt></ruby>のオリーブのえだがあるよ。1993<ruby>年<rt>ねん</rt></ruby>に<ruby>独立<rt>どくりつ</rt></ruby>した<ruby>新<rt>あたら</rt></ruby>しいくになんだ。',f:{n:'ジグニ',k:'ジグニ',i:''}},
+  {n:'ソマリア',k:'ソマリア',cc:'so',r:'アフリカ',d:'そらいろのはたに<ruby>白<rt>しろ</rt></ruby>いほしがあるよ。ほしの5つのかどはソマリアの<ruby>人<rt>ひと</rt></ruby>がすむ5つのちいきをあらわすんだ。',f:{n:'カンジェロ',k:'カンジェロ',i:''}},
+  {n:'ケニア',k:'ケニア',cc:'ke',r:'アフリカ',d:'<ruby>黒<rt>くろ</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>・<ruby>緑<rt>みどり</rt></ruby>のよこしまにマサイ<ruby>族<rt>ぞく</rt></ruby>のたてとやりがえがかれているよ。<ruby>黒<rt>くろ</rt></ruby>は<ruby>人々<rt>ひとびと</rt></ruby>、<ruby>赤<rt>あか</rt></ruby>はけつ、<ruby>緑<rt>みどり</rt></ruby>はしぜんをあらわすんだ。',f:{n:'ウガリ',k:'ウガリ',i:'Ugali_Sukuma.jpg'}},
+  {n:'ウガンダ',k:'ウガンダ',cc:'ug',r:'アフリカ',d:'<ruby>黒<rt>くろ</rt></ruby>・<ruby>黄色<rt>きいろ</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>のしましまでまんなかに<ruby>白<rt>しろ</rt></ruby>いまるとハゴロモヅルがいるよ。ハゴロモヅルはウガンダのシンボルの<ruby>鳥<rt>とり</rt></ruby>なんだ。',f:{n:'マトケ',k:'マトケ',i:''}},
+  {n:'タンザニア',k:'タンザニア',cc:'tz',r:'アフリカ',d:'<ruby>緑<rt>みどり</rt></ruby>・<ruby>黄色<rt>きいろ</rt></ruby>・<ruby>黒<rt>くろ</rt></ruby>・<ruby>青<rt>あお</rt></ruby>ののぼりしまがあるよ。<ruby>緑<rt>みどり</rt></ruby>はのはら、<ruby>黄色<rt>きいろ</rt></ruby>はしげん、<ruby>黒<rt>くろ</rt></ruby>は<ruby>人々<rt>ひとびと</rt></ruby>、<ruby>青<rt>あお</rt></ruby>はうみをあらわすんだ。',f:{n:'ニャマチョマ',k:'ニャマチョマ',i:'Nyama_Choma.jpg'}},
+  {n:'ルワンダ',k:'ルワンダ',cc:'rw',r:'アフリカ',d:'<ruby>青<rt>あお</rt></ruby>・<ruby>黄色<rt>きいろ</rt></ruby>・<ruby>緑<rt>みどり</rt></ruby>のよこしまで、みぎうえに<ruby>黄色<rt>きいろ</rt></ruby>い<ruby>太陽<rt>たいよう</rt></ruby>があるよ。<ruby>青<rt>あお</rt></ruby>は<ruby>平和<rt>へいわ</rt></ruby>、<ruby>黄色<rt>きいろ</rt></ruby>はしげん、<ruby>緑<rt>みどり</rt></ruby>はのうぎょうをあらわすんだ。',f:{n:'イソンベ',k:'イソンベ',i:''}},
+  {n:'ブルンジ',k:'ブルンジ',cc:'bi',r:'アフリカ',d:'<ruby>白<rt>しろ</rt></ruby>のたいかくせんではたをわって、うえしたに<ruby>赤<rt>あか</rt></ruby>と<ruby>緑<rt>みどり</rt></ruby>、ひだりみぎに<ruby>赤<rt>あか</rt></ruby>と<ruby>緑<rt>みどり</rt></ruby>のしかくがあるよ。まんなかの<ruby>白<rt>しろ</rt></ruby>いまるに3つのほしがあるんだ。',f:{n:'ブロチェット',k:'ブロチェット',i:''}},
+  {n:'コンゴみんしゅきょうわこく',k:'コンゴ民主共和国',cc:'cd',r:'アフリカ',d:'<ruby>青<rt>あお</rt></ruby>いはたに<ruby>黄色<rt>きいろ</rt></ruby>のたいかくせんとひだりうえにほしがあるよ。<ruby>赤<rt>あか</rt></ruby>はけつ、<ruby>黄色<rt>きいろ</rt></ruby>はゆたかさをあらわすんだ。',f:{n:'フフ',k:'フフ',i:''}},
+  {n:'コンゴきょうわこく',k:'コンゴ共和国',cc:'cg',r:'アフリカ',d:'<ruby>緑<rt>みどり</rt></ruby>・<ruby>黄色<rt>きいろ</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>のたいかくせんのはただよ。<ruby>緑<rt>みどり</rt></ruby>はのうぎょう、<ruby>黄色<rt>きいろ</rt></ruby>はゆたかさ、<ruby>赤<rt>あか</rt></ruby>は<ruby>独立<rt>どくりつ</rt></ruby>のたたかいをあらわすんだ。',f:{n:'フフ',k:'フフ',i:''}},
+  {n:'ガボン',k:'ガボン',cc:'ga',r:'アフリカ',d:'<ruby>緑<rt>みどり</rt></ruby>・<ruby>黄色<rt>きいろ</rt></ruby>・<ruby>青<rt>あお</rt></ruby>のよこしまのはただよ。<ruby>緑<rt>みどり</rt></ruby>はもり、<ruby>黄色<rt>きいろ</rt></ruby>はあかいどの<ruby>太陽<rt>たいよう</rt></ruby>、<ruby>青<rt>あお</rt></ruby>はうみをあらわすんだ。',f:{n:'ンゴール',k:'ンゴール',i:''}},
+  {n:'あかどうギニア',k:'赤道ギニア',cc:'gq',r:'アフリカ',d:'<ruby>緑<rt>みどり</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>のよこしまでひだりにさんかくとまんなかにもんしょうがあるよ。もんしょうにはシルクコットンの<ruby>木<rt>き</rt></ruby>がかかれているんだ。',f:{n:'スクマウィキ',k:'スクマウィキ',i:''}},
+  {n:'ちゅうおうアフリカきょうわこく',k:'中央アフリカ共和国',cc:'cf',r:'アフリカ',d:'<ruby>青<rt>あお</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>緑<rt>みどり</rt></ruby>・<ruby>黄色<rt>きいろ</rt></ruby>のよこしまに<ruby>赤<rt>あか</rt></ruby>のたてしまとほしがあるよ。<ruby>赤<rt>あか</rt></ruby>のたてしまはけつと<ruby>団結<rt>だんけつ</rt></ruby>をあらわすんだ。',f:{n:'カッサバ',k:'カッサバ',i:''}},
+  {n:'アンゴラ',k:'アンゴラ',cc:'ao',r:'アフリカ',d:'<ruby>黒<rt>くろ</rt></ruby>と<ruby>赤<rt>あか</rt></ruby>のよこしまで、まんなかに<ruby>黄色<rt>きいろ</rt></ruby>のはんまると<ruby>星<rt>ほし</rt></ruby>があるよ。はんまるはコーヒーをそだてる<ruby>人々<rt>ひとびと</rt></ruby>、<ruby>星<rt>ほし</rt></ruby>はこくさいしゅぎをあらわすんだ。',f:{n:'モアンバ',k:'モアンバ',i:''}},
+  {n:'ザンビア',k:'ザンビア',cc:'zm',r:'アフリカ',d:'<ruby>緑<rt>みどり</rt></ruby>のはたのみぎしたにオレンジ・<ruby>黒<rt>くろ</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>のたてしまとオレンジのわしがあるよ。わしは<ruby>自由<rt>じゆう</rt></ruby>をあらわすんだ。',f:{n:'ンシマ',k:'ンシマ',i:''}},
+  {n:'マラウイ',k:'マラウイ',cc:'mw',r:'アフリカ',d:'<ruby>黒<rt>くろ</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>・<ruby>緑<rt>みどり</rt></ruby>のよこしまで、うえの<ruby>黒<rt>くろ</rt></ruby>にのぼる<ruby>太陽<rt>たいよう</rt></ruby>があるよ。のぼる<ruby>太陽<rt>たいよう</rt></ruby>はアフリカのきぼうをあらわすんだ。',f:{n:'ンシマ',k:'ンシマ',i:''}},
+  {n:'ジンバブエ',k:'ジンバブエ',cc:'zw',r:'アフリカ',d:'<ruby>緑<rt>みどり</rt></ruby>・<ruby>黄色<rt>きいろ</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>・<ruby>黒<rt>くろ</rt></ruby>のよこしまで、ひだりに<ruby>白<rt>しろ</rt></ruby>いさんかくとジンバブエドリとほしがあるよ。',f:{n:'サザ',k:'サザ',i:''}},
+  {n:'モザンビーク',k:'モザンビーク',cc:'mz',r:'アフリカ',d:'<ruby>緑<rt>みどり</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>黒<rt>くろ</rt></ruby>のよこしまでひだりに<ruby>赤<rt>あか</rt></ruby>いさんかくがあって、その<ruby>上<rt>うえ</rt></ruby>にほしと<ruby>本<rt>ほん</rt></ruby>とじゅうがあるよ。じゅうははたにかかれた<ruby>珍<rt>めずら</rt></ruby>しいくにのひとつなんだ！',f:{n:'マタパ',k:'マタパ',i:''}},
+  {n:'マダガスカル',k:'マダガスカル',cc:'mg',r:'アフリカ',d:'<ruby>白<rt>しろ</rt></ruby>と<ruby>赤<rt>あか</rt></ruby>のたてしまに<ruby>緑<rt>みどり</rt></ruby>のたてしまがついているよ。<ruby>白<rt>しろ</rt></ruby>はじゅんすいさ、<ruby>赤<rt>あか</rt></ruby>はちから、<ruby>緑<rt>みどり</rt></ruby>はきぼうをあらわすんだ。',f:{n:'ロマザバ',k:'ロマザバ',i:''}},
+  {n:'なみびあ',k:'ナミビア',cc:'na',r:'アフリカ',d:'<ruby>青<rt>あお</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>と<ruby>赤<rt>あか</rt></ruby>のたいかくせんで、ひだりうえに<ruby>黄色<rt>きいろ</rt></ruby>の<ruby>太陽<rt>たいよう</rt></ruby>があるよ。<ruby>太陽<rt>たいよう</rt></ruby>はいのちとエネルギーをあらわすんだ。',f:{n:'ポトジェコス',k:'ポトジェコス',i:''}},
+  {n:'ボツワナ',k:'ボツワナ',cc:'bw',r:'アフリカ',d:'そらいろ・<ruby>白<rt>しろ</rt></ruby>・<ruby>黒<rt>くろ</rt></ruby>のよこしまのはただよ。<ruby>白<rt>しろ</rt></ruby>と<ruby>黒<rt>くろ</rt></ruby>のたいはシマウマをあらわすんだ。ボツワナにはシマウマがたくさんいるんだよ！',f:{n:'セスワ',k:'セスワ',i:''}},
+  {n:'みなみアフリカ',k:'南アフリカ',cc:'za',r:'アフリカ',d:'<ruby>緑<rt>みどり</rt></ruby>・<ruby>黒<rt>くろ</rt></ruby>・<ruby>黄色<rt>きいろ</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>・<ruby>青<rt>あお</rt></ruby>の6しょくでYのかたちをしているよ。いろんなみんぞくがひとつになることをあらわしているんだ。',f:{n:'ブラーイ',k:'ブラーイ',i:'Braai_fire.jpg'}},
+  {n:'エスワティニ',k:'エスワティニ',cc:'sz',r:'アフリカ',d:'<ruby>青<rt>あお</rt></ruby>・<ruby>黄色<rt>きいろ</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>のよこしまで、まんなかにスワジのじゅんしのたてとふたつのひつじの<ruby>角<rt>つの</rt></ruby>がかかれているよ。',f:{n:'アムフィシ',k:'アムフィシ',i:''}},
+  {n:'レソト',k:'レソト',cc:'ls',r:'アフリカ',d:'<ruby>青<rt>あお</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>緑<rt>みどり</rt></ruby>のよこしまで、まんなかに<ruby>黒<rt>くろ</rt></ruby>いモコロロという<ruby>帽子<rt>ぼうし</rt></ruby>があるよ。モコロロはバソトの<ruby>伝統<rt>でんとう</rt></ruby>の<ruby>帽子<rt>ぼうし</rt></ruby>なんだ。',f:{n:'パップ',k:'パップ',i:''}},
+  {n:'コモロ',k:'コモロ',cc:'km',r:'アフリカ',d:'<ruby>緑<rt>みどり</rt></ruby>のはたにみかづきとほしがあって、しましまがあるよ。4つのしましまと4つのほしは4つのしまをあらわすんだ。',f:{n:'ランゴ',k:'ランゴ',i:''}},
+  {n:'モーリシャス',k:'モーリシャス',cc:'mu',r:'アフリカ',d:'<ruby>赤<rt>あか</rt></ruby>・<ruby>青<rt>あお</rt></ruby>・<ruby>黄色<rt>きいろ</rt></ruby>・<ruby>緑<rt>みどり</rt></ruby>のよこしまのはただよ。4しょくは4つのしゅような<ruby>民族<rt>みんぞく</rt></ruby>をあらわすんだ。',f:{n:'ビリヤニ',k:'ビリヤニ',i:''}},
+  {n:'セーシェル',k:'セーシェル',cc:'sc',r:'アフリカ',d:'<ruby>青<rt>あお</rt></ruby>・<ruby>黄色<rt>きいろ</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>緑<rt>みどり</rt></ruby>のひかりのようにひろがるたてしまのはただよ。<ruby>世界<rt>せかい</rt></ruby>でいちばんカラフルなはたのひとつなんだ！',f:{n:'グルーパーカリー',k:'グルーパーカリー',i:''}},
+  {n:'カーボベルデ',k:'カーボベルデ',cc:'cv',r:'アフリカ',d:'<ruby>青<rt>あお</rt></ruby>いはたに<ruby>赤<rt>あか</rt></ruby>と<ruby>白<rt>しろ</rt></ruby>のよこしまと10この<ruby>星<rt>ほし</rt></ruby>があるよ。10この<ruby>星<rt>ほし</rt></ruby>は10このしまをあらわすんだ。',f:{n:'カシューパチーニャ',k:'カシューパチーニャ',i:''}},
+  {n:'オーストラリア',k:'オーストラリア',cc:'au',r:'オセアニア',d:'<ruby>青<rt>あお</rt></ruby>いはたにユニオンジャック・みなみじゅうじのほし・おおきなほしがあるよ。みなみじゅうじはなんてんのほしぼし、おおきなほしは<ruby>連邦<rt>れんぽう</rt></ruby>の<ruby>州<rt>しゅう</rt></ruby>をあらわすんだ。',f:{n:'ミートパイ',k:'ミートパイ',i:'Australian_meat_pie.jpg'}},
+  {n:'ニュージーランド',k:'ニュージーランド',cc:'nz',r:'オセアニア',d:'<ruby>青<rt>あお</rt></ruby>いはたにユニオンジャックとみなみじゅうじがあるよ。オーストラリアのはたとにているけど、ほしのいろがちがうんだ！',f:{n:'ハンギ',k:'ハンギ',i:'Hangi_food.jpg'}},
+  {n:'パプアニューギニア',k:'パプアニューギニア',cc:'pg',r:'オセアニア',d:'<ruby>黒<rt>くろ</rt></ruby>と<ruby>赤<rt>あか</rt></ruby>のたいかくせんで、<ruby>黒<rt>くろ</rt></ruby>にゴクラクドリ、<ruby>赤<rt>あか</rt></ruby>にみなみじゅうじのほしがあるよ。ゴクラクドリはとても<ruby>美<rt>うつく</rt></ruby>しい<ruby>鳥<rt>とり</rt></ruby>なんだ。',f:{n:'ムムー',k:'ムムー',i:''}},
+  {n:'フィジー',k:'フィジー',cc:'fj',r:'オセアニア',d:'<ruby>青<rt>あお</rt></ruby>いはたにユニオンジャックとたての<ruby>紋章<rt>もんしょう</rt></ruby>があるよ。たてにはさとうきび・やしの<ruby>木<rt>き</rt></ruby>・はとなどフィジーのしぜんがえがかれているんだ。',f:{n:'ロボ',k:'ロボ',i:'Lovo_food.jpg'}},
+  {n:'ソロモンしょとう',k:'ソロモン諸島',cc:'sb',r:'オセアニア',d:'<ruby>青<rt>あお</rt></ruby>・<ruby>緑<rt>みどり</rt></ruby>のたいかくせんでひだりしたに<ruby>黄色<rt>きいろ</rt></ruby>のさんかくと5つのほしがあるよ。ほしはしゅような<ruby>島<rt>しま</rt></ruby>をあらわすんだ。',f:{n:'カッサバ',k:'カッサバ',i:''}},
+  {n:'バヌアツ',k:'バヌアツ',cc:'vu',r:'オセアニア',d:'<ruby>緑<rt>みどり</rt></ruby>と<ruby>赤<rt>あか</rt></ruby>のよこしまでひだりに<ruby>黒<rt>くろ</rt></ruby>のさんかくと<ruby>黄色<rt>きいろ</rt></ruby>のY<ruby>字<rt>じ</rt></ruby>もようがあるよ。Y<ruby>字<rt>じ</rt></ruby>は<ruby>島<rt>しま</rt></ruby>のかたちをあらわすんだ。',f:{n:'ラップラップ',k:'ラップラップ',i:''}},
+  {n:'サモア',k:'サモア',cc:'ws',r:'オセアニア',d:'<ruby>赤<rt>あか</rt></ruby>いはたのひだりうえに<ruby>青<rt>あお</rt></ruby>いしかくとみなみじゅうじのほしがあるよ。みなみじゅうじはオセアニアのナビゲーションをあらわすんだ。',f:{n:'パルサミ',k:'パルサミ',i:''}},
+  {n:'トンガ',k:'トンガ',cc:'to',r:'オセアニア',d:'<ruby>赤<rt>あか</rt></ruby>いはたのひだりうえに、<ruby>白<rt>しろ</rt></ruby>いしかくに<ruby>赤<rt>あか</rt></ruby>いじゅうじがあるよ。トンガの<ruby>王<rt>おう</rt></ruby>さまが「キリスト<ruby>教<rt>きょう</rt></ruby>をたいせつにする」とちかったことをあらわしているんだ。',f:{n:'ルプル',k:'ルプル',i:'Lu_pulu.jpg'}},
+  {n:'キリバス',k:'キリバス',cc:'ki',r:'オセアニア',d:'<ruby>赤<rt>あか</rt></ruby>いはたに<ruby>黄色<rt>きいろ</rt></ruby>い<ruby>太陽<rt>たいよう</rt></ruby>とフリゲートバードがとんでいるよ。したに<ruby>青<rt>あお</rt></ruby>と<ruby>白<rt>しろ</rt></ruby>のなみもようがあって<ruby>美<rt>うつく</rt></ruby>しいんだ。',f:{n:'ケイカイ',k:'ケイカイ',i:''}},
+  {n:'ミクロネシア',k:'ミクロネシア',cc:'fm',r:'オセアニア',d:'そらいろのはたに4つのほしがあるよ。4つのほしはミクロネシアのしゅような4つの<ruby>州<rt>しゅう</rt></ruby>をあらわすんだ。',f:{n:'ウム',k:'ウム',i:''}},
+  {n:'パラオ',k:'パラオ',cc:'pw',r:'オセアニア',d:'そらいろのはたに<ruby>黄色<rt>きいろ</rt></ruby>いまるがあるよ。まるはつきではなくてパラオの<ruby>有名<rt>ゆうめい</rt></ruby>なロックアイランドをあらわすんだ。',f:{n:'バット',k:'バット',i:''}},
+  {n:'マーシャルしょとう',k:'マーシャル諸島',cc:'mh',r:'オセアニア',d:'<ruby>青<rt>あお</rt></ruby>いはたにたいかくせんとほしがあるよ。ふたつのたいかくせんは<ruby>赤<rt>あか</rt></ruby>と<ruby>白<rt>しろ</rt></ruby>で<ruby>州<rt>しゅう</rt></ruby>のバンドをあらわすんだ。',f:{n:'ウム',k:'ウム',i:''}},
+  {n:'ナウル',k:'ナウル',cc:'nr',r:'オセアニア',d:'<ruby>青<rt>あお</rt></ruby>いはたに<ruby>黄色<rt>きいろ</rt></ruby>のよこしまと<ruby>白<rt>しろ</rt></ruby>いほしがあるよ。<ruby>黄色<rt>きいろ</rt></ruby>のたいはせきどう、ほしはナウルのいちをあらわすんだ。<ruby>世界<rt>せかい</rt></ruby>でいちばん<ruby>小<rt>ちい</rt></ruby>さいきょうわこくなんだ！',f:{n:'ナウル料理',k:'ナウル料理',i:''}},
+  {n:'ツバル',k:'ツバル',cc:'tv',r:'オセアニア',d:'そらいろのはたにユニオンジャックと9つのほしがあるよ。9つのほしはツバルの9つの<ruby>島<rt>しま</rt></ruby>をあらわすんだ。',f:{n:'プルアカ',k:'プルアカ',i:''}},
 ];
 
 // STATE
@@ -309,7 +433,9 @@ let fcL=[],fcI=0,fcFl=false,fcPt=0;
 function startFlash(){fcL=shuf(pool());fcI=0;fcPt=0;fcFl=false;showScreen('s-flash','🃏 フラッシュカード');rfcQ()}
 function rfcQ(){
   fcFl=false;const c=fcL[fcI];const t=fcL.length;
-  document.getElementById('fc-fi').src=IMG+c.img;
+  const fi=document.getElementById('fc-fi');
+  fi.onerror=null;
+  fi.src=flagUrl(c);
   ['fc-nm','fc-rb'].forEach(id=>document.getElementById(id).style.display='none');
   document.getElementById('fc-vb').style.display='none';document.getElementById('fc-ht').style.display='block';
   document.getElementById('fc-rg').textContent=c.r;
@@ -339,12 +465,12 @@ function bKbd(w){
   rows.forEach(r=>r.forEach(c=>{if((c==='⌫'||nd.has(c))&&!seen.has(c)){seen.add(c);bs.push(c)}}));
   if(!bs.includes('⌫'))bs.push('⌫');
   kbd.style.gridTemplateColumns=`repeat(${Math.min(bs.length,6)},1fr)`;
-  bs.forEach(c=>{const b=document.createElement('button');b.className='kbtn'+(c==='⌫'?' kdel':'');b.textContent=c;b.onclick=()=>fiType(c);kbd.appendChild(b)});
+  bs.forEach(c=>{const b=document.createElement('button');b.className='kbtn'+(c==='⌫'?' kdel':'');b.textContent=c==='⌫'?'← けす':c;b.onclick=()=>fiType(c);kbd.appendChild(b)});
 }
 function startFill(){fiL=shuf(pool());fiI=0;fiPt=0;fiSC=0;showScreen('s-fill','🇯🇵 にほ◯');rFiQ()}
 function rFiQ(){
   fiSolv=false;hiCnt=0;const c=fiL[fiI];const w=c.n;
-  document.getElementById('fi-fl').src=IMG+c.img;
+  const ffl=document.getElementById('fi-fl');ffl.src=flagUrl(c);
   document.getElementById('fi-p').textContent=`⭐ ${fiPt}`;
   document.getElementById('fi-n').textContent=`もんだい ${fiI+1} / ${fiL.length}`;
   document.getElementById('fi-pb').style.width=((fiI/fiL.length)*100)+'%';
@@ -514,21 +640,21 @@ function initTr(){
 }
 function gPos(e,cv){const r=cv.getBoundingClientRect(),sx=cv.width/r.width,sy=cv.height/r.height,s=e.touches?e.touches[0]:e;return{x:(s.clientX-r.left)*sx,y:(s.clientY-r.top)*sy}}
 function trClear(){if(!trCtx)return;const cv=document.getElementById('tr-cv');trCtx.clearRect(0,0,cv.width,cv.height);if(!trL[trI])return;trCtx.font=`bold ${Math.floor(cv.height*.5)}px 'Zen Maru Gothic',sans-serif`;trCtx.textAlign='center';trCtx.textBaseline='middle';trCtx.fillStyle='rgba(200,200,200,.4)';trCtx.fillText(trL[trI].n,cv.width/2,cv.height/2)}
-function rTrQ(){const c=trL[trI];if(!c)return;document.getElementById('tr-fl').src=IMG+c.img;document.getElementById('tr-gd').textContent=c.n;document.getElementById('tr-pr').textContent=`「${c.n}」をなぞってかいてみよう！`;document.getElementById('tr-n').textContent=`${trI+1} / ${trL.length}`;document.getElementById('tr-pb').style.width=((trI/trL.length)*100)+'%';document.getElementById('tr-p').textContent=`⭐ ${trPt}`;trClear();speak(c.n)}
+function rTrQ(){const c=trL[trI];if(!c)return;const tfl=document.getElementById('tr-fl');tfl.src=flagUrl(c);document.getElementById('tr-gd').textContent=c.n;document.getElementById('tr-pr').textContent=`「${c.n}」をなぞってかいてみよう！`;document.getElementById('tr-n').textContent=`${trI+1} / ${trL.length}`;document.getElementById('tr-pb').style.width=((trI/trL.length)*100)+'%';document.getElementById('tr-p').textContent=`⭐ ${trPt}`;trClear();speak(c.n)}
 function trNext(){trPt++;document.getElementById('tr-p').textContent=`⭐ ${trPt}`;floatStar();trI++;if(trI>=trL.length){save();updSeal();const s=earnSeal(trL[Math.floor(Math.random()*trL.length)]);showResult(`${trL.length}このくにをかいたよ！`,trPt,s,startTrace)}else rTrQ()}
 
 // SEALS
-function earnSeal(c){if(c&&!seals.includes(c.img)&&!golds.includes(c.img)){seals.push(c.img);return c}return null}
-function earnGold(c){if(c&&!golds.includes(c.img)){golds.push(c.img);const i=seals.indexOf(c.img);if(i>-1)seals.splice(i,1);return c}return null}
+function earnSeal(c){if(c&&!seals.includes(c.cc)&&!golds.includes(c.cc)){seals.push(c.cc);return c}return null}
+function earnGold(c){if(c&&!golds.includes(c.cc)){golds.push(c.cc);const i=seals.indexOf(c.cc);if(i>-1)seals.splice(i,1);return c}return null}
 function showSeals(){
   showScreen('s-seals','🏷️ シールブック');
   const n=new Set([...seals,...golds]).size;
   document.getElementById('sl-sub').textContent=`あつめたシール：${n}まい / ${countries.length}まい`;
   const bk=document.getElementById('sl-book');bk.innerHTML='';
   countries.forEach(c=>{
-    const isG=golds.includes(c.img);const isE=seals.includes(c.img)||isG;
+    const isG=golds.includes(c.cc);const isE=seals.includes(c.cc)||isG;
     const s=document.createElement('div');s.className='sl-slot'+(isG?' gold':isE?' earned':'');
-    if(isE){s.innerHTML=`<img src="${IMG+c.img}" alt="${c.n}"><div class="sl-name">${c.n}</div><div class="sl-star">${isG?'✨':'⭐'}</div>`;s.onclick=()=>speak(c.n)}
+    if(isE){s.innerHTML=`<img src="${flagUrl(c)}" alt="${c.n}"><div class="sl-name">${c.n}</div><div class="sl-star">${isG?'✨':'⭐'}</div>`;s.onclick=()=>speak(c.n)}
     else s.innerHTML='<div class="sl-lock">?</div>';
     bk.appendChild(s);
   });
@@ -545,7 +671,7 @@ function rDict(){
   const sorted=[...countries].sort((a,b)=>{const ah=k2h(a.n),bh=k2h(b.n);return ah<bh?-1:ah>bh?1:0}).filter(c=>{const h=k2h(c.n)[0];return cs.has(h)});
   const g=document.getElementById('dt-grid');g.innerHTML='';
   if(!sorted.length){const p=document.createElement('p');p.style.cssText='color:#aaa;font-size:13px;text-align:center;grid-column:1/-1;padding:20px';p.textContent='このぎょうのくには ないよ';g.appendChild(p);return}
-  sorted.forEach(c=>{const card=document.createElement('div');card.className='dt-card';card.innerHTML=`<img src="${IMG+c.img}" alt="${c.n}"><div class="dt-kana">（${c.n}）</div><div class="dt-name">${c.k}</div>`;card.onclick=()=>openDM(c);g.appendChild(card)});
+  sorted.forEach(c=>{const card=document.createElement('div');card.className='dt-card';card.innerHTML=`<img src="${flagUrl(c)}" alt="${c.n}"><div class="dt-kana">（${c.n}）</div><div class="dt-name">${c.k}</div>`;card.onclick=()=>openDM(c);g.appendChild(card)});
 }
 // TIMEZONE DATA (UTC offset in minutes)
 const TZ={
@@ -568,11 +694,11 @@ const TZ={
 };
 let ckTimer=null;
 function openDM(c){
-  document.getElementById('dm-fl').src=IMG+c.img;
+  document.getElementById('dm-fl').src=flagUrl(c);
   document.getElementById('dm-na').textContent=c.k;
   document.getElementById('dm-ru').textContent='（'+c.n+'）';
   document.getElementById('dm-re').textContent=c.r;
-  document.getElementById('dm-de').textContent=c.d;
+  document.getElementById('dm-de').innerHTML=c.d;
   document.getElementById('dm-map').onclick=()=>window.open('https://www.google.com/maps/place/'+encodeURIComponent(c.k),'_blank');
   // food
   if(c.f){
@@ -584,7 +710,7 @@ function openDM(c){
     document.getElementById('dm-fk').textContent='（'+c.f.n+'）';
   }
   // clock setup
-  document.getElementById('dm-ck-flag').src=IMG+c.img;
+  document.getElementById('dm-ck-flag').src=flagUrl(c);
   document.getElementById('dm-ck-name').textContent=c.n;
   if(ckTimer)clearInterval(ckTimer);
   function tick(){
@@ -623,7 +749,7 @@ function showResult(msg,pts,s,ag,pf=false){
   document.getElementById('res-ti').textContent=pf?'かんぺき！！！':pts>5?'すごい！':'よくできました！';
   document.getElementById('res-bo').textContent=msg+`\n⭐ ${pts}てん！`;
   const nw=document.getElementById('nsw');
-  if(s){nw.style.display='block';document.getElementById('nsi').src=IMG+s.img}else nw.style.display='none';
+  if(s){nw.style.display='block';document.getElementById('nsi').src=flagUrl(s)}else nw.style.display='none';
   document.getElementById('res-next').onclick=()=>{bg.classList.remove('show');stopFW();ag()};
   bg.classList.add('show');if(pf)launchFW();
 }
