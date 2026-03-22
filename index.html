@@ -11,1263 +11,495 @@
 <link rel="manifest" href="manifest.json">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@400;700&family=Noto+Sans+JP:wght@400;700;900&display=swap');
-
-:root {
-  --sky: #e8f4fd;
-  --sun: #FFD93D;
-  --pink: #FF6B9D;
-  --mint: #4ECDC4;
-  --purple: #9B59B6;
-  --orange: #FF8C42;
-  --green: #6BCB77;
-  --red: #FF4757;
-  --bg: #FFF9F0;
-  --card: #FFFFFF;
-  --shadow: 0 4px 16px rgba(0,0,0,0.10);
-  --radius: 20px;
-}
-
-* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-
-body {
-  font-family: 'Noto Sans JP', sans-serif;
-  background: var(--bg);
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-
-/* ===== STARS BACKGROUND ===== */
-.stars-bg {
-  position: fixed; inset: 0; pointer-events: none; z-index: 0;
-  background: linear-gradient(180deg, #ffecd2 0%, #fcb69f 30%, #ffecd2 60%, #fff9f0 100%);
-  opacity: 0.25;
-}
-
-/* ===== SCREENS ===== */
-.screen { display: none; position: relative; z-index: 1; }
-.screen.active { display: block; }
-
-/* ===== TOP BAR ===== */
-.topbar {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 12px 16px; position: sticky; top: 0; z-index: 100;
-  background: rgba(255,249,240,0.95); backdrop-filter: blur(8px);
-  border-bottom: 2px solid #FFE0B2;
-}
-.topbar-title {
-  font-family: 'Kaisei Decol', serif;
-  font-size: 18px; font-weight: 700;
-  color: #E65100;
-  display: flex; align-items: center; gap: 6px;
-}
-.topbar-seals {
-  display: flex; align-items: center; gap: 4px;
-  font-size: 13px; font-weight: 700; color: #555;
-}
-.seal-count {
-  background: var(--sun); color: #7B5800;
-  border-radius: 99px; padding: 2px 10px;
-  font-size: 14px; font-weight: 900;
-}
-
-/* ===== HOME SCREEN ===== */
-#home {
-  max-width: 480px; margin: 0 auto;
-  padding: 24px 16px 40px;
-  text-align: center;
-}
-.home-mascot {
-  font-size: 80px; margin: 0 auto 8px;
-  animation: mascot-float 3s ease-in-out infinite;
-  display: block; line-height: 1;
-}
-@keyframes mascot-float {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-.home-title {
-  font-family: 'Kaisei Decol', serif;
-  font-size: 32px; font-weight: 700;
-  color: #E65100;
-  line-height: 1.2; margin-bottom: 4px;
-}
-.home-sub {
-  font-size: 14px; color: #888; margin-bottom: 28px;
-}
-.mode-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 12px; margin-bottom: 20px;
-}
-.mode-card {
-  background: var(--card); border-radius: var(--radius);
-  border: 3px solid transparent;
-  padding: 18px 10px;
-  cursor: pointer;
-  box-shadow: var(--shadow);
-  transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
-  text-align: center;
-}
-.mode-card:active { transform: scale(0.96); }
-.mode-card .icon { font-size: 40px; display: block; margin-bottom: 8px; }
-.mode-card .label {
-  font-size: 15px; font-weight: 700; color: #333;
-  line-height: 1.3;
-}
-.mode-card .label-sub { font-size: 11px; color: #999; margin-top: 3px; }
-.mode-card.c-flash { border-color: var(--mint); }
-.mode-card.c-fill  { border-color: var(--pink); }
-.mode-card.c-trace { border-color: var(--purple); }
-.mode-card.c-voice { border-color: var(--orange); }
-.mode-card.c-seals { border-color: var(--sun); grid-column: 1/-1; }
-.home-region-label { font-size: 13px; font-weight: 700; color: #888; margin-bottom: 8px; }
-.region-chips {
-  display: flex; flex-wrap: wrap; gap: 8px;
-  justify-content: center; margin-bottom: 20px;
-}
-.chip {
-  padding: 6px 14px; border-radius: 99px;
-  border: 2px solid #ddd; background: #fff;
-  font-size: 13px; font-weight: 700; cursor: pointer;
-  transition: all 0.15s; color: #555;
-}
-.chip.on { background: var(--mint); border-color: var(--mint); color: #fff; }
-
-/* ===== FLASH CARD SCREEN ===== */
-#flash { max-width: 480px; margin: 0 auto; padding: 16px; }
-.fc-card {
-  background: var(--card); border-radius: 24px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-  padding: 24px 20px; text-align: center;
-  margin-bottom: 16px; cursor: pointer;
-  transition: transform 0.2s;
-  min-height: 280px; display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-}
-.fc-card:active { transform: scale(0.98); }
-.fc-flag { max-width: 240px; max-height: 150px; width: 100%; object-fit: contain; border-radius: 8px; border: 1px solid #eee; }
-.fc-name {
-  font-family: 'Kaisei Decol', serif;
-  font-size: 28px; font-weight: 700; color: #222;
-  margin-top: 12px; line-height: 1.2;
-}
-.fc-ruby { font-size: 14px; color: #888; margin-top: 4px; }
-.fc-region { font-size: 12px; color: #bbb; margin-top: 6px; }
-.fc-tap-hint { font-size: 13px; color: #ccc; margin-top: 16px; }
-.fc-nav {
-  display: flex; gap: 10px; align-items: center; justify-content: center;
-}
-.nav-btn {
-  width: 52px; height: 52px; border-radius: 50%;
-  border: none; font-size: 22px; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  background: var(--card); box-shadow: var(--shadow);
-  transition: transform 0.1s;
-}
-.nav-btn:active { transform: scale(0.9); }
-.fc-counter { font-size: 15px; font-weight: 700; color: #888; }
-.voice-btn {
-  background: var(--orange); border: none; border-radius: 99px;
-  padding: 8px 18px; color: #fff; font-size: 14px; font-weight: 700;
-  cursor: pointer; margin-top: 10px;
-  display: flex; align-items: center; gap: 6px; margin: 10px auto 0;
-  font-family: inherit;
-}
-.voice-btn:active { transform: scale(0.95); }
-
-/* ===== FILL SCREEN ===== */
-#fill { max-width: 480px; margin: 0 auto; padding: 16px; }
-.fill-flag-wrap {
-  display: flex; justify-content: center; margin-bottom: 16px;
-}
-.fill-flag {
-  max-width: 220px; max-height: 140px; width: 100%;
-  object-fit: contain; border-radius: 10px; border: 1px solid #eee;
-  box-shadow: var(--shadow);
-}
-.fill-prompt {
-  font-size: 16px; color: #666; text-align: center; margin-bottom: 12px;
-}
-.fill-word-display {
-  display: flex; gap: 6px; justify-content: center;
-  flex-wrap: wrap; margin-bottom: 20px;
-}
-.fill-char {
-  width: 44px; height: 52px;
-  border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 22px; font-weight: 700;
-  position: relative; transition: all 0.2s;
-}
-.fill-char.blank {
-  background: #f5f5f5; border: 2px dashed #ccc;
-}
-.fill-char.blank.active {
-  background: #fff0f5; border: 2px solid var(--pink);
-  box-shadow: 0 0 0 3px rgba(255,107,157,0.2);
-}
-.fill-char.revealed {
-  background: linear-gradient(135deg, #f0fff4, #dcfce7);
-  border: 2px solid var(--green); color: var(--green);
-}
-.fill-char.shown { background: #f0f4ff; border: 2px solid #c7d2fe; color: #4338ca; }
-.ruby-small { font-size: 9px; color: #aaa; position: absolute; top: -14px; width: 100%; text-align: center; }
-.hiragana-kbd {
-  display: grid; grid-template-columns: repeat(5, 1fr);
-  gap: 6px; margin-bottom: 12px;
-}
-.kana-btn {
-  height: 46px; border-radius: 12px;
-  border: 2px solid #e5e7eb;
-  background: var(--card); font-size: 18px; font-weight: 700;
-  cursor: pointer; transition: all 0.1s; color: #333;
-  font-family: inherit;
-}
-.kana-btn:active { transform: scale(0.92); background: var(--pink); color: #fff; border-color: var(--pink); }
-.kana-del {
-  background: #fee2e2; border-color: #fca5a5; color: var(--red);
-  font-size: 14px;
-}
-.fill-feedback {
-  text-align: center; font-size: 20px; font-weight: 900;
-  min-height: 32px; margin-bottom: 10px;
-  transition: all 0.2s;
-}
-.fill-feedback.ok { color: var(--green); }
-.fill-feedback.ng { color: var(--red); }
-.progress-wrap {
-  background: #eee; border-radius: 99px; height: 10px;
-  margin-bottom: 12px; overflow: hidden;
-}
-.progress-bar {
-  height: 100%; border-radius: 99px;
-  background: linear-gradient(90deg, var(--mint), var(--purple));
-  transition: width 0.4s ease;
-}
-.score-row {
-  display: flex; justify-content: space-between; align-items: center;
-  font-size: 13px; font-weight: 700; color: #888; margin-bottom: 10px;
-}
-.score-pts { color: var(--orange); font-size: 16px; }
-
-/* ===== TRACE SCREEN ===== */
-#trace { max-width: 480px; margin: 0 auto; padding: 16px; text-align: center; }
-.trace-name {
-  font-family: 'Kaisei Decol', serif;
-  font-size: 36px; font-weight: 700; color: #eee;
-  margin-bottom: 8px; position: relative; display: inline-block;
-  -webkit-text-stroke: 2px #ddd;
-}
-.trace-wrap {
-  position: relative; display: inline-block; width: 100%;
-  margin-bottom: 16px;
-}
-.trace-canvas {
-  border-radius: 16px; border: 3px solid #e5e7eb;
-  background: #fff; display: block; width: 100%; touch-action: none;
-}
-.trace-flag {
-  max-width: 160px; max-height: 100px; width: 100%;
-  object-fit: contain; border-radius: 8px; border: 1px solid #eee;
-  margin: 0 auto 12px; display: block;
-}
-.trace-prompt { font-size: 15px; color: #888; margin-bottom: 12px; }
-.trace-word { font-size: 28px; color: #ddd; letter-spacing: 4px; font-weight: 700; margin-bottom: 8px; }
-.clear-btn {
-  background: #fee2e2; border: 2px solid #fca5a5; border-radius: 12px;
-  padding: 8px 18px; font-size: 14px; font-weight: 700;
-  color: var(--red); cursor: pointer; font-family: inherit;
-  margin-right: 8px;
-}
-.trace-size-row { display: flex; gap: 8px; justify-content: center; margin-bottom: 12px; }
-.size-btn {
-  width: 36px; height: 36px; border-radius: 50%;
-  border: 2px solid #ddd; background: #fff; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 12px; font-weight: 700; color: #888; transition: all 0.15s;
-}
-.size-btn.on { background: var(--purple); border-color: var(--purple); color: #fff; }
-.color-row { display: flex; gap: 8px; justify-content: center; margin-bottom: 12px; }
-.color-dot {
-  width: 32px; height: 32px; border-radius: 50%;
-  border: 3px solid transparent; cursor: pointer;
-  transition: transform 0.15s;
-}
-.color-dot.on { border-color: #333; transform: scale(1.15); }
-
-/* ===== SEALS SCREEN ===== */
-#seals { max-width: 480px; margin: 0 auto; padding: 16px; }
-.seals-header {
-  text-align: center; margin-bottom: 20px;
-}
-.seals-title {
-  font-family: 'Kaisei Decol', serif;
-  font-size: 24px; font-weight: 700; color: #E65100;
-}
-.seals-sub { font-size: 13px; color: #888; }
-.seals-book {
-  display: grid; grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-}
-.seal-slot {
-  aspect-ratio: 1; border-radius: 12px;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  border: 2px dashed #ddd; background: #fafafa;
-  position: relative; overflow: hidden;
-  cursor: pointer; transition: transform 0.15s;
-}
-.seal-slot:active { transform: scale(0.96); }
-.seal-slot.earned {
-  border: 2px solid var(--sun);
-  background: linear-gradient(135deg, #fffbeb, #fef3c7);
-  box-shadow: 0 2px 8px rgba(255,211,61,0.3);
-}
-.seal-slot img { width: 70%; height: 70%; object-fit: contain; border-radius: 4px; }
-.seal-slot .seal-name { font-size: 9px; font-weight: 700; color: #888; margin-top: 2px; text-align: center; line-height: 1.1; }
-.seal-slot .seal-lock { font-size: 22px; color: #ccc; }
-.seal-slot .seal-star {
-  position: absolute; top: 2px; right: 2px; font-size: 12px;
-}
-.seal-slot.earned .seal-name { color: #92400e; }
-
-/* ===== RESULT / FIREWORKS ===== */
-#fireworks-canvas {
-  position: fixed; inset: 0; z-index: 9999;
-  pointer-events: none; display: none;
-}
-.result-overlay {
-  position: fixed; inset: 0; z-index: 9998;
-  background: rgba(0,0,0,0.55); display: none;
-  align-items: center; justify-content: center;
-}
-.result-overlay.show { display: flex; }
-.result-card {
-  background: #fff; border-radius: 28px;
-  padding: 32px 28px; text-align: center;
-  max-width: 320px; width: 90%;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-  animation: pop-in 0.4s cubic-bezier(0.34,1.56,0.64,1);
-}
-@keyframes pop-in {
-  from { transform: scale(0.6); opacity: 0; }
-  to   { transform: scale(1);   opacity: 1; }
-}
-.result-emoji-big { font-size: 72px; display: block; margin-bottom: 8px; }
-.result-title {
-  font-family: 'Kaisei Decol', serif;
-  font-size: 26px; font-weight: 700; color: #E65100; margin-bottom: 8px;
-}
-.result-body { font-size: 16px; color: #555; margin-bottom: 20px; line-height: 1.6; }
-.result-new-seal { margin-bottom: 16px; }
-.result-new-seal img { width: 64px; height: 64px; object-fit: contain; }
-.result-btns { display: flex; gap: 10px; justify-content: center; }
-.r-btn {
-  padding: 12px 20px; border-radius: 99px; border: none;
-  font-family: inherit; font-size: 15px; font-weight: 700;
-  cursor: pointer; transition: transform 0.1s;
-}
-.r-btn:active { transform: scale(0.95); }
-.r-btn.primary { background: var(--mint); color: #fff; }
-.r-btn.secondary { background: #f3f4f6; color: #555; }
-
-/* ===== BACK BTN ===== */
-.back-btn {
-  background: none; border: none; font-size: 22px;
-  cursor: pointer; padding: 4px; border-radius: 8px;
-  transition: background 0.1s;
-}
-.back-btn:active { background: #eee; }
-
-/* ===== COMMON BTNS ===== */
-.big-btn {
-  display: block; width: 100%;
-  padding: 16px; border-radius: 16px; border: none;
-  font-family: inherit; font-size: 18px; font-weight: 900;
-  cursor: pointer; transition: transform 0.1s, box-shadow 0.1s;
-  box-shadow: 0 4px 0 rgba(0,0,0,0.15);
-  letter-spacing: 0.03em;
-}
-.big-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 rgba(0,0,0,0.15); }
-.big-btn.mint   { background: var(--mint); color: #fff; }
-.big-btn.pink   { background: var(--pink); color: #fff; }
-.big-btn.orange { background: var(--orange); color: #fff; }
-.big-btn.purple { background: var(--purple); color: #fff; }
-
-/* ===== BONUS ANIMATION ===== */
-.bounce-in { animation: bounce-in 0.5s cubic-bezier(0.34,1.56,0.64,1); }
-@keyframes bounce-in {
-  from { transform: scale(0); opacity: 0; }
-  to   { transform: scale(1); opacity: 1; }
-}
-.shake { animation: shake 0.4s; }
-@keyframes shake {
-  0%,100% { transform: translateX(0); }
-  20% { transform: translateX(-8px); }
-  40% { transform: translateX(8px); }
-  60% { transform: translateX(-6px); }
-  80% { transform: translateX(6px); }
-}
-
-/* ===== STAR FLOATING ===== */
-.float-star {
-  position: fixed; pointer-events: none; z-index: 9997;
-  font-size: 28px; animation: float-up 1s ease-out forwards;
-}
-@keyframes float-up {
-  from { transform: translateY(0) scale(1); opacity: 1; }
-  to   { transform: translateY(-80px) scale(1.3); opacity: 0; }
-}
-
-/* ===== HINT BTN ===== */
-.hint-btn {
-  background: #fffbeb; border: 2px solid var(--sun);
-  border-radius: 99px; padding: 6px 14px;
-  font-size: 13px; font-weight: 700; color: #92400e;
-  cursor: pointer; font-family: inherit;
-}
-.hint-btn:active { background: var(--sun); }
-
-/* Scrollbar */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #ddd; border-radius: 99px; }
+:root{--sun:#FFD93D;--pink:#FF6B9D;--mint:#4ECDC4;--purple:#9B59B6;--orange:#FF8C42;--green:#6BCB77;--red:#FF4757;--bg:#FFF9F0;--card:#fff;--sh:0 4px 16px rgba(0,0,0,.10);--r:20px}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);min-height:100vh;overflow-x:hidden}
+.screen{display:none}.screen.active{display:block}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;position:sticky;top:0;z-index:100;background:rgba(255,249,240,.95);backdrop-filter:blur(8px);border-bottom:2px solid #FFE0B2}
+.topbar-title{font-family:'Kaisei Decol',serif;font-size:16px;font-weight:700;color:#E65100;display:flex;align-items:center;gap:5px}
+.back-btn{background:none;border:none;font-size:22px;cursor:pointer;padding:2px 6px;border-radius:8px}
+.seal-badge{background:var(--sun);color:#7B5800;border-radius:99px;padding:2px 10px;font-size:14px;font-weight:900}
+.hw{max-width:480px;margin:0 auto;padding:20px 14px 40px;text-align:center}
+.mascot{font-size:72px;display:block;margin-bottom:6px;animation:fl 3s ease-in-out infinite}
+@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.htitle{font-family:'Kaisei Decol',serif;font-size:28px;font-weight:700;color:#E65100;line-height:1.2;margin-bottom:4px}
+.hsub{font-size:13px;color:#888;margin-bottom:22px}
+.rl{font-size:12px;font-weight:700;color:#888;margin-bottom:7px}
+.chips{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-bottom:18px}
+.chip{padding:6px 13px;border-radius:99px;border:2px solid #ddd;background:#fff;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;color:#555}
+.chip.on{background:var(--mint);border-color:var(--mint);color:#fff}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.mcard{background:var(--card);border-radius:var(--r);border:3px solid transparent;padding:16px 8px;cursor:pointer;box-shadow:var(--sh);transition:transform .15s;text-align:center}
+.mcard:active{transform:scale(.95)}
+.mcard .icon{font-size:36px;display:block;margin-bottom:6px}
+.mcard .lbl{font-size:14px;font-weight:700;color:#333;line-height:1.3}
+.mcard .sub{font-size:10px;color:#999;margin-top:2px}
+.cf{border-color:var(--mint)}.ci{border-color:var(--pink)}.ct{border-color:var(--purple)}.cd{border-color:#f59e0b}
+.srow{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:700;color:#888;margin-bottom:8px}
+.spts{color:var(--orange);font-size:15px}
+.pw{background:#eee;border-radius:99px;height:9px;margin-bottom:12px;overflow:hidden}
+.pb{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--mint),var(--purple));transition:width .4s ease}
+.bbtn{display:block;width:100%;padding:15px;border-radius:14px;border:none;font-family:inherit;font-size:17px;font-weight:900;cursor:pointer;transition:transform .1s,box-shadow .1s;box-shadow:0 4px 0 rgba(0,0,0,.15)}
+.bbtn:active{transform:translateY(2px);box-shadow:0 2px 0 rgba(0,0,0,.15)}
+.bm{background:var(--mint);color:#fff}.bp{background:var(--pink);color:#fff}.bo{background:var(--orange);color:#fff}
+/* FLASH */
+.fw{max-width:480px;margin:0 auto;padding:14px}
+.fcc{background:var(--card);border-radius:22px;box-shadow:0 8px 28px rgba(0,0,0,.12);padding:22px 18px;text-align:center;margin-bottom:14px;cursor:pointer;min-height:260px;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:transform .2s}
+.fcc:active{transform:scale(.98)}
+.fc-flag{max-width:230px;max-height:145px;width:100%;object-fit:contain;border-radius:8px;border:1px solid #eee}
+.fc-name{font-family:'Kaisei Decol',serif;font-size:26px;font-weight:700;color:#222;margin-top:10px}
+.fc-ruby{font-size:13px;color:#888;margin-top:3px}
+.fc-reg{font-size:11px;color:#bbb;margin-top:5px}
+.fc-hint{font-size:12px;color:#ccc;margin-top:14px}
+.fcnav{display:flex;gap:10px;align-items:center;justify-content:center}
+.navbtn{width:50px;height:50px;border-radius:50%;border:none;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;background:var(--card);box-shadow:var(--sh);transition:transform .1s}
+.navbtn:active{transform:scale(.9)}
+.vbtn{background:var(--orange);border:none;border-radius:99px;padding:7px 16px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;margin:8px auto 0;display:flex;align-items:center;gap:5px;font-family:inherit}
+/* FILL */
+.fiw{max-width:480px;margin:0 auto;padding:14px}
+.fi-flag{max-width:210px;max-height:135px;width:100%;object-fit:contain;border-radius:10px;border:1px solid #eee;box-shadow:var(--sh);display:block;margin:0 auto 14px}
+.fi-prompt{font-size:15px;color:#666;text-align:center;margin-bottom:10px}
+.fi-word{display:flex;gap:5px;justify-content:center;flex-wrap:wrap;margin-bottom:18px}
+.fich{width:42px;height:50px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:21px;font-weight:700;position:relative;transition:all .2s}
+.fich.blank{background:#f5f5f5;border:2px dashed #ccc}
+.fich.blank.active{background:#fff0f5;border:2px solid var(--pink);box-shadow:0 0 0 3px rgba(255,107,157,.2)}
+.fich.ok{background:linear-gradient(135deg,#f0fff4,#dcfce7);border:2px solid var(--green);color:var(--green)}
+.fich.shown{background:#f0f4ff;border:2px solid #c7d2fe;color:#4338ca}
+.hkbd{display:grid;gap:5px;margin-bottom:10px}
+.kbtn{height:44px;border-radius:11px;border:2px solid #e5e7eb;background:var(--card);font-size:17px;font-weight:700;cursor:pointer;transition:all .1s;color:#333;font-family:inherit}
+.kbtn:active{transform:scale(.92);background:var(--pink);color:#fff;border-color:var(--pink)}
+.kdel{background:#fee2e2;border-color:#fca5a5;color:var(--red);font-size:13px}
+.fi-fb{text-align:center;font-size:19px;font-weight:900;min-height:30px;margin-bottom:8px}
+.fi-fb.ok{color:var(--green)}.fi-fb.ng{color:var(--red)}
+.hintbtn{background:#fffbeb;border:2px solid var(--sun);border-radius:99px;padding:5px 13px;font-size:12px;font-weight:700;color:#92400e;cursor:pointer;font-family:inherit}
+/* TRACE */
+.trw{max-width:480px;margin:0 auto;padding:14px;text-align:center}
+.tr-flag{max-width:150px;max-height:95px;width:100%;object-fit:contain;border-radius:8px;border:1px solid #eee;margin:0 auto 10px;display:block}
+.tr-prompt{font-size:14px;color:#888;margin-bottom:8px}
+.tr-guide{font-size:26px;color:#ddd;letter-spacing:3px;font-weight:700;margin-bottom:7px}
+.tr-canvas{border-radius:14px;border:3px solid #e5e7eb;background:#fff;display:block;width:100%;touch-action:none}
+.crow{display:flex;gap:7px;justify-content:center;margin-bottom:10px}
+.cdot{width:30px;height:30px;border-radius:50%;border:3px solid transparent;cursor:pointer;transition:transform .15s}
+.cdot.on{border-color:#333;transform:scale(1.15)}
+.szrow{display:flex;gap:7px;justify-content:center;margin-bottom:10px}
+.szbtn{width:34px;height:34px;border-radius:50%;border:2px solid #ddd;background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.szbtn.on{background:var(--purple);border-color:var(--purple)}
+.clrbtn{background:#fee2e2;border:2px solid #fca5a5;border-radius:11px;padding:7px 15px;font-size:13px;font-weight:700;color:var(--red);cursor:pointer;font-family:inherit;margin-right:7px}
+/* SEALS */
+.slw{max-width:480px;margin:0 auto;padding:14px}
+.sl-hd{text-align:center;margin-bottom:16px}
+.sl-title{font-family:'Kaisei Decol',serif;font-size:22px;font-weight:700;color:#E65100}
+.sl-sub{font-size:12px;color:#888}
+.sl-book{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.sl-slot{aspect-ratio:1;border-radius:11px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px dashed #ddd;background:#fafafa;position:relative;overflow:hidden;cursor:pointer;transition:transform .15s}
+.sl-slot:active{transform:scale(.95)}
+.sl-slot.earned{border:2px solid var(--sun);background:linear-gradient(135deg,#fffbeb,#fef3c7);box-shadow:0 2px 8px rgba(255,211,61,.3)}
+.sl-slot.gold{border:2px solid #f59e0b;background:linear-gradient(135deg,#fffde7,#fde68a);box-shadow:0 0 14px rgba(245,158,11,.6);animation:gp 2s ease-in-out infinite}
+@keyframes gp{0%,100%{box-shadow:0 0 8px rgba(245,158,11,.4)}50%{box-shadow:0 0 22px rgba(245,158,11,.9)}}
+.sl-slot img{width:70%;height:70%;object-fit:contain;border-radius:3px}
+.sl-name{font-size:8px;font-weight:700;color:#888;margin-top:2px;text-align:center;line-height:1.1}
+.sl-lock{font-size:20px;color:#ccc}
+.sl-star{position:absolute;top:2px;right:2px;font-size:11px}
+.sl-slot.earned .sl-name,.sl-slot.gold .sl-name{color:#92400e}
+/* DICTIONARY */
+.dtw{max-width:480px;margin:0 auto;padding:14px}
+.dt-filter{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;justify-content:center}
+.rowbtn{padding:6px 12px;border-radius:99px;border:2px solid #ddd;background:#fff;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;color:#555}
+.rowbtn.on{background:#f59e0b;border-color:#f59e0b;color:#fff}
+.dt-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.dt-card{background:var(--card);border-radius:14px;border:1.5px solid #eee;padding:10px 8px;text-align:center;cursor:pointer;transition:transform .15s;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.dt-card:active{transform:scale(.96)}
+.dt-card img{width:100%;max-height:56px;object-fit:contain;border-radius:4px;border:1px solid #eee;margin-bottom:5px}
+.dt-kana{font-size:11px;color:#888;margin-bottom:2px}
+.dt-name{font-size:13px;font-weight:700;color:#333}
+/* MODAL */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;display:none;align-items:flex-end;justify-content:center}
+.modal-bg.show{display:flex}
+.modal{background:#fff;border-radius:24px 24px 0 0;padding:20px 18px 32px;width:100%;max-width:480px;max-height:88vh;overflow-y:auto;animation:su .3s ease}
+@keyframes su{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.mo-flag{max-width:200px;max-height:120px;width:100%;object-fit:contain;border-radius:8px;border:1px solid #eee;display:block;margin:0 auto 10px}
+.mo-name{font-family:'Kaisei Decol',serif;font-size:24px;font-weight:700;color:#222;text-align:center}
+.mo-ruby{font-size:13px;color:#888;text-align:center;margin-bottom:6px}
+.mo-reg{font-size:11px;background:#f0f4ff;color:#4338ca;border-radius:99px;padding:3px 10px;display:inline-block;margin-bottom:14px}
+.mo-desc{font-size:14px;color:#444;line-height:1.8;background:#fffbeb;border-radius:12px;padding:12px;margin-bottom:14px}
+.mapbtn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:13px;border-radius:14px;border:none;background:#34a853;color:#fff;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer}
+.mo-close{display:block;width:100%;padding:11px;border-radius:14px;border:2px solid #eee;background:#fff;font-family:inherit;font-size:14px;font-weight:700;color:#888;cursor:pointer;margin-top:8px}
+/* MILESTONE */
+#gj-ov,#rk-ov{position:fixed;inset:0;z-index:800;display:none;flex-direction:column;align-items:center;justify-content:center}
+#gj-ov.show,#rk-ov.show{display:flex}
+#gj-ov{background:rgba(0,0,0,.4)}
+#rk-ov{background:#080820}
+#gj-cv,#rk-cv{position:absolute;inset:0;width:100%;height:100%}
+.gj-txt{position:relative;z-index:2;font-family:'Kaisei Decol',serif;font-size:52px;font-weight:700;color:#fff;text-shadow:0 0 24px rgba(255,220,50,.9),0 4px 8px rgba(0,0,0,.4);animation:pi .5s cubic-bezier(.34,1.56,.64,1)}
+.gj-sub{position:relative;z-index:2;font-size:18px;font-weight:700;color:#fff;text-shadow:0 2px 6px rgba(0,0,0,.4);margin-top:8px}
+.rk-emoji{position:relative;z-index:2;font-size:72px;animation:rf 2.5s ease-in forwards}
+@keyframes rf{0%{transform:translateY(40px) rotate(-20deg)}100%{transform:translateY(-130vh) rotate(-20deg)}}
+.rk-txt{position:relative;z-index:2;font-family:'Kaisei Decol',serif;font-size:28px;font-weight:700;color:#fff;text-align:center;margin-top:14px;text-shadow:0 0 16px rgba(100,180,255,.9)}
+.rk-stars{position:relative;z-index:2;font-size:36px;margin-top:16px;animation:tw 1s ease-in-out infinite alternate}
+@keyframes tw{from{opacity:.4}to{opacity:1}}
+.ms-cont{position:relative;z-index:3;margin-top:26px;padding:11px 26px;background:rgba(255,255,255,.18);border:2px solid rgba(255,255,255,.5);border-radius:99px;color:#fff;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;backdrop-filter:blur(4px)}
+@keyframes pi{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+/* RESULT */
+.res-bg{position:fixed;inset:0;z-index:700;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center}
+.res-bg.show{display:flex}
+.res-card{background:#fff;border-radius:26px;padding:28px 24px;text-align:center;max-width:310px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,.3);animation:pi .4s cubic-bezier(.34,1.56,.64,1)}
+.res-em{font-size:64px;display:block;margin-bottom:6px}
+.res-title{font-family:'Kaisei Decol',serif;font-size:24px;font-weight:700;color:#E65100;margin-bottom:6px}
+.res-body{font-size:14px;color:#555;margin-bottom:18px;line-height:1.7;white-space:pre-line}
+.rbtns{display:flex;gap:8px;justify-content:center}
+.rbtn{padding:11px 18px;border-radius:99px;border:none;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;transition:transform .1s}
+.rbtn:active{transform:scale(.95)}
+.rbtn.p{background:var(--mint);color:#fff}.rbtn.s{background:#f3f4f6;color:#555}
+.nsw{margin-bottom:14px}
+.nsw img{width:56px;height:56px;object-fit:contain}
+#fw-cv{position:fixed;inset:0;z-index:9999;pointer-events:none;display:none}
+.fstar{position:fixed;pointer-events:none;z-index:9997;font-size:26px;animation:fsu 1s ease-out forwards}
+@keyframes fsu{from{transform:translateY(0) scale(1);opacity:1}to{transform:translateY(-80px) scale(1.3);opacity:0}}
+.bounce{animation:pi .5s cubic-bezier(.34,1.56,.64,1)}
+.shake{animation:sk .4s}
+@keyframes sk{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:#ddd;border-radius:99px}
 </style>
 </head>
 <body>
-<div class="stars-bg"></div>
-<canvas id="fireworks-canvas"></canvas>
-<div class="result-overlay" id="result-overlay">
-  <div class="result-card" id="result-card">
-    <span class="result-emoji-big" id="result-emoji">🌟</span>
-    <div class="result-title" id="result-title">すごい！</div>
-    <div class="result-body" id="result-body"></div>
-    <div class="result-new-seal" id="result-new-seal" style="display:none">
-      <div style="font-size:13px;color:#888;margin-bottom:6px">🎁 あたらしいシールをゲット！</div>
-      <img id="result-seal-img" src="" alt="">
-    </div>
-    <div class="result-btns">
-      <button class="r-btn primary" id="result-next-btn">つぎへ</button>
-      <button class="r-btn secondary" onclick="showHome()">ホーム</button>
-    </div>
-  </div>
-</div>
-
-<!-- TOP BAR -->
-<div class="topbar">
-  <div class="topbar-title" id="topbar-title">🌍 くにのはたクイズ</div>
-  <div class="topbar-seals">🏷️ <span class="seal-count" id="seal-total">0</span></div>
-</div>
-
+<canvas id="fw-cv"></canvas>
+<!-- GOOD JOB -->
+<div id="gj-ov"><canvas id="gj-cv"></canvas><div class="gj-txt">✨ Good Job! ✨</div><div class="gj-sub" id="gj-sub">5もんせいかい！</div><button class="ms-cont" id="gj-cont">つぎへ ▶</button></div>
+<!-- ROCKET -->
+<div id="rk-ov"><canvas id="rk-cv"></canvas><div class="rk-emoji">🚀</div><div class="rk-txt">うちゅうへ<br>しゅっぱつ！</div><div class="rk-stars">✨⭐🌟⭐✨</div><button class="ms-cont" id="rk-cont">つぎへ ▶</button></div>
+<!-- RESULT -->
+<div class="res-bg" id="res-bg"><div class="res-card"><span class="res-em" id="res-em">🌟</span><div class="res-title" id="res-ti"></div><div class="res-body" id="res-bo"></div><div class="nsw" id="nsw" style="display:none"><div style="font-size:11px;color:#888;margin-bottom:4px">🎁 あたらしいシールをゲット！</div><img id="nsi" src="" alt=""></div><div class="rbtns"><button class="rbtn p" id="res-next">もう一回！</button><button class="rbtn s" onclick="showHome()">ホーム</button></div></div></div>
+<!-- DICT MODAL -->
+<div class="modal-bg" id="dm-bg" onclick="closeDM(event)"><div class="modal"><img class="mo-flag" id="dm-fl" src="" alt=""><div class="mo-name" id="dm-na"></div><div class="mo-ruby" id="dm-ru"></div><div style="text-align:center"><span class="mo-reg" id="dm-re"></span></div><div style="height:10px"></div><div class="mo-desc" id="dm-de"></div><button class="mapbtn" id="dm-map">🗺️ グーグルマップでみる</button><button class="mo-close" onclick="closeDM()">とじる ✕</button></div></div>
+<!-- TOPBAR -->
+<div class="topbar"><div class="topbar-title" id="tb-title">🌍 くにのはたクイズ</div><div style="display:flex;align-items:center;gap:4px;font-size:13px;font-weight:700;color:#555">🏷️<span class="seal-badge" id="seal-n">0</span></div></div>
 <!-- HOME -->
-<div class="screen active" id="home">
-  <div style="max-width:480px;margin:0 auto;padding:24px 16px 40px;text-align:center;">
-    <span class="home-mascot">🌎</span>
-    <div class="home-title">くにのはた<br>クイズ！</div>
-    <div class="home-sub">せかいのくにをおぼえよう</div>
-
-    <div class="home-region-label">ちいきをえらぼう</div>
-    <div class="region-chips" id="region-chips"></div>
-
-    <div class="mode-grid">
-      <div class="mode-card c-flash" onclick="startFlash()">
-        <span class="icon">🃏</span>
-        <div class="label">フラッシュカード<br><span class="label-sub">みておぼえよう</span></div>
-      </div>
-      <div class="mode-card c-fill" onclick="startFill()">
-        <span class="icon">✏️</span>
-        <div class="label">もじあわせ<br><span class="label-sub">こたえをいれよう</span></div>
-      </div>
-      <div class="mode-card c-trace" onclick="startTrace()">
-        <span class="icon">🖊️</span>
-        <div class="label">なぞりがき<br><span class="label-sub">もじをかこう</span></div>
-      </div>
-      <div class="mode-card c-seals" onclick="showSeals()">
-        <span class="icon">📖</span>
-        <div class="label">シールブック<br><span class="label-sub" id="seals-home-count">あつめたシール：0まい</span></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- FLASH CARD -->
-<div class="screen" id="flash">
-  <div style="max-width:480px;margin:0 auto;padding:16px;">
-    <div class="score-row">
-      <span id="fc-num">1 / 10</span>
-      <span class="score-pts" id="fc-pts">⭐ 0</span>
-    </div>
-    <div class="progress-wrap"><div class="progress-bar" id="fc-prog" style="width:0%"></div></div>
-
-    <div class="fc-card" id="fc-card" onclick="fcFlip()">
-      <img class="fc-flag" id="fc-flag-img" src="" alt="こっき">
-      <div class="fc-name" id="fc-name" style="display:none"></div>
-      <div class="fc-ruby" id="fc-ruby" style="display:none"></div>
-      <div class="fc-region" id="fc-region"></div>
-      <button class="voice-btn" id="fc-voice-btn" style="display:none" onclick="event.stopPropagation();speakName()">
-        🔊 よみあげ
-      </button>
-      <div class="fc-tap-hint" id="fc-tap-hint">タップでこたえをみる</div>
-    </div>
-
-    <div class="fc-nav">
-      <button class="nav-btn" onclick="fcPrev()">◀</button>
-      <span class="fc-counter" id="fc-counter">1 / 10</span>
-      <button class="nav-btn" onclick="fcNext()">▶</button>
-    </div>
-    <div style="margin-top:16px;display:flex;gap:8px;">
-      <button class="big-btn mint" style="flex:1" onclick="startFill()">✏️ もじあわせにチャレンジ！</button>
-    </div>
-  </div>
-</div>
-
-<!-- FILL / 穴あき -->
-<div class="screen" id="fill">
-  <div style="max-width:480px;margin:0 auto;padding:16px;">
-    <div class="score-row">
-      <span id="fill-num">もんだい 1 / 10</span>
-      <span class="score-pts" id="fill-pts">⭐ 0</span>
-    </div>
-    <div class="progress-wrap"><div class="progress-bar" id="fill-prog" style="width:0%"></div></div>
-
-    <div class="fill-flag-wrap">
-      <img class="fill-flag" id="fill-flag-img" src="" alt="こっき">
-    </div>
-    <div class="fill-prompt">この くにの なまえは？</div>
-    <div class="fill-word-display" id="fill-word-display"></div>
-    <div class="fill-feedback" id="fill-feedback"></div>
-
-    <div class="hiragana-kbd" id="hira-kbd"></div>
-    <div style="display:flex;gap:8px;margin-top:6px;">
-      <button class="hint-btn" id="hint-btn" onclick="fillHint()">💡 ヒント</button>
-      <button class="voice-btn" onclick="speakFillName()" style="margin:0;">🔊 よみあげ</button>
-    </div>
-  </div>
-</div>
-
+<div class="screen active" id="s-home"><div class="hw"><span class="mascot">🌎</span><div class="htitle">くにのはた<br>クイズ！</div><div class="hsub">せかいのくにをおぼえよう</div><div class="rl">ちいきをえらぼう</div><div class="chips" id="rchips"></div><div class="mgrid"><div class="mcard cf" onclick="startFlash()"><span class="icon">🃏</span><div class="lbl">フラッシュカード</div><div class="sub">みておぼえよう</div></div><div class="mcard ci" onclick="startFill()"><span class="icon">✏️</span><div class="lbl">もじあわせ</div><div class="sub">こたえをいれよう</div></div><div class="mcard ct" onclick="startTrace()"><span class="icon">🖊️</span><div class="lbl">なぞりがき</div><div class="sub">もじをかこう</div></div><div class="mcard cd" onclick="startDict()"><span class="icon">📚</span><div class="lbl">じてん</div><div class="sub">あいうえおでしらべる</div></div></div><div style="background:var(--card);border-radius:var(--r);border:3px solid var(--sun);padding:14px 8px;cursor:pointer;box-shadow:var(--sh);text-align:center" onclick="showSeals()"><span style="font-size:36px;display:block;margin-bottom:5px">📖</span><div style="font-size:14px;font-weight:700;color:#333">シールブック</div><div style="font-size:10px;color:#999;margin-top:2px" id="sl-cnt">あつめたシール：0まい</div></div></div></div>
+<!-- FLASH -->
+<div class="screen" id="s-flash"><div class="fw"><div class="srow"><span id="fc-n">1/10</span><span class="spts" id="fc-p">⭐ 0</span></div><div class="pw"><div class="pb" id="fc-pb" style="width:0%"></div></div><div class="fcc" id="fc-card" onclick="fcFlip()"><img class="fc-flag" id="fc-fi" src="" alt="こっき"><div class="fc-name" id="fc-nm" style="display:none"></div><div class="fc-ruby" id="fc-rb" style="display:none"></div><div class="fc-reg" id="fc-rg"></div><button class="vbtn" id="fc-vb" style="display:none" onclick="event.stopPropagation();speak(curSpeak)">🔊 よみあげ</button><div class="fc-hint" id="fc-ht">タップでこたえをみる</div></div><div class="fcnav"><button class="navbtn" onclick="fcMv(-1)">◀</button><span style="font-size:14px;font-weight:700;color:#888" id="fc-ct">1/10</span><button class="navbtn" onclick="fcMv(1)">▶</button></div><div style="margin-top:14px;display:flex;gap:8px"><button class="bbtn bm" style="flex:1" onclick="startFill()">✏️ もじあわせにチャレンジ！</button></div></div></div>
+<!-- FILL -->
+<div class="screen" id="s-fill"><div class="fiw"><div class="srow"><span id="fi-n">もんだい 1/?</span><span class="spts" id="fi-p">⭐ 0</span></div><div class="pw"><div class="pb" id="fi-pb" style="width:0%"></div></div><img class="fi-flag" id="fi-fl" src="" alt="こっき"><div class="fi-prompt">この くにの なまえは？</div><div class="fi-word" id="fi-wd"></div><div class="fi-fb" id="fi-fb"></div><div class="hkbd" id="hkbd"></div><div style="display:flex;gap:7px;margin-top:6px"><button class="hintbtn" id="hintbtn" onclick="fillHint()">💡 ヒント</button><button class="vbtn" onclick="speak(curSpeak)" style="margin:0">🔊 よみあげ</button></div></div></div>
 <!-- TRACE -->
-<div class="screen" id="trace">
-  <div style="max-width:480px;margin:0 auto;padding:16px;text-align:center;">
-    <div class="score-row">
-      <span id="trace-num">1 / 10</span>
-      <span class="score-pts" id="trace-pts">⭐ 0</span>
-    </div>
-    <div class="progress-wrap"><div class="progress-bar" id="trace-prog" style="width:0%"></div></div>
-
-    <img class="trace-flag" id="trace-flag-img" src="" alt="こっき">
-    <div class="trace-prompt" id="trace-prompt">したのもじをなぞってかこう！</div>
-    <div class="trace-word" id="trace-guide"></div>
-
-    <div class="color-row" id="color-row"></div>
-    <div class="trace-size-row" id="size-row"></div>
-
-    <canvas class="trace-canvas" id="trace-canvas" width="400" height="160"></canvas>
-
-    <div style="display:flex;gap:8px;margin-top:12px;justify-content:center;">
-      <button class="clear-btn" onclick="traceClear()">🗑️ けす</button>
-      <button class="big-btn mint" style="flex:1;padding:12px" onclick="traceNext()">つぎへ ▶</button>
-    </div>
-  </div>
-</div>
-
-<!-- SEALS BOOK -->
-<div class="screen" id="seals">
-  <div style="max-width:480px;margin:0 auto;padding:16px;">
-    <div class="seals-header">
-      <div class="seals-title">🏷️ シールブック</div>
-      <div class="seals-sub" id="seals-sub">あつめたシール：0まい</div>
-    </div>
-    <div class="seals-book" id="seals-book"></div>
-    <div style="margin-top:20px;">
-      <button class="big-btn pink" onclick="showHome()">🏠 ホームへ</button>
-    </div>
-  </div>
-</div>
+<div class="screen" id="s-trace"><div class="trw"><div class="srow"><span id="tr-n">1/?</span><span class="spts" id="tr-p">⭐ 0</span></div><div class="pw"><div class="pb" id="tr-pb" style="width:0%"></div></div><img class="tr-flag" id="tr-fl" src="" alt="こっき"><div class="tr-prompt" id="tr-pr"></div><div class="tr-guide" id="tr-gd"></div><div class="crow" id="crow"></div><div class="szrow" id="szrow"></div><canvas class="tr-canvas" id="tr-cv" height="155"></canvas><div style="display:flex;gap:7px;margin-top:11px;justify-content:center"><button class="clrbtn" onclick="trClear()">🗑️ けす</button><button class="bbtn bm" style="flex:1;padding:11px" onclick="trNext()">つぎへ ▶</button></div></div></div>
+<!-- SEALS -->
+<div class="screen" id="s-seals"><div class="slw"><div class="sl-hd"><div class="sl-title">🏷️ シールブック</div><div class="sl-sub" id="sl-sub">0まい</div></div><div class="sl-book" id="sl-book"></div><div style="margin-top:18px"><button class="bbtn bp" onclick="showHome()">🏠 ホームへ</button></div></div></div>
+<!-- DICT -->
+<div class="screen" id="s-dict"><div class="dtw"><div class="dt-filter" id="dt-fi"></div><div class="dt-grid" id="dt-grid"></div></div></div>
 
 <script>
-// ===== DATA =====
-const IMG = 'https://www.asahi-net.or.jp/~yq3t-hruc/img/';
-
-const countries = [
-  // アジア
-  {n:'にほん',k:'日本',img:'JPL.GIF',r:'アジア'},
-  {n:'かんこく',k:'韓国',img:'KRL.GIF',r:'アジア'},
-  {n:'ちゅうごく',k:'中国',img:'CNL.GIF',r:'アジア'},
-  {n:'インド',k:'インド',img:'INL.GIF',r:'アジア'},
-  {n:'タイ',k:'タイ',img:'THL.GIF',r:'アジア'},
-  {n:'インドネシア',k:'インドネシア',img:'IDL.GIF',r:'アジア'},
-  {n:'ベトナム',k:'ベトナム',img:'VNL.GIF',r:'アジア'},
-  {n:'マレーシア',k:'マレーシア',img:'MYL.GIF',r:'アジア'},
-  {n:'シンガポール',k:'シンガポール',img:'SGL.GIF',r:'アジア'},
-  {n:'フィリピン',k:'フィリピン',img:'PHL.GIF',r:'アジア'},
-  {n:'ミャンマー',k:'ミャンマー',img:'MML.GIF',r:'アジア'},
-  {n:'カンボジア',k:'カンボジア',img:'KHL.GIF',r:'アジア'},
-  {n:'モンゴル',k:'モンゴル',img:'MNL.GIF',r:'アジア'},
-  {n:'パキスタン',k:'パキスタン',img:'PKL.GIF',r:'アジア'},
-  {n:'バングラデシュ',k:'バングラデシュ',img:'BDL.GIF',r:'アジア'},
-  {n:'ネパール',k:'ネパール',img:'NPL.GIF',r:'アジア'},
-  {n:'サウジアラビア',k:'サウジアラビア',img:'SAL.GIF',r:'アジア'},
-  {n:'イスラエル',k:'イスラエル',img:'ILL.GIF',r:'アジア'},
-  {n:'イラン',k:'イラン',img:'IRL.GIF',r:'アジア'},
-  {n:'イラク',k:'イラク',img:'IQL.GIF',r:'アジア'},
-  // ヨーロッパ
-  {n:'イギリス',k:'イギリス',img:'GBL.GIF',r:'ヨーロッパ'},
-  {n:'フランス',k:'フランス',img:'FRL.GIF',r:'ヨーロッパ'},
-  {n:'ドイツ',k:'ドイツ',img:'DEL.GIF',r:'ヨーロッパ'},
-  {n:'イタリア',k:'イタリア',img:'ITL.GIF',r:'ヨーロッパ'},
-  {n:'スペイン',k:'スペイン',img:'ESL.GIF',r:'ヨーロッパ'},
-  {n:'ロシア',k:'ロシア',img:'RUL.GIF',r:'ヨーロッパ'},
-  {n:'ポルトガル',k:'ポルトガル',img:'PTL.GIF',r:'ヨーロッパ'},
-  {n:'オランダ',k:'オランダ',img:'NLL.GIF',r:'ヨーロッパ'},
-  {n:'スウェーデン',k:'スウェーデン',img:'SEL.GIF',r:'ヨーロッパ'},
-  {n:'ノルウェー',k:'ノルウェー',img:'NOL.GIF',r:'ヨーロッパ'},
-  {n:'デンマーク',k:'デンマーク',img:'DKL.GIF',r:'ヨーロッパ'},
-  {n:'フィンランド',k:'フィンランド',img:'FIL.GIF',r:'ヨーロッパ'},
-  {n:'スイス',k:'スイス',img:'CHL.GIF',r:'ヨーロッパ'},
-  {n:'オーストリア',k:'オーストリア',img:'ATL.GIF',r:'ヨーロッパ'},
-  {n:'ポーランド',k:'ポーランド',img:'PLL.GIF',r:'ヨーロッパ'},
-  {n:'ギリシャ',k:'ギリシャ',img:'GRL.GIF',r:'ヨーロッパ'},
-  {n:'ウクライナ',k:'ウクライナ',img:'UAL.GIF',r:'ヨーロッパ'},
-  {n:'チェコ',k:'チェコ',img:'CZL.GIF',r:'ヨーロッパ'},
-  {n:'ハンガリー',k:'ハンガリー',img:'HUL.GIF',r:'ヨーロッパ'},
-  {n:'ルーマニア',k:'ルーマニア',img:'ROL.GIF',r:'ヨーロッパ'},
-  // アメリカ
-  {n:'アメリカ',k:'アメリカ',img:'USL.GIF',r:'アメリカ'},
-  {n:'カナダ',k:'カナダ',img:'CAL.GIF',r:'アメリカ'},
-  {n:'メキシコ',k:'メキシコ',img:'MXL.GIF',r:'アメリカ'},
-  {n:'ブラジル',k:'ブラジル',img:'BRL.GIF',r:'アメリカ'},
-  {n:'アルゼンチン',k:'アルゼンチン',img:'ARL.GIF',r:'アメリカ'},
-  {n:'チリ',k:'チリ',img:'CLL.GIF',r:'アメリカ'},
-  {n:'ペルー',k:'ペルー',img:'PEL.GIF',r:'アメリカ'},
-  {n:'キューバ',k:'キューバ',img:'CUL.GIF',r:'アメリカ'},
-  {n:'コロンビア',k:'コロンビア',img:'COL.GIF',r:'アメリカ'},
-  {n:'ジャマイカ',k:'ジャマイカ',img:'JML.GIF',r:'アメリカ'},
-  // アフリカ
-  {n:'エジプト',k:'エジプト',img:'EGL.GIF',r:'アフリカ'},
-  {n:'みなみアフリカ',k:'南アフリカ',img:'ZAL.GIF',r:'アフリカ'},
-  {n:'ナイジェリア',k:'ナイジェリア',img:'NGL.GIF',r:'アフリカ'},
-  {n:'ケニア',k:'ケニア',img:'KEL.GIF',r:'アフリカ'},
-  {n:'エチオピア',k:'エチオピア',img:'ETL.GIF',r:'アフリカ'},
-  {n:'ガーナ',k:'ガーナ',img:'GHL.GIF',r:'アフリカ'},
-  {n:'タンザニア',k:'タンザニア',img:'TZL.GIF',r:'アフリカ'},
-  {n:'モロッコ',k:'モロッコ',img:'MAL.GIF',r:'アフリカ'},
-  // オセアニア
-  {n:'オーストラリア',k:'オーストラリア',img:'AUL.GIF',r:'オセアニア'},
-  {n:'ニュージーランド',k:'ニュージーランド',img:'NZL.GIF',r:'オセアニア'},
-  {n:'フィジー',k:'フィジー',img:'FJL.GIF',r:'オセアニア'},
-  {n:'トンガ',k:'トンガ',img:'TOL.GIF',r:'オセアニア'},
+const IMG='https://www.asahi-net.or.jp/~yq3t-hruc/img/';
+const countries=[
+  {n:'にほん',k:'日本',img:'JPL.GIF',r:'アジア',d:'しろいはたに あかいおひさまがあるよ。にほんは「ひのでるくに」ともよばれていて、おひさまのはたをもっているんだ。'},
+  {n:'かんこく',k:'韓国',img:'KRL.GIF',r:'アジア',d:'しろいはたに あおとあかのうずまきともようがあるよ。まわりの4つのもようは てん・ち・みず・ひをあらわしているんだ。'},
+  {n:'ちゅうごく',k:'中国',img:'CNL.GIF',r:'アジア',d:'あかいはたに きんいろのほしが5つあるよ。おおきなほしがしどうしゃ、4つのちいさなほしはこくみんをあらわすんだ。'},
+  {n:'インド',k:'インド',img:'INL.GIF',r:'アジア',d:'みどり・しろ・オレンジのよこしまで、まんなかに「ほうりんのしゃりん」があるよ。24ほんのやからなるしゃりんなんだ。'},
+  {n:'タイ',k:'タイ',img:'THL.GIF',r:'アジア',d:'あか・しろ・あお・しろ・あかのよこしまで、まんなかのふといあおはタイのおうけをあらわしているよ。'},
+  {n:'インドネシア',k:'インドネシア',img:'IDL.GIF',r:'アジア',d:'うえがあか、したがしろのシンプルなはただよ。あかはゆうき、しろはせいじゅんさをあらわすんだ。'},
+  {n:'ベトナム',k:'ベトナム',img:'VNL.GIF',r:'アジア',d:'あかいはたのまんなかに きいろいほしがひとつあるよ。あかはかくめい、きいろいほしはひとびとをあらわすんだ。'},
+  {n:'マレーシア',k:'マレーシア',img:'MYL.GIF',r:'アジア',d:'あかとしろのしましまと みかづきとほしがあるよ。しましまは14のちほうをあらわしているんだ。'},
+  {n:'シンガポール',k:'シンガポール',img:'SGL.GIF',r:'アジア',d:'あかとしろのはたに しろいみかづきと5つのほしがあるよ。5つのほしはびょうどう・みんしゅ・へいわ・こうふく・りそうをあらわすんだ。'},
+  {n:'フィリピン',k:'フィリピン',img:'PHL.GIF',r:'アジア',d:'さんかくにたいようとほしがあるはただよ。せんそうのときはあかを上に、へいわなときはあおを上にするんだ。'},
+  {n:'ミャンマー',k:'ミャンマー',img:'MML.GIF',r:'アジア',d:'きいろ・みどり・あかのしましまに しろいほしがあるよ。3しょくはだんけつ・へいわ・ゆうきをあらわすんだ。'},
+  {n:'カンボジア',k:'カンボジア',img:'KHL.GIF',r:'アジア',d:'あかいはたのまんなかに しろいアンコールワットがあるよ。アンコールワットはカンボジアのゆうめいなおてらなんだ！'},
+  {n:'モンゴル',k:'モンゴル',img:'MNL.GIF',r:'アジア',d:'あか・あお・あかのたてしまに きんいろのソヨンボもようがあるよ。ソヨンボはひ・つき・たき火などをあらわすんだ。'},
+  {n:'パキスタン',k:'パキスタン',img:'PKL.GIF',r:'アジア',d:'みどりのはたに しろいみかづきとほしがあるよ。みどりはイスラムきょう、ひだりのしろいたいはほかのしゅうきょうのひとをあらわすんだ。'},
+  {n:'バングラデシュ',k:'バングラデシュ',img:'BDL.GIF',r:'アジア',d:'みどりのはたのまんなかに あかいまるがあるよ。みどりはのはら、あかいまるはのぼるおひさまをあらわすんだ。'},
+  {n:'ネパール',k:'ネパール',img:'NPL.GIF',r:'アジア',d:'せかいでゆいいつ、しかくじゃないはたをもつくにだよ！さんかくを2つかさねたかたちでヒマラヤのやまをあらわすんだ。'},
+  {n:'サウジアラビア',k:'サウジアラビア',img:'SAL.GIF',r:'アジア',d:'みどりのはたに しろいもじとけんがあるよ。もじは「アッラーのほかにかみはなし」というイスラムきょうのことばなんだ。'},
+  {n:'イスラエル',k:'イスラエル',img:'ILL.GIF',r:'アジア',d:'しろいはたに あおいよこしまとダビデのほし（6かくのほし）があるよ。ユダヤきょうのたいせつなしんぼるなんだ。'},
+  {n:'イラン',k:'イラン',img:'IRL.GIF',r:'アジア',d:'みどり・しろ・あかのしましまで、まんなかにアラビアもじのもんしょうがあるよ。しましまのさかいめにもアラビアもじがならんでいるんだ。'},
+  {n:'イラク',k:'イラク',img:'IQL.GIF',r:'アジア',d:'あか・しろ・くろのしましまで、まんなかにアラビアもじで「アッラーはおおいなり」とかいてあるよ。'},
+  {n:'イギリス',k:'イギリス',img:'GBL.GIF',r:'ヨーロッパ',d:'「ユニオンジャック」とよばれるはたで、イングランド・スコットランド・アイルランドの3つのじゅうじをくみあわせているんだ。'},
+  {n:'イタリア',k:'イタリア',img:'ITL.GIF',r:'ヨーロッパ',d:'みどり・しろ・あかのたてしまだよ。みどりはきぼう、しろはしんこう、あかはあいをあらわすんだ。'},
+  {n:'ウクライナ',k:'ウクライナ',img:'UAL.GIF',r:'ヨーロッパ',d:'うえがそらいろ、したがきいろのシンプルなはただよ。あおいそら、きいろいこむぎばたけがウクライナのけしきをあらわしているんだ。'},
+  {n:'オーストリア',k:'オーストリア',img:'ATL.GIF',r:'ヨーロッパ',d:'あか・しろ・あかのよこしまのはただよ。むかしのせんそうでよろいのまわりにちがついたすがたをもとにしたといわれているんだ。'},
+  {n:'オランダ',k:'オランダ',img:'NLL.GIF',r:'ヨーロッパ',d:'あか・しろ・あおのよこしまのはただよ。もとはオレンジ・しろ・あおだったんだけど、いつのまにかあかになったんだ。'},
+  {n:'ギリシャ',k:'ギリシャ',img:'GRL.GIF',r:'ヨーロッパ',d:'あおとしろのしましまが9ほんと、ひだりうえにじゅうじがあるよ。しましまは「じゆうかしぬか」の9もじをあらわすといわれているんだ。'},
+  {n:'スイス',k:'スイス',img:'CHL.GIF',r:'ヨーロッパ',d:'あかいはたにしろいじゅうじ。せかいでもめずらしいほぼしかくのはたなんだよ！じゅうじはキリストきょうをあらわすんだ。'},
+  {n:'スウェーデン',k:'スウェーデン',img:'SEL.GIF',r:'ヨーロッパ',d:'あおいはたにきいろいじゅうじ。このじゅうじもようはきたヨーロッパのくにぐにでよく使われているんだよ。'},
+  {n:'スペイン',k:'スペイン',img:'ESL.GIF',r:'ヨーロッパ',d:'あか・きいろ・あかのよこしまで、まんなかにおうけのもんしょうがあるよ。きいろのたいはふたつのおうこくをあわせたことをあらわしているんだ。'},
+  {n:'チェコ',k:'チェコ',img:'CZL.GIF',r:'ヨーロッパ',d:'しろとあかのよこしまに あおいさんかくがついたはただよ。もともとチェコスロバキアのはただったのをそのままつかっているんだ。'},
+  {n:'デンマーク',k:'デンマーク',img:'DKL.GIF',r:'ヨーロッパ',d:'あかいはたにしろいじゅうじ。「ダンネブロ」とよばれ、せかいでいちばんふるい「いまもつかわれているはた」といわれているんだよ！'},
+  {n:'ドイツ',k:'ドイツ',img:'DEL.GIF',r:'ヨーロッパ',d:'くろ・あか・きんのよこしまのはただよ。このさんしょくは19せいきのじゆうをもとめたうんどうのいろからきているんだ。'},
+  {n:'ノルウェー',k:'ノルウェー',img:'NOL.GIF',r:'ヨーロッパ',d:'あかいはたにあおとしろのじゅうじだよ。デンマークのはたをもとにして あおいたてすじをくわえてつくったんだ。'},
+  {n:'ハンガリー',k:'ハンガリー',img:'HUL.GIF',r:'ヨーロッパ',d:'あか・しろ・みどりのよこしまのはただよ。みどりはきぼう、しろはせいじつ、あかはちからをあらわすんだ。'},
+  {n:'フィンランド',k:'フィンランド',img:'FIL.GIF',r:'ヨーロッパ',d:'しろいはたにあおいじゅうじ。しろはゆき、あおはみずうみをあらわすよ。フィンランドにはみずうみが18まんこもあるんだ！'},
+  {n:'フランス',k:'フランス',img:'FRL.GIF',r:'ヨーロッパ',d:'あお・しろ・あかのたてしま「トリコロール」だよ。じゆう・びょうどう・はっきゅうをあらわし、フランスかくめいのときにうまれたんだ。'},
+  {n:'ポーランド',k:'ポーランド',img:'PLL.GIF',r:'ヨーロッパ',d:'しろとあかのよこしまのはただよ。しろとあかはポーランドおうこくのもんしょうにいるしろいわしからきているんだ。'},
+  {n:'ポルトガル',k:'ポルトガル',img:'PTL.GIF',r:'ヨーロッパ',d:'みどりとあかのたてしまで、まんなかにおうかんとちきゅうぎのもんしょうがあるよ。ちきゅうぎはだいこうかいじだいをあらわすんだ。'},
+  {n:'ロシア',k:'ロシア',img:'RUL.GIF',r:'ヨーロッパ',d:'しろ・あお・あかのよこしまだよ。17せいきにピョートルだいていがオランダのはたをもとにつくったといわれているんだ。'},
+  {n:'ルーマニア',k:'ルーマニア',img:'ROL.GIF',r:'ヨーロッパ',d:'あお・きいろ・あかのたてしまのはただよ。もとはフランスのはたのえいきょうをうけているよ。'},
+  {n:'アメリカ',k:'アメリカ',img:'USL.GIF',r:'アメリカ',d:'あかとしろのしましまが13ほんと、あおいしかくに50このほしがあるよ。しましまははじめの13しゅう、50このほしはいまの50しゅうをあらわすんだ。'},
+  {n:'アルゼンチン',k:'アルゼンチン',img:'ARL.GIF',r:'アメリカ',d:'そらいろ・しろ・そらいろのよこしまで、まんなかに「5がつのたいよう」があるよ。このおひさまはどくりつのシンボルなんだ。'},
+  {n:'ウルグアイ',k:'ウルグアイ',img:'URL.GIF',r:'アメリカ',d:'しろいはたにしましまとたいようがあるよ。「5がつのたいよう」はアルゼンチンのはたとにているんだ。'},
+  {n:'カナダ',k:'カナダ',img:'CAL.GIF',r:'アメリカ',d:'あかいたてしまにまっかなかえでのはがあるよ。かえでのははカナダのシンボルで、おかねやスポーツのユニフォームにもつかわれているんだ！'},
+  {n:'キューバ',k:'キューバ',img:'CUL.GIF',r:'アメリカ',d:'あおとしろのしましまにあかいさんかくとしろいほしがあるよ。さんかくはじゆう・びょうどう・はっきゅうをあらわすんだ。'},
+  {n:'コロンビア',k:'コロンビア',img:'COL.GIF',r:'アメリカ',d:'きいろ・あお・あかのよこしまだよ。きいろはゆたかさ、あおはうみとそら、あかはゆうきとけつをあらわすんだ。'},
+  {n:'ジャマイカ',k:'ジャマイカ',img:'JML.GIF',r:'アメリカ',d:'くろ・きいろ・みどりのX（バッテン）もようのはただよ。くろはつよさ、みどりはのうぎょう、きいろはひのひかりをあらわすんだ。'},
+  {n:'チリ',k:'チリ',img:'CLL.GIF',r:'アメリカ',d:'あか・しろのよこしまとあおいしかくにしろいほしがひとつあるよ。ほしは「みちびきのほし」をあらわすんだ。'},
+  {n:'ブラジル',k:'ブラジル',img:'BRL.GIF',r:'アメリカ',d:'みどりのはたにきいろいひしがたとあおいまるがあるよ。まるにはブラジルのもりをあらわすほしぼしとことばがかいてあるんだ。'},
+  {n:'ペルー',k:'ペルー',img:'PEL.GIF',r:'アメリカ',d:'あか・しろ・あかのたてしまのシンプルなはただよ。あかはあつちのちのいろ、しろはアンデスのゆきをあらわすんだ。'},
+  {n:'メキシコ',k:'メキシコ',img:'MXL.GIF',r:'アメリカ',d:'みどり・しろ・あかのたてしまで、まんなかに「わしがへびをくわえてサボテンにとまっている」もようがあるよ。むかしのアステカのでんせつなんだ。'},
+  {n:'エジプト',k:'エジプト',img:'EGL.GIF',r:'アフリカ',d:'あか・しろ・くろのよこしまで、まんなかに「サラーフ・アッディーンのわし」があるよ。このわしはつよさのシンボルなんだ。'},
+  {n:'エチオピア',k:'エチオピア',img:'ETL.GIF',r:'アフリカ',d:'みどり・きいろ・あかのよこしまで、まんなかにあおいまるとほしがあるよ。このさんしょくはアフリカどくりつのシンボルとして ほかのくにのはたにもえいきょうをあたえたんだよ！'},
+  {n:'ガーナ',k:'ガーナ',img:'GHL.GIF',r:'アフリカ',d:'あか・きいろ・みどりのよこしまで まんなかにくろいほしがひとつあるよ。くろいほしは「アフリカのじゆう」をあらわすんだ。'},
+  {n:'ケニア',k:'ケニア',img:'KEL.GIF',r:'アフリカ',d:'くろ・あか・みどりのよこしまに マサイぞくのたてとやりがえがかれているよ。くろはひとびと、あかはけつ、みどりはしぜんをあらわすんだ。'},
+  {n:'タンザニア',k:'タンザニア',img:'TZL.GIF',r:'アフリカ',d:'みどり・きいろ・くろ・あおののぼりしまがあるよ。みどりはのはら、きいろはしげん、くろはひとびと、あおはうみをあらわすんだ。'},
+  {n:'ナイジェリア',k:'ナイジェリア',img:'NGL.GIF',r:'アフリカ',d:'みどり・しろ・みどりのたてしまだよ。みどりはのうぎょうとゆたかなしぜん、しろはへいわをあらわすんだ。'},
+  {n:'みなみアフリカ',k:'南アフリカ',img:'ZAL.GIF',r:'アフリカ',d:'みどり・くろ・きいろ・あか・あおの6しょくでYのかたちをしているよ。いろんなみんぞくがひとつになることをあらわしているんだ。'},
+  {n:'モロッコ',k:'モロッコ',img:'MAL.GIF',r:'アフリカ',d:'あかいはたのまんなかにみどりのほしがひとつあるよ。あかはおうけ、みどりのほしはイスラムきょうのシンボルなんだ。'},
+  {n:'オーストラリア',k:'オーストラリア',img:'AUL.GIF',r:'オセアニア',d:'あおいはたにユニオンジャック・みなみじゅうじのほし・おおきなほしがあるよ。みなみじゅうじはなんてんのほしぼし、おおきなほしはれんぽうのしゅうをあらわすんだ。'},
+  {n:'ニュージーランド',k:'ニュージーランド',img:'NZL.GIF',r:'オセアニア',d:'あおいはたにユニオンジャックとみなみじゅうじがあるよ。オーストラリアのはたとにているけど、ほしのいろがちがうんだ！'},
+  {n:'フィジー',k:'フィジー',img:'FJL.GIF',r:'オセアニア',d:'あおいはたにユニオンジャックとたてのもようがあるよ。たてにはさとうきび・やしのき・はとなどフィジーのしぜんがえがかれているんだ。'},
+  {n:'トンガ',k:'トンガ',img:'TOL.GIF',r:'オセアニア',d:'あかいはたのひだりうえに、しろいしかくにあかいじゅうじがあるよ。トンガのおうさまが「キリストきょうをたいせつにする」とちかったことをあらわしているんだ。'},
 ];
 
-// ===== STATE =====
-let selectedRegions = new Set(['すべて']);
-let earnedSeals = JSON.parse(localStorage.getItem('kuni_seals') || '[]');
-let totalPts = parseInt(localStorage.getItem('kuni_pts') || '0');
-
-function saveState() {
-  localStorage.setItem('kuni_seals', JSON.stringify(earnedSeals));
-  localStorage.setItem('kuni_pts', totalPts);
+// STATE
+let selR=new Set(['すべて']);
+let seals=JSON.parse(localStorage.getItem('ks')||'[]');
+let golds=JSON.parse(localStorage.getItem('kg')||'[]');
+function save(){localStorage.setItem('ks',JSON.stringify(seals));localStorage.setItem('kg',JSON.stringify(golds))}
+function pool(){return selR.has('すべて')?[...countries]:countries.filter(c=>selR.has(c.r))}
+function shuf(a){return[...a].sort(()=>Math.random()-.5)}
+function k2h(s){return s.replace(/[\u30A1-\u30F6]/g,m=>String.fromCharCode(m.charCodeAt(0)-0x60))}
+let curSpeak='';
+function speak(t){if(!('speechSynthesis'in window))return;const u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=.85;speechSynthesis.cancel();speechSynthesis.speak(u)}
+function updSeal(){
+  const n=new Set([...seals,...golds]).size;
+  document.getElementById('seal-n').textContent=n;
+  document.getElementById('sl-cnt').textContent=`あつめたシール：${n}まい`;
 }
-
-function getPool() {
-  if(selectedRegions.has('すべて')) return [...countries];
-  return countries.filter(c => selectedRegions.has(c.r));
-}
-
-function shuffle(a) { return [...a].sort(()=>Math.random()-0.5); }
-
-function updateSealCount() {
-  document.getElementById('seal-total').textContent = earnedSeals.length;
-  document.getElementById('seals-home-count').textContent = `あつめたシール：${earnedSeals.length}まい`;
-}
-
-// ===== REGION CHIPS =====
-function buildRegionChips() {
-  const regions = ['すべて','アジア','ヨーロッパ','アメリカ','アフリカ','オセアニア'];
-  const icons = {'すべて':'🌍','アジア':'🌏','ヨーロッパ':'🏰','アメリカ':'🌎','アフリカ':'🦁','オセアニア':'🦘'};
-  const el = document.getElementById('region-chips');
-  el.innerHTML = '';
-  regions.forEach(r => {
-    const ch = document.createElement('button');
-    ch.className = 'chip' + (selectedRegions.has(r) ? ' on' : '');
-    ch.textContent = icons[r] + ' ' + r;
-    ch.onclick = () => {
-      if(r === 'すべて') {
-        selectedRegions.clear(); selectedRegions.add('すべて');
-      } else {
-        selectedRegions.delete('すべて');
-        if(selectedRegions.has(r)) selectedRegions.delete(r);
-        else selectedRegions.add(r);
-        if(selectedRegions.size === 0) selectedRegions.add('すべて');
-      }
-      buildRegionChips();
-    };
-    el.appendChild(ch);
-  });
-}
-
-// ===== SCREENS =====
-function showScreen(id, title) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+function showScreen(id,ti){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  document.getElementById('topbar-title').innerHTML = title;
-  window.scrollTo(0, 0);
+  document.getElementById('tb-title').innerHTML=`<button class="back-btn" onclick="showHome()">◀</button> ${ti}`;
+  window.scrollTo(0,0);
 }
-function showHome() {
-  showScreen('home','🌍 くにのはたクイズ');
-  updateSealCount();
+function showHome(){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('s-home').classList.add('active');
+  document.getElementById('tb-title').innerHTML='🌍 くにのはたクイズ';
+  updSeal();buildChips();window.scrollTo(0,0);
 }
-
-// ===== VOICE =====
-let currentSpeakText = '';
-function speak(text) {
-  if(!('speechSynthesis' in window)) return;
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = 'ja-JP'; u.rate = 0.85;
-  window.speechSynthesis.cancel();
-  window.speechSynthesis.speak(u);
+function buildChips(){
+  const rs=['すべて','アジア','ヨーロッパ','アメリカ','アフリカ','オセアニア'];
+  const ic={'すべて':'🌍','アジア':'🌏','ヨーロッパ':'🏰','アメリカ':'🌎','アフリカ':'🦁','オセアニア':'🦘'};
+  const el=document.getElementById('rchips');el.innerHTML='';
+  rs.forEach(r=>{const b=document.createElement('button');b.className='chip'+(selR.has(r)?' on':'');b.textContent=ic[r]+' '+r;b.onclick=()=>{if(r==='すべて'){selR.clear();selR.add('すべて')}else{selR.delete('すべて');selR.has(r)?selR.delete(r):selR.add(r);if(!selR.size)selR.add('すべて')}buildChips()};el.appendChild(b)});
 }
 
-// ===== FLASH CARDS =====
-let fcList = [], fcIdx = 0, fcFlipped = false, fcPts = 0;
-
-function startFlash() {
-  fcList = shuffle(getPool());
-  fcIdx = 0; fcPts = 0; fcFlipped = false;
-  showScreen('flash','🃏 フラッシュカード');
-  document.getElementById('topbar-title').innerHTML =
-    '<button class="back-btn" onclick="showHome()">◀</button> 🃏 フラッシュカード';
-  renderFcCard();
+// FLASH
+let fcL=[],fcI=0,fcFl=false,fcPt=0;
+function startFlash(){fcL=shuf(pool());fcI=0;fcPt=0;fcFl=false;showScreen('s-flash','🃏 フラッシュカード');rfcQ()}
+function rfcQ(){
+  fcFl=false;const c=fcL[fcI];const t=fcL.length;
+  document.getElementById('fc-fi').src=IMG+c.img;
+  ['fc-nm','fc-rb'].forEach(id=>document.getElementById(id).style.display='none');
+  document.getElementById('fc-vb').style.display='none';document.getElementById('fc-ht').style.display='block';
+  document.getElementById('fc-rg').textContent=c.r;
+  document.getElementById('fc-n').textContent=`${fcI+1}/${t}`;document.getElementById('fc-ct').textContent=`${fcI+1}/${t}`;
+  document.getElementById('fc-pb').style.width=((fcI/t)*100)+'%';document.getElementById('fc-p').textContent=`⭐ ${fcPt}`;curSpeak=c.n;
 }
-
-function renderFcCard() {
-  const c = fcList[fcIdx];
-  const total = fcList.length;
-  fcFlipped = false;
-  document.getElementById('fc-flag-img').src = IMG + c.img;
-  document.getElementById('fc-name').style.display = 'none';
-  document.getElementById('fc-ruby').style.display = 'none';
-  document.getElementById('fc-voice-btn').style.display = 'none';
-  document.getElementById('fc-tap-hint').style.display = 'block';
-  document.getElementById('fc-region').textContent = c.r;
-  document.getElementById('fc-num').textContent = `${fcIdx+1} / ${total}`;
-  document.getElementById('fc-counter').textContent = `${fcIdx+1} / ${total}`;
-  document.getElementById('fc-prog').style.width = ((fcIdx/total)*100)+'%';
-  document.getElementById('fc-pts').textContent = `⭐ ${fcPts}`;
-  currentSpeakText = c.n;
+function fcFlip(){
+  if(fcFl)return;fcFl=true;const c=fcL[fcI];
+  const ne=document.getElementById('fc-nm');ne.style.display='block';ne.textContent=c.k;ne.classList.add('bounce');setTimeout(()=>ne.classList.remove('bounce'),500);
+  document.getElementById('fc-rb').style.display='block';document.getElementById('fc-rb').textContent='（'+c.n+'）';
+  document.getElementById('fc-vb').style.display='flex';document.getElementById('fc-ht').style.display='none';
+  fcPt++;document.getElementById('fc-p').textContent=`⭐ ${fcPt}`;speak(c.n);
 }
+function fcMv(d){fcI=Math.max(0,Math.min(fcL.length-1,fcI+d));if(d>0&&fcI>=fcL.length-1&&fcFl)setTimeout(endFlash,300);else rfcQ()}
+function endFlash(){const s=earnSeal(fcL[Math.floor(Math.random()*fcL.length)]);save();updSeal();showResult(`${fcL.length}まいみたよ！`,fcPt,s,startFlash)}
 
-function fcFlip() {
-  if(fcFlipped) return;
-  fcFlipped = true;
-  const c = fcList[fcIdx];
-  const nameEl = document.getElementById('fc-name');
-  const rubyEl = document.getElementById('fc-ruby');
-  nameEl.style.display = 'block';
-  nameEl.textContent = c.k;
-  rubyEl.style.display = 'block';
-  rubyEl.textContent = '（' + c.n + '）';
-  document.getElementById('fc-voice-btn').style.display = 'flex';
-  document.getElementById('fc-tap-hint').style.display = 'none';
-  fcPts += 1;
-  document.getElementById('fc-pts').textContent = `⭐ ${fcPts}`;
-  speak(c.n);
-  nameEl.classList.add('bounce-in');
-  setTimeout(()=>nameEl.classList.remove('bounce-in'), 500);
+// FILL
+let fiL=[],fiI=0,fiPt=0,fiSC=0;
+let fiAns=[],fiIn=[],fiBl=new Set(),fiSolv=false,hiCnt=0;
+const KR=[['あ','い','う','え','お'],['か','き','く','け','こ'],['さ','し','す','せ','そ'],['た','ち','つ','て','と'],['な','に','ぬ','ね','の'],['は','ひ','ふ','へ','ほ'],['ま','み','む','め','も'],['や','ゆ','よ','わ','を'],['ら','り','る','れ','ろ'],['ぁ','っ','ん','ー','⌫'],['が','ぎ','ぐ','げ','ご'],['ざ','じ','ず','ぜ','ぞ'],['だ','ぢ','づ','で','ど'],['ば','び','ぶ','べ','ぼ'],['ぱ','ぴ','ぷ','ぺ','ぽ']];
+const KT=[['ア','イ','ウ','エ','オ'],['カ','キ','ク','ケ','コ'],['サ','シ','ス','セ','ソ'],['タ','チ','ツ','テ','ト'],['ナ','ニ','ヌ','ネ','ノ'],['ハ','ヒ','フ','ヘ','ホ'],['マ','ミ','ム','メ','モ'],['ヤ','ユ','ヨ','ワ','ヲ'],['ラ','リ','ル','レ','ロ'],['ァ','ッ','ン','ー','⌫'],['ガ','ギ','グ','ゲ','ゴ'],['ザ','ジ','ズ','ゼ','ゾ'],['ダ','ヂ','ヅ','デ','ド'],['バ','ビ','ブ','ベ','ボ'],['パ','ピ','プ','ペ','ポ']];
+function isKt(c){return/[\u30A0-\u30FF]/.test(c)}
+function bKbd(w){
+  const rows=[...w].some(isKt)?KT:KR;const nd=new Set([...w]);
+  const kbd=document.getElementById('hkbd');kbd.innerHTML='';
+  let bs=[];const seen=new Set();
+  rows.forEach(r=>r.forEach(c=>{if((c==='⌫'||nd.has(c))&&!seen.has(c)){seen.add(c);bs.push(c)}}));
+  if(!bs.includes('⌫'))bs.push('⌫');
+  kbd.style.gridTemplateColumns=`repeat(${Math.min(bs.length,6)},1fr)`;
+  bs.forEach(c=>{const b=document.createElement('button');b.className='kbtn'+(c==='⌫'?' kdel':'');b.textContent=c;b.onclick=()=>fiType(c);kbd.appendChild(b)});
 }
-
-function speakName() { speak(currentSpeakText); }
-
-function fcNext() {
-  if(fcIdx < fcList.length - 1) { fcIdx++; renderFcCard(); }
-  else showFlashResult();
+function startFill(){fiL=shuf(pool());fiI=0;fiPt=0;fiSC=0;showScreen('s-fill','✏️ もじあわせ');rFiQ()}
+function rFiQ(){
+  fiSolv=false;hiCnt=0;const c=fiL[fiI];const w=c.n;
+  document.getElementById('fi-fl').src=IMG+c.img;
+  document.getElementById('fi-p').textContent=`⭐ ${fiPt}`;
+  document.getElementById('fi-n').textContent=`もんだい ${fiI+1} / ${fiL.length}`;
+  document.getElementById('fi-pb').style.width=((fiI/fiL.length)*100)+'%';
+  document.getElementById('fi-fb').textContent='';document.getElementById('fi-fb').className='fi-fb';
+  document.getElementById('hintbtn').disabled=false;document.getElementById('hintbtn').textContent='💡 ヒント';
+  curSpeak=w;fiAns=[...w];fiIn=new Array(w.length).fill('');
+  // pick blanks randomly, store SORTED (left to right)
+  const nb=Math.max(1,Math.floor(w.length*.5));
+  const picks=shuf([...Array(w.length).keys()]).slice(0,nb).sort((a,b)=>a-b);
+  fiBl=new Set(picks);bKbd(w);rFiW();
 }
-function fcPrev() {
-  if(fcIdx > 0) { fcIdx--; renderFcCard(); }
-}
-
-function showFlashResult() {
-  totalPts += fcPts;
-  const newSeal = tryEarnSeal(fcList[Math.floor(Math.random()*fcList.length)]);
-  saveState(); updateSealCount();
-  showResult(`${fcList.length}まいのカードをみたよ！`, fcPts, newSeal, startFlash);
-}
-
-// ===== FILL (穴あき) =====
-let fillList = [], fillIdx = 0, fillPts = 0;
-let fillAnswer = [], fillInput = [], fillBlanks = [], fillSolved = false;
-let hintCount = 0;
-
-const kanaRows = [
-  ['あ','い','う','え','お'],
-  ['か','き','く','け','こ'],
-  ['さ','し','す','せ','そ'],
-  ['た','ち','つ','て','と'],
-  ['な','に','ぬ','ね','の'],
-  ['は','ひ','ふ','へ','ほ'],
-  ['ま','み','む','め','も'],
-  ['や','ゆ','よ','わ','を'],
-  ['ら','り','る','れ','ろ'],
-  ['ぁ','っ','ん','ー','⌫'],
-  ['が','ぎ','ぐ','げ','ご'],
-  ['ざ','じ','ず','ぜ','ぞ'],
-  ['だ','ぢ','づ','で','ど'],
-  ['ば','び','ぶ','べ','ぼ'],
-  ['ぱ','ぴ','ぷ','ぺ','ぽ'],
-];
-// Katakana rows
-const kataRows = [
-  ['ア','イ','ウ','エ','オ'],
-  ['カ','キ','ク','ケ','コ'],
-  ['サ','シ','ス','セ','ソ'],
-  ['タ','チ','ツ','テ','ト'],
-  ['ナ','ニ','ヌ','ネ','ノ'],
-  ['ハ','ヒ','フ','ヘ','ホ'],
-  ['マ','ミ','ム','メ','モ'],
-  ['ヤ','ユ','ヨ','ワ','ヲ'],
-  ['ラ','リ','ル','レ','ロ'],
-  ['ァ','ッ','ン','ー','⌫'],
-  ['ガ','ギ','グ','ゲ','ゴ'],
-  ['ザ','ジ','ズ','ゼ','ゾ'],
-  ['ダ','ヂ','ヅ','デ','ド'],
-  ['バ','ビ','ブ','ベ','ボ'],
-  ['パ','ピ','プ','ペ','ポ'],
-];
-
-function isKatakana(ch) { return /[\u30A0-\u30FF]/.test(ch); }
-
-function buildKbd(word) {
-  // detect if word contains katakana
-  const hasKata = [...word].some(isKatakana);
-  const rows = hasKata ? kataRows : kanaRows;
-  // Build keyboard with only chars that appear in word + del
-  const needed = new Set([...word]);
-  const kbd = document.getElementById('hira-kbd');
-  kbd.innerHTML = '';
-  // Flatten needed + delete
-  let btns = [];
-  rows.forEach(row => {
-    row.forEach(ch => {
-      if(ch === '⌫' || needed.has(ch)) btns.push(ch);
-    });
-  });
-  // Deduplicate, keep order
-  const seen = new Set();
-  btns = btns.filter(b => { if(seen.has(b)) return false; seen.add(b); return true; });
-  // Always add ⌫ if not already
-  if(!btns.includes('⌫')) btns.push('⌫');
-
-  // Adjust grid columns
-  const cols = Math.min(btns.length, 6);
-  kbd.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
-
-  btns.forEach(ch => {
-    const btn = document.createElement('button');
-    btn.className = 'kana-btn' + (ch==='⌫'?' kana-del':'');
-    btn.textContent = ch;
-    btn.onclick = () => fillType(ch);
-    kbd.appendChild(btn);
-  });
-}
-
-function startFill() {
-  fillList = shuffle(getPool());
-  fillIdx = 0; fillPts = 0;
-  showScreen('fill','✏️ もじあわせ');
-  document.getElementById('topbar-title').innerHTML =
-    '<button class="back-btn" onclick="showHome()">◀</button> ✏️ もじあわせ';
-  renderFillQ();
-}
-
-function renderFillQ() {
-  fillSolved = false; hintCount = 0;
-  const c = fillList[fillIdx];
-  const word = c.n; // hiragana/katakana
-  document.getElementById('fill-flag-img').src = IMG + c.img;
-  document.getElementById('fill-pts').textContent = `⭐ ${fillPts}`;
-  document.getElementById('fill-num').textContent = `もんだい ${fillIdx+1} / ${fillList.length}`;
-  document.getElementById('fill-prog').style.width = ((fillIdx/fillList.length)*100)+'%';
-  document.getElementById('fill-feedback').textContent = '';
-  document.getElementById('fill-feedback').className = 'fill-feedback';
-  document.getElementById('hint-btn').disabled = false;
-  document.getElementById('hint-btn').textContent = '💡 ヒント';
-  currentSpeakText = word;
-
-  // Create blanks: hide ~half of chars
-  fillAnswer = [...word];
-  fillInput = new Array(word.length).fill('');
-  fillBlanks = [];
-  const numBlanks = Math.max(1, Math.floor(word.length * 0.5));
-  let idxArr = [...Array(word.length).keys()];
-  let shuffled = shuffle(idxArr).slice(0, numBlanks);
-  fillBlanks = new Set(shuffled);
-
-  buildKbd(word);
-  renderFillWord();
-}
-
-function renderFillWord() {
-  const el = document.getElementById('fill-word-display');
-  el.innerHTML = '';
-  fillAnswer.forEach((ch, i) => {
-    const div = document.createElement('div');
-    div.className = 'fill-char';
-    if(!fillBlanks.has(i)) {
-      div.classList.add('shown');
-      div.textContent = ch;
-    } else if(fillInput[i]) {
-      div.classList.add(fillInput[i] === ch ? 'revealed' : 'blank');
-      div.textContent = fillInput[i];
-    } else {
-      div.classList.add('blank');
-      // find first empty blank
-      const firstEmpty = [...fillBlanks].find(j => !fillInput[j]);
-      if(i === firstEmpty) div.classList.add('active');
-      div.textContent = '';
-    }
+function sBl(){return[...fiBl].sort((a,b)=>a-b)}
+function rFiW(){
+  const el=document.getElementById('fi-wd');el.innerHTML='';
+  const fe=sBl().find(j=>!fiIn[j]);
+  fiAns.forEach((ch,i)=>{
+    const div=document.createElement('div');div.className='fich';
+    if(!fiBl.has(i)){div.classList.add('shown');div.textContent=ch}
+    else if(fiIn[i]){div.classList.add(fiIn[i]===ch?'ok':'blank');div.textContent=fiIn[i]}
+    else{div.classList.add('blank');if(i===fe)div.classList.add('active')}
     el.appendChild(div);
   });
 }
-
-function fillType(ch) {
-  if(fillSolved) return;
-  if(ch === '⌫') {
-    // delete last filled blank
-    const filled = [...fillBlanks].filter(i => fillInput[i]).reverse();
-    if(filled.length > 0) { fillInput[filled[0]] = ''; renderFillWord(); }
-    return;
-  }
-  const nextBlank = [...fillBlanks].find(i => !fillInput[i]);
-  if(nextBlank === undefined) return;
-  fillInput[nextBlank] = ch;
-  renderFillWord();
-  // Check if all blanks filled
-  const allFilled = [...fillBlanks].every(i => fillInput[i]);
-  if(allFilled) checkFill();
+function fiType(ch){
+  if(fiSolv)return;
+  if(ch==='⌫'){const rev=sBl().filter(i=>fiIn[i]).reverse();if(rev.length){fiIn[rev[0]]='';rFiW()}return}
+  const nxt=sBl().find(i=>!fiIn[i]);if(nxt===undefined)return;
+  fiIn[nxt]=ch;rFiW();if(sBl().every(i=>fiIn[i]))chkFi();
 }
-
-function checkFill() {
-  const allCorrect = [...fillBlanks].every(i => fillInput[i] === fillAnswer[i]);
-  const fb = document.getElementById('fill-feedback');
-  if(allCorrect) {
-    fillSolved = true;
-    fb.textContent = '🎉 せいかい！'; fb.className = 'fill-feedback ok';
-    fb.classList.add('bounce-in');
-    const pts = Math.max(1, 3 - hintCount);
-    fillPts += pts;
-    document.getElementById('fill-pts').textContent = `⭐ ${fillPts}`;
-    floatStar();
-    speak(fillAnswer.join(''));
-    setTimeout(() => {
-      fillIdx++;
-      if(fillIdx >= fillList.length) showFillResult();
-      else renderFillQ();
-    }, 1400);
+function chkFi(){
+  const ok=sBl().every(i=>fiIn[i]===fiAns[i]);
+  const fb=document.getElementById('fi-fb');
+  if(ok){
+    fiSolv=true;fb.textContent='🎉 せいかい！';fb.className='fi-fb ok';fb.classList.add('bounce');
+    fiPt+=Math.max(1,3-hiCnt);fiSC++;document.getElementById('fi-p').textContent=`⭐ ${fiPt}`;
+    floatStar();speak(fiAns.join(''));
+    if(fiSC%10===0)setTimeout(()=>showMS('rk',fiL[fiI]),600);
+    else if(fiSC%5===0)setTimeout(()=>showMS('gj',fiL[fiI]),600);
+    else setTimeout(advFi,1300);
   } else {
-    fb.textContent = '😅 もういちど！'; fb.className = 'fill-feedback ng';
-    fb.classList.add('shake');
-    setTimeout(()=>fb.classList.remove('shake'), 400);
-    // reset wrong inputs
-    [...fillBlanks].forEach(i => { if(fillInput[i] !== fillAnswer[i]) fillInput[i]=''; });
-    renderFillWord();
+    fb.textContent='😅 もういちど！';fb.className='fi-fb ng';fb.classList.add('shake');
+    setTimeout(()=>fb.classList.remove('shake'),400);
+    sBl().forEach(i=>{if(fiIn[i]!==fiAns[i])fiIn[i]=''});rFiW();
   }
 }
-
-function fillHint() {
-  if(hintCount >= 2) return;
-  hintCount++;
-  // Reveal one blank
-  const unrevealed = [...fillBlanks].filter(i => !fillInput[i]);
-  if(unrevealed.length > 0) {
-    const pick = unrevealed[0];
-    fillInput[pick] = fillAnswer[pick];
-    renderFillWord();
-    if(hintCount >= 2) {
-      document.getElementById('hint-btn').disabled = true;
-      document.getElementById('hint-btn').textContent = '💡 つかいきった';
-    }
-    const allFilled = [...fillBlanks].every(i => fillInput[i]);
-    if(allFilled) checkFill();
-  }
+function advFi(){fiI++;if(fiI>=fiL.length)endFill();else rFiQ()}
+function fillHint(){
+  if(hiCnt>=2)return;hiCnt++;
+  const un=sBl().filter(i=>!fiIn[i]);
+  if(un.length){fiIn[un[0]]=fiAns[un[0]];rFiW();if(hiCnt>=2){document.getElementById('hintbtn').disabled=true;document.getElementById('hintbtn').textContent='💡 つかいきった'}if(sBl().every(i=>fiIn[i]))chkFi()}
 }
-function speakFillName() { speak(currentSpeakText); }
+function endFill(){save();updSeal();const s=earnSeal(fiL[Math.floor(Math.random()*fiL.length)]);showResult(`${fiL.length}もんとけたよ！`,fiPt,s,startFill,fiPt>=fiL.length*2)}
 
-function showFillResult() {
-  totalPts += fillPts;
-  const newSeal = tryEarnSeal(fillList[Math.floor(Math.random()*fillList.length)]);
-  saveState(); updateSealCount();
-  const allCorrect = fillPts >= fillList.length * 2;
-  showResult(
-    allCorrect ? `ぜんもんせいかい！！！` : `${fillList.length}もんとけたよ！`,
-    fillPts, newSeal, startFill, allCorrect
-  );
-}
-
-// ===== TRACE (なぞりがき) =====
-let traceList = [], traceIdx = 0, tracePts = 0;
-let traceDrawing = false;
-let traceCtx = null;
-const traceColors = ['#FF4757','#2ed573','#1e90ff','#ffa502','#a29bfe','#fd79a8','#000000'];
-let traceColor = '#2ed573';
-let traceSize = 12;
-const traceSizes = [8, 12, 18];
-
-function startTrace() {
-  traceList = shuffle(getPool());
-  traceIdx = 0; tracePts = 0;
-  showScreen('trace','🖊️ なぞりがき');
-  document.getElementById('topbar-title').innerHTML =
-    '<button class="back-btn" onclick="showHome()">◀</button> 🖊️ なぞりがき';
-  buildColorRow();
-  buildSizeRow();
-  initTraceCanvas();
-  renderTraceQ();
-}
-
-function buildColorRow() {
-  const el = document.getElementById('color-row');
-  el.innerHTML = '';
-  traceColors.forEach(c => {
-    const d = document.createElement('div');
-    d.className = 'color-dot' + (c === traceColor ? ' on' : '');
-    d.style.background = c;
-    d.onclick = () => { traceColor = c; buildColorRow(); };
-    el.appendChild(d);
-  });
-}
-function buildSizeRow() {
-  const el = document.getElementById('size-row');
-  el.innerHTML = '';
-  traceSizes.forEach(s => {
-    const b = document.createElement('button');
-    b.className = 'size-btn' + (s === traceSize ? ' on' : '');
-    const dot = document.createElement('div');
-    dot.style.cssText = `width:${s*0.9}px;height:${s*0.9}px;border-radius:50%;background:#555`;
-    b.appendChild(dot);
-    b.onclick = () => { traceSize = s; buildSizeRow(); };
-    el.appendChild(b);
-  });
-}
-
-function initTraceCanvas() {
-  const canvas = document.getElementById('trace-canvas');
-  traceCtx = canvas.getContext('2d');
-  // Resize to actual width
-  const w = canvas.offsetWidth || 400;
-  canvas.width = w; canvas.height = 160;
-  traceClear();
-
-  ['mousedown','touchstart'].forEach(ev => {
-    canvas.addEventListener(ev, e => {
-      traceDrawing = true;
-      const {x,y} = getPos(e, canvas);
-      traceCtx.beginPath(); traceCtx.moveTo(x,y);
-      e.preventDefault();
-    }, {passive:false});
-  });
-  ['mousemove','touchmove'].forEach(ev => {
-    canvas.addEventListener(ev, e => {
-      if(!traceDrawing) return;
-      const {x,y} = getPos(e, canvas);
-      traceCtx.lineTo(x,y);
-      traceCtx.strokeStyle = traceColor;
-      traceCtx.lineWidth = traceSize;
-      traceCtx.lineCap = 'round'; traceCtx.lineJoin = 'round';
-      traceCtx.stroke(); traceCtx.beginPath(); traceCtx.moveTo(x,y);
-      e.preventDefault();
-    }, {passive:false});
-  });
-  ['mouseup','touchend','mouseleave'].forEach(ev => {
-    canvas.addEventListener(ev, () => { traceDrawing = false; });
-  });
-}
-
-function getPos(e, canvas) {
-  const rect = canvas.getBoundingClientRect();
-  const scaleX = canvas.width / rect.width;
-  const scaleY = canvas.height / rect.height;
-  const src = e.touches ? e.touches[0] : e;
-  return { x: (src.clientX - rect.left) * scaleX, y: (src.clientY - rect.top) * scaleY };
-}
-
-function traceClear() {
-  const canvas = document.getElementById('trace-canvas');
-  if(!traceCtx) { traceCtx = canvas.getContext('2d'); }
-  traceCtx.clearRect(0, 0, canvas.width, canvas.height);
-  // Draw guide text
-  const c = traceList[traceIdx];
-  if(!c) return;
-  traceCtx.font = `bold ${Math.floor(canvas.height * 0.55)}px 'Noto Sans JP',sans-serif`;
-  traceCtx.textAlign = 'center'; traceCtx.textBaseline = 'middle';
-  traceCtx.fillStyle = 'rgba(200,200,200,0.5)';
-  traceCtx.fillText(c.n, canvas.width/2, canvas.height/2);
-}
-
-function renderTraceQ() {
-  if(!traceList[traceIdx]) return;
-  const c = traceList[traceIdx];
-  document.getElementById('trace-flag-img').src = IMG + c.img;
-  document.getElementById('trace-guide').textContent = c.n;
-  document.getElementById('trace-prompt').textContent = `「${c.n}」をなぞってかいてみよう！`;
-  document.getElementById('trace-num').textContent = `${traceIdx+1} / ${traceList.length}`;
-  document.getElementById('trace-prog').style.width = ((traceIdx/traceList.length)*100)+'%';
-  document.getElementById('trace-pts').textContent = `⭐ ${tracePts}`;
-  traceClear();
-  speak(c.n);
-}
-
-function traceNext() {
-  tracePts += 1;
-  document.getElementById('trace-pts').textContent = `⭐ ${tracePts}`;
-  floatStar();
-  traceIdx++;
-  if(traceIdx >= traceList.length) {
-    totalPts += tracePts;
-    const newSeal = tryEarnSeal(traceList[Math.floor(Math.random()*traceList.length)]);
-    saveState(); updateSealCount();
-    showResult(`${traceList.length}このくにをかいたよ！`, tracePts, newSeal, startTrace);
+// MILESTONE
+let msAnim=null;
+function showMS(type,country){
+  if(type==='gj'){
+    const ov=document.getElementById('gj-ov');
+    document.getElementById('gj-sub').textContent=`${fiSC}もんせいかい！🎉`;
+    ov.classList.add('show');earnSeal(country);save();updSeal();runGJ();
+    const done=()=>{ov.classList.remove('show');stopGJ();advFi()};
+    document.getElementById('gj-cont').onclick=done;setTimeout(done,5000);
   } else {
-    renderTraceQ();
+    const ov=document.getElementById('rk-ov');ov.classList.add('show');
+    earnGold(country);save();updSeal();runRK();
+    const done=()=>{ov.classList.remove('show');stopRK();advFi()};
+    document.getElementById('rk-cont').onclick=done;setTimeout(done,6000);
   }
 }
-
-// ===== SEALS =====
-function tryEarnSeal(country) {
-  if(!earnedSeals.includes(country.img)) {
-    earnedSeals.push(country.img);
-    return country;
-  }
-  return null;
+let gjA=null,gjP=[];
+function runGJ(){
+  const cv=document.getElementById('gj-cv');cv.width=window.innerWidth;cv.height=window.innerHeight;
+  const ctx=cv.getContext('2d');gjP=[];
+  const cols=['#FFD93D','#FF6B9D','#4ECDC4','#FF8C42','#9B59B6','#fff','#6BCB77'];
+  const add=()=>{for(let i=0;i<4;i++)gjP.push({x:Math.random()*cv.width,y:-10,vy:2+Math.random()*3,vx:(Math.random()-.5)*2,r:5+Math.random()*7,col:cols[Math.floor(Math.random()*cols.length)],rot:Math.random()*360,rv:(Math.random()-.5)*8,life:1})};
+  const itv=setInterval(add,70);
+  const fr=()=>{ctx.clearRect(0,0,cv.width,cv.height);gjP.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.rot+=p.rv;p.life-=.008;ctx.save();ctx.globalAlpha=Math.max(0,p.life);ctx.translate(p.x,p.y);ctx.rotate(p.rot*Math.PI/180);ctx.fillStyle=p.col;ctx.fillRect(-p.r/2,-p.r/2,p.r,p.r);ctx.restore()});gjP=gjP.filter(p=>p.life>0);gjA={id:requestAnimationFrame(fr),itv}};
+  fr();
 }
+function stopGJ(){if(gjA){cancelAnimationFrame(gjA.id);clearInterval(gjA.itv);gjA=null}const cv=document.getElementById('gj-cv');cv.getContext('2d').clearRect(0,0,cv.width,cv.height)}
+let rkA=null;
+function runRK(){
+  const cv=document.getElementById('rk-cv');cv.width=window.innerWidth;cv.height=window.innerHeight;
+  const ctx=cv.getContext('2d');const stars=[];
+  for(let i=0;i<150;i++)stars.push({x:Math.random()*cv.width,y:Math.random()*cv.height,r:.5+Math.random()*2,a:Math.random()*Math.PI*2});
+  const fr=()=>{ctx.clearRect(0,0,cv.width,cv.height);ctx.fillStyle='#080820';ctx.fillRect(0,0,cv.width,cv.height);stars.forEach(s=>{s.a+=.025;ctx.globalAlpha=.4+.6*Math.abs(Math.sin(s.a));ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle='#fff';ctx.fill()});ctx.globalAlpha=1;rkA=requestAnimationFrame(fr)};
+  fr();
+}
+function stopRK(){if(rkA){cancelAnimationFrame(rkA);rkA=null}const cv=document.getElementById('rk-cv');cv.getContext('2d').clearRect(0,0,cv.width,cv.height)}
 
-function showSeals() {
-  showScreen('seals','🏷️ シールブック');
-  document.getElementById('topbar-title').innerHTML =
-    '<button class="back-btn" onclick="showHome()">◀</button> 🏷️ シールブック';
-  const all = countries;
-  document.getElementById('seals-sub').textContent =
-    `あつめたシール：${earnedSeals.length}まい / ${all.length}まい`;
-  const book = document.getElementById('seals-book');
-  book.innerHTML = '';
-  all.forEach(c => {
-    const slot = document.createElement('div');
-    slot.className = 'seal-slot' + (earnedSeals.includes(c.img) ? ' earned' : '');
-    if(earnedSeals.includes(c.img)) {
-      slot.innerHTML = `<img src="${IMG+c.img}" alt="${c.n}"><div class="seal-name">${c.n}</div><div class="seal-star">⭐</div>`;
-      slot.onclick = () => speak(c.n);
-    } else {
-      slot.innerHTML = `<div class="seal-lock">?</div>`;
-    }
-    book.appendChild(slot);
+// TRACE
+let trL=[],trI=0,trPt=0,trDr=false,trCtx=null;
+const TC=['#FF4757','#2ed573','#1e90ff','#ffa502','#a29bfe','#fd79a8','#000'];
+let tCol='#2ed573',tSz=12;
+function startTrace(){trL=shuf(pool());trI=0;trPt=0;showScreen('s-trace','🖊️ なぞりがき');bCrow();bSzrow();initTr();rTrQ()}
+function bCrow(){const el=document.getElementById('crow');el.innerHTML='';TC.forEach(c=>{const d=document.createElement('div');d.className='cdot'+(c===tCol?' on':'');d.style.background=c;d.onclick=()=>{tCol=c;bCrow()};el.appendChild(d)})}
+function bSzrow(){const el=document.getElementById('szrow');el.innerHTML='';[8,12,18].forEach(s=>{const b=document.createElement('button');b.className='szbtn'+(s===tSz?' on':'');const d=document.createElement('div');d.style.cssText=`width:${s*.85}px;height:${s*.85}px;border-radius:50%;background:${s===tSz?'#fff':'#555'}`;b.appendChild(d);b.onclick=()=>{tSz=s;bSzrow()};el.appendChild(b)})}
+function initTr(){
+  const cv=document.getElementById('tr-cv');trCtx=cv.getContext('2d');const w=cv.offsetWidth||380;cv.width=w;
+  ['mousedown','touchstart'].forEach(e=>cv.addEventListener(e,ev=>{trDr=true;const{x,y}=gPos(ev,cv);trCtx.beginPath();trCtx.moveTo(x,y);ev.preventDefault()},{passive:false}));
+  ['mousemove','touchmove'].forEach(e=>cv.addEventListener(e,ev=>{if(!trDr)return;const{x,y}=gPos(ev,cv);trCtx.lineTo(x,y);trCtx.strokeStyle=tCol;trCtx.lineWidth=tSz;trCtx.lineCap=trCtx.lineJoin='round';trCtx.stroke();trCtx.beginPath();trCtx.moveTo(x,y);ev.preventDefault()},{passive:false}));
+  ['mouseup','touchend','mouseleave'].forEach(e=>cv.addEventListener(e,()=>trDr=false));
+}
+function gPos(e,cv){const r=cv.getBoundingClientRect(),sx=cv.width/r.width,sy=cv.height/r.height,s=e.touches?e.touches[0]:e;return{x:(s.clientX-r.left)*sx,y:(s.clientY-r.top)*sy}}
+function trClear(){if(!trCtx)return;const cv=document.getElementById('tr-cv');trCtx.clearRect(0,0,cv.width,cv.height);if(!trL[trI])return;trCtx.font=`bold ${Math.floor(cv.height*.5)}px 'Noto Sans JP',sans-serif`;trCtx.textAlign='center';trCtx.textBaseline='middle';trCtx.fillStyle='rgba(200,200,200,.4)';trCtx.fillText(trL[trI].n,cv.width/2,cv.height/2)}
+function rTrQ(){const c=trL[trI];if(!c)return;document.getElementById('tr-fl').src=IMG+c.img;document.getElementById('tr-gd').textContent=c.n;document.getElementById('tr-pr').textContent=`「${c.n}」をなぞってかいてみよう！`;document.getElementById('tr-n').textContent=`${trI+1} / ${trL.length}`;document.getElementById('tr-pb').style.width=((trI/trL.length)*100)+'%';document.getElementById('tr-p').textContent=`⭐ ${trPt}`;trClear();speak(c.n)}
+function trNext(){trPt++;document.getElementById('tr-p').textContent=`⭐ ${trPt}`;floatStar();trI++;if(trI>=trL.length){save();updSeal();const s=earnSeal(trL[Math.floor(Math.random()*trL.length)]);showResult(`${trL.length}このくにをかいたよ！`,trPt,s,startTrace)}else rTrQ()}
+
+// SEALS
+function earnSeal(c){if(c&&!seals.includes(c.img)&&!golds.includes(c.img)){seals.push(c.img);return c}return null}
+function earnGold(c){if(c&&!golds.includes(c.img)){golds.push(c.img);const i=seals.indexOf(c.img);if(i>-1)seals.splice(i,1);return c}return null}
+function showSeals(){
+  showScreen('s-seals','🏷️ シールブック');
+  const n=new Set([...seals,...golds]).size;
+  document.getElementById('sl-sub').textContent=`あつめたシール：${n}まい / ${countries.length}まい`;
+  const bk=document.getElementById('sl-book');bk.innerHTML='';
+  countries.forEach(c=>{
+    const isG=golds.includes(c.img);const isE=seals.includes(c.img)||isG;
+    const s=document.createElement('div');s.className='sl-slot'+(isG?' gold':isE?' earned':'');
+    if(isE){s.innerHTML=`<img src="${IMG+c.img}" alt="${c.n}"><div class="sl-name">${c.n}</div><div class="sl-star">${isG?'✨':'⭐'}</div>`;s.onclick=()=>speak(c.n)}
+    else s.innerHTML='<div class="sl-lock">?</div>';
+    bk.appendChild(s);
   });
 }
 
-// ===== RESULT + FIREWORKS =====
-function showResult(msg, pts, newSeal, againFn, isAllCorrect = false) {
-  const overlay = document.getElementById('result-overlay');
-  const emoji = document.getElementById('result-emoji');
-  const title = document.getElementById('result-title');
-  const body = document.getElementById('result-body');
-  const newSealEl = document.getElementById('result-new-seal');
-  const nextBtn = document.getElementById('result-next-btn');
-
-  if(isAllCorrect) {
-    emoji.textContent = '🏆'; title.textContent = 'かんぺき！！！';
-    launchFireworks();
-  } else if(pts > 5) {
-    emoji.textContent = '🌟'; title.textContent = 'すごい！';
-  } else {
-    emoji.textContent = '😊'; title.textContent = 'よくできました！';
-  }
-  body.textContent = msg + `\n⭐ ${pts}てん ゲット！`;
-
-  if(newSeal) {
-    newSealEl.style.display = 'block';
-    document.getElementById('result-seal-img').src = IMG + newSeal.img;
-  } else {
-    newSealEl.style.display = 'none';
-  }
-
-  nextBtn.onclick = () => {
-    overlay.classList.remove('show');
-    stopFireworks();
-    againFn();
-  };
-  overlay.classList.add('show');
+// DICTIONARY
+const RD=[{l:'あ行',cs:'あいうえお'},{l:'か行',cs:'かきくけこがぎぐげご'},{l:'さ行',cs:'さしすせそざじずぜぞ'},{l:'た行',cs:'たちつてとだぢづでど'},{l:'な行',cs:'なにぬねの'},{l:'は行',cs:'はひふへほばびぶべぼぱぴぷぺぽ'},{l:'ま行',cs:'まみむめも'},{l:'や行',cs:'やゆよわ'},{l:'ら行',cs:'らりるれろ'}];
+let curRow='あ行';
+function startDict(){showScreen('s-dict','📚 じてん');bDtFi();rDict()}
+function bDtFi(){const el=document.getElementById('dt-fi');el.innerHTML='';RD.forEach(r=>{const b=document.createElement('button');b.className='rowbtn'+(r.l===curRow?' on':'');b.textContent=r.l;b.onclick=()=>{curRow=r.l;bDtFi();rDict()};el.appendChild(b)})}
+function rDict(){
+  const row=RD.find(r=>r.l===curRow);if(!row)return;
+  const cs=new Set(row.cs);
+  const sorted=[...countries].sort((a,b)=>{const ah=k2h(a.n),bh=k2h(b.n);return ah<bh?-1:ah>bh?1:0}).filter(c=>{const h=k2h(c.n)[0];return cs.has(h)});
+  const g=document.getElementById('dt-grid');g.innerHTML='';
+  if(!sorted.length){const p=document.createElement('p');p.style.cssText='color:#aaa;font-size:13px;text-align:center;grid-column:1/-1;padding:20px';p.textContent='このぎょうのくには ないよ';g.appendChild(p);return}
+  sorted.forEach(c=>{const card=document.createElement('div');card.className='dt-card';card.innerHTML=`<img src="${IMG+c.img}" alt="${c.n}"><div class="dt-kana">（${c.n}）</div><div class="dt-name">${c.k}</div>`;card.onclick=()=>openDM(c);g.appendChild(card)});
 }
-
-// ===== FIREWORKS =====
-let fwAnimId = null;
-let fwParticles = [];
-function launchFireworks() {
-  const canvas = document.getElementById('fireworks-canvas');
-  canvas.style.display = 'block';
-  canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-  const ctx = canvas.getContext('2d');
-  fwParticles = [];
-  const colors = ['#FF6B9D','#FFD93D','#4ECDC4','#FF8C42','#9B59B6','#6BCB77'];
-  function burst(x, y) {
-    for(let i = 0; i < 36; i++) {
-      const angle = (i / 36) * Math.PI * 2;
-      const speed = 3 + Math.random() * 5;
-      fwParticles.push({
-        x, y, vx: Math.cos(angle)*speed, vy: Math.sin(angle)*speed - 2,
-        color: colors[Math.floor(Math.random()*colors.length)],
-        r: 4 + Math.random()*4, life: 1,
-      });
-    }
-  }
-  let shots = 0;
-  function shoot() {
-    burst(Math.random()*canvas.width, canvas.height * (0.2 + Math.random()*0.4));
-    shots++;
-  }
-  shoot(); shoot();
-  const interval = setInterval(() => { if(shots < 8) { shoot(); shoot(); } }, 600);
-  function frame() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    fwParticles.forEach(p => {
-      p.x += p.vx; p.y += p.vy; p.vy += 0.12;
-      p.life -= 0.015;
-      ctx.globalAlpha = Math.max(0, p.life);
-      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-      ctx.fillStyle = p.color; ctx.fill();
-    });
-    ctx.globalAlpha = 1;
-    fwParticles = fwParticles.filter(p => p.life > 0);
-    fwAnimId = requestAnimationFrame(frame);
-  }
-  frame();
-  setTimeout(() => { clearInterval(interval); stopFireworks(); }, 5000);
+function openDM(c){
+  document.getElementById('dm-fl').src=IMG+c.img;document.getElementById('dm-na').textContent=c.k;document.getElementById('dm-ru').textContent='（'+c.n+'）';document.getElementById('dm-re').textContent=c.r;document.getElementById('dm-de').textContent=c.d;
+  document.getElementById('dm-map').onclick=()=>window.open('https://www.google.com/maps/place/'+encodeURIComponent(c.k),'_blank');
+  document.getElementById('dm-bg').classList.add('show');speak(c.n);
 }
-function stopFireworks() {
-  if(fwAnimId) { cancelAnimationFrame(fwAnimId); fwAnimId = null; }
-  document.getElementById('fireworks-canvas').style.display = 'none';
-}
+function closeDM(e){if(!e||e.target===document.getElementById('dm-bg'))document.getElementById('dm-bg').classList.remove('show')}
 
-// ===== FLOAT STAR =====
-function floatStar() {
-  const star = document.createElement('div');
-  star.className = 'float-star';
-  star.textContent = '⭐';
-  star.style.left = (30 + Math.random()*40) + 'vw';
-  star.style.top = '60vh';
-  document.body.appendChild(star);
-  setTimeout(() => star.remove(), 1000);
+// RESULT
+function showResult(msg,pts,s,ag,pf=false){
+  const bg=document.getElementById('res-bg');
+  document.getElementById('res-em').textContent=pf?'🏆':pts>5?'🌟':'😊';
+  document.getElementById('res-ti').textContent=pf?'かんぺき！！！':pts>5?'すごい！':'よくできました！';
+  document.getElementById('res-bo').textContent=msg+`\n⭐ ${pts}てん！`;
+  const nw=document.getElementById('nsw');
+  if(s){nw.style.display='block';document.getElementById('nsi').src=IMG+s.img}else nw.style.display='none';
+  document.getElementById('res-next').onclick=()=>{bg.classList.remove('show');stopFW();ag()};
+  bg.classList.add('show');if(pf)launchFW();
 }
-
-// ===== INIT =====
-buildRegionChips();
-updateSealCount();
-
-// サービスワーカー登録
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js').then(reg => {
-      console.log('SW registered:', reg.scope);
-    }).catch(err => {
-      console.log('SW error:', err);
-    });
-  });
+let fwA=null,fwP=[];
+function launchFW(){
+  const cv=document.getElementById('fw-cv');cv.style.display='block';cv.width=window.innerWidth;cv.height=window.innerHeight;
+  const ctx=cv.getContext('2d');fwP=[];const cols=['#FF6B9D','#FFD93D','#4ECDC4','#FF8C42','#9B59B6','#6BCB77'];
+  function burst(x,y){for(let i=0;i<36;i++){const a=(i/36)*Math.PI*2,sp=3+Math.random()*5;fwP.push({x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-2,col:cols[Math.floor(Math.random()*6)],r:4+Math.random()*4,life:1})}}
+  let sh=0;const itv=setInterval(()=>{if(sh<8){burst(Math.random()*cv.width,cv.height*(.2+Math.random()*.4));sh++}},500);burst(cv.width/2,cv.height*.3);
+  const fr=()=>{ctx.clearRect(0,0,cv.width,cv.height);fwP.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.12;p.life-=.014;ctx.globalAlpha=Math.max(0,p.life);ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=p.col;ctx.fill()});ctx.globalAlpha=1;fwP=fwP.filter(p=>p.life>0);fwA=requestAnimationFrame(fr)};
+  fr();setTimeout(()=>{clearInterval(itv);stopFW()},5000);
 }
+function stopFW(){if(fwA){cancelAnimationFrame(fwA);fwA=null}document.getElementById('fw-cv').style.display='none'}
+function floatStar(){const s=document.createElement('div');s.className='fstar';s.textContent='⭐';s.style.left=(30+Math.random()*40)+'vw';s.style.top='60vh';document.body.appendChild(s);setTimeout(()=>s.remove(),1000)}
+
+// INIT
+buildChips();updSeal();
+if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
 </script>
 </body>
 </html>
