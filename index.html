@@ -114,10 +114,10 @@ body{font-family:'Zen Maru Gothic',sans-serif;background:var(--bg);min-height:10
 .dt-kana{font-size:11px;color:#888;margin-bottom:2px}
 .dt-name{font-size:13px;font-weight:700;color:#333}
 /* MODAL */
-.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;display:none;align-items:flex-end;justify-content:center}
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;display:none;align-items:center;justify-content:center;padding:16px}
 .modal-bg.show{display:flex}
-.modal{background:#fff;border-radius:24px 24px 0 0;padding:20px 18px 32px;width:100%;max-width:480px;max-height:88vh;overflow-y:auto;animation:su .3s ease}
-@keyframes su{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.modal{background:#fff;border-radius:20px;padding:20px 18px 28px;width:100%;max-width:420px;max-height:88vh;overflow-y:auto;animation:mc .25s ease;box-shadow:0 8px 40px rgba(0,0,0,.25)}
+@keyframes mc{from{transform:scale(.92);opacity:0}to{transform:scale(1);opacity:1}}
 .mo-flag{max-width:200px;max-height:120px;width:100%;object-fit:contain;border-radius:8px;border:1px solid #eee;display:block;margin:0 auto 10px}
 .mo-name{font-family:'Kaisei Decol',serif;font-size:24px;font-weight:700;color:#222;text-align:center}
 .mo-ruby{font-size:13px;color:#888;text-align:center;margin-bottom:6px}
