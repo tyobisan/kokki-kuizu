@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>🌍 くにのはたクイズ</title>
+<title>🌍 せかいのこっきクイズ</title>
 <meta name="theme-color" content="#FFF9F0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="くにのはた">
 <link rel="manifest" href="manifest.json">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@400;700&family=Noto+Sans+JP:wght@400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@400;700&family=Zen+Maru+Gothic:wght@400;700;900&display=swap');
 :root{--sun:#FFD93D;--pink:#FF6B9D;--mint:#4ECDC4;--purple:#9B59B6;--orange:#FF8C42;--green:#6BCB77;--red:#FF4757;--bg:#FFF9F0;--card:#fff;--sh:0 4px 16px rgba(0,0,0,.10);--r:20px}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);min-height:100vh;overflow-x:hidden}
+body{font-family:'Zen Maru Gothic',sans-serif;background:var(--bg);min-height:100vh;overflow-x:hidden}
 .screen{display:none}.screen.active{display:block}
 .topbar{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;position:sticky;top:0;z-index:100;background:rgba(255,249,240,.95);backdrop-filter:blur(8px);border-bottom:2px solid #FFE0B2}
 .topbar-title{font-family:'Kaisei Decol',serif;font-size:16px;font-weight:700;color:#E65100;display:flex;align-items:center;gap:5px}
@@ -124,6 +124,21 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);min-height:100vh
 .mo-desc{font-size:14px;color:#444;line-height:1.8;background:#fffbeb;border-radius:12px;padding:12px;margin-bottom:14px}
 .mapbtn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:13px;border-radius:14px;border:none;background:#34a853;color:#fff;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer}
 .mo-close{display:block;width:100%;padding:11px;border-radius:14px;border:2px solid #eee;background:#fff;font-family:inherit;font-size:14px;font-weight:700;color:#888;cursor:pointer;margin-top:8px}
+.mo-food{margin-bottom:14px}
+.mo-food-title{font-size:11px;font-weight:700;color:#888;margin-bottom:8px;display:flex;align-items:center;gap:4px}
+.mo-food-img{width:100%;height:160px;object-fit:cover;border-radius:14px;display:block;background:#f5f5f5}
+.mo-food-img-err{width:100%;height:160px;border-radius:14px;background:linear-gradient(135deg,#fff8f0,#ffe0b2);display:flex;align-items:center;justify-content:center;font-size:40px}
+.mo-food-name{margin-top:8px;text-align:center;font-size:16px;font-weight:700;color:#333}
+.mo-food-kana{text-align:center;font-size:12px;color:#888;margin-top:2px}
+.mo-clock{background:linear-gradient(135deg,#1a1a3e,#2d2d6e);border-radius:14px;padding:14px;margin-bottom:14px;color:#fff}
+.mo-clock-title{font-size:11px;color:#aac;margin-bottom:10px;text-align:center;letter-spacing:.05em}
+.mo-clock-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
+.mo-clock-row:last-child{margin-bottom:0}
+.mo-clock-label{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700}
+.mo-clock-flag-sm{width:22px;height:15px;object-fit:contain;border-radius:2px;border:1px solid rgba(255,255,255,.2)}
+.mo-clock-time{font-family:'Kaisei Decol',serif;font-size:22px;font-weight:700;color:#FFD93D;letter-spacing:.05em}
+.mo-clock-diff{font-size:10px;color:#aac;margin-top:2px;text-align:right}
+.mo-clock-divider{border:none;border-top:1px solid rgba(255,255,255,.15);margin:8px 0}
 /* MILESTONE */
 #gj-ov,#rk-ov{position:fixed;inset:0;z-index:800;display:none;flex-direction:column;align-items:center;justify-content:center}
 #gj-ov.show,#rk-ov.show{display:flex}
@@ -170,11 +185,11 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);min-height:100vh
 <!-- RESULT -->
 <div class="res-bg" id="res-bg"><div class="res-card"><span class="res-em" id="res-em">🌟</span><div class="res-title" id="res-ti"></div><div class="res-body" id="res-bo"></div><div class="nsw" id="nsw" style="display:none"><div style="font-size:11px;color:#888;margin-bottom:4px">🎁 あたらしいシールをゲット！</div><img id="nsi" src="" alt=""></div><div class="rbtns"><button class="rbtn p" id="res-next">もう一回！</button><button class="rbtn s" onclick="showHome()">ホーム</button></div></div></div>
 <!-- DICT MODAL -->
-<div class="modal-bg" id="dm-bg" onclick="closeDM(event)"><div class="modal"><img class="mo-flag" id="dm-fl" src="" alt=""><div class="mo-name" id="dm-na"></div><div class="mo-ruby" id="dm-ru"></div><div style="text-align:center"><span class="mo-reg" id="dm-re"></span></div><div style="height:10px"></div><div class="mo-desc" id="dm-de"></div><button class="mapbtn" id="dm-map">🗺️ グーグルマップでみる</button><button class="mo-close" onclick="closeDM()">とじる ✕</button></div></div>
+<div class="modal-bg" id="dm-bg" onclick="closeDM(event)"><div class="modal"><img class="mo-flag" id="dm-fl" src="" alt=""><div class="mo-name" id="dm-na"></div><div class="mo-ruby" id="dm-ru"></div><div style="text-align:center"><span class="mo-reg" id="dm-re"></span></div><div style="height:10px"></div><div class="mo-desc" id="dm-de"></div><div class="mo-food"><div class="mo-food-title">🍽️ ゆうめいなたべもの</div><img class="mo-food-img" id="dm-fi" src="" alt="" onerror="this.style.display='none';document.getElementById('dm-fe').style.display='flex'"><div class="mo-food-img-err" id="dm-fe" style="display:none">🍴</div><div class="mo-food-name" id="dm-fn"></div><div class="mo-food-kana" id="dm-fk"></div></div><div class="mo-clock-title">🕐 いまのじこく</div><div class="mo-clock-row"><div class="mo-clock-label"><img class="mo-clock-flag-sm" id="dm-ck-flag" src="" alt=""><span id="dm-ck-name">ー</span></div><div style="text-align:right"><div class="mo-clock-time" id="dm-ck-time">--:--</div></div></div><hr class="mo-clock-divider"><div class="mo-clock-row"><div class="mo-clock-label">🇯🇵 にほん</div><div style="text-align:right"><div class="mo-clock-time" id="dm-ck-jp">--:--</div></div></div><div class="mo-clock-diff" id="dm-ck-diff"></div></div><button class="mapbtn" id="dm-map">🗺️ グーグルマップでみる</button><button class="mo-close" onclick="closeDM()">とじる ✕</button></div></div>
 <!-- TOPBAR -->
-<div class="topbar"><div class="topbar-title" id="tb-title">🌍 くにのはたクイズ</div><div style="display:flex;align-items:center;gap:4px;font-size:13px;font-weight:700;color:#555">🏷️<span class="seal-badge" id="seal-n">0</span></div></div>
+<div class="topbar"><div class="topbar-title" id="tb-title">🌍 せかいのこっきクイズ</div><div style="display:flex;align-items:center;gap:4px;font-size:13px;font-weight:700;color:#555">🏷️<span class="seal-badge" id="seal-n">0</span></div></div>
 <!-- HOME -->
-<div class="screen active" id="s-home"><div class="hw"><span class="mascot">🌎</span><div class="htitle">くにのはた<br>クイズ！</div><div class="hsub">せかいのくにをおぼえよう</div><div class="rl">ちいきをえらぼう</div><div class="chips" id="rchips"></div><div class="mgrid"><div class="mcard cf" onclick="startFlash()"><span class="icon">🃏</span><div class="lbl">フラッシュカード</div><div class="sub">みておぼえよう</div></div><div class="mcard ci" onclick="startFill()"><span class="icon">✏️</span><div class="lbl">もじあわせ</div><div class="sub">こたえをいれよう</div></div><div class="mcard ct" onclick="startTrace()"><span class="icon">🖊️</span><div class="lbl">なぞりがき</div><div class="sub">もじをかこう</div></div><div class="mcard cd" onclick="startDict()"><span class="icon">📚</span><div class="lbl">じてん</div><div class="sub">あいうえおでしらべる</div></div></div><div style="background:var(--card);border-radius:var(--r);border:3px solid var(--sun);padding:14px 8px;cursor:pointer;box-shadow:var(--sh);text-align:center" onclick="showSeals()"><span style="font-size:36px;display:block;margin-bottom:5px">📖</span><div style="font-size:14px;font-weight:700;color:#333">シールブック</div><div style="font-size:10px;color:#999;margin-top:2px" id="sl-cnt">あつめたシール：0まい</div></div></div></div>
+<div class="screen active" id="s-home"><div class="hw"><span class="mascot">🌎</span><div class="htitle">せかいのこっき<br>クイズ！</div><div class="hsub">せかいのくにをおぼえよう</div><div class="rl">ちいきをえらぼう</div><div class="chips" id="rchips"></div><div class="mgrid"><div class="mcard cf" onclick="startFlash()"><span class="icon">🃏</span><div class="lbl">フラッシュカード</div><div class="sub">みておぼえよう</div></div><div class="mcard ci" onclick="startFill()"><span class="icon">🇯🇵</span><div class="lbl">にほ◯</div><div class="sub">こたえをいれよう</div></div><div class="mcard ct" onclick="startTrace()"><span class="icon">✏️</span><div class="lbl">なぞりがき</div><div class="sub">もじをかこう</div></div><div class="mcard cd" onclick="startDict()"><span class="icon">📚</span><div class="lbl">じてん</div><div class="sub">あいうえおでしらべる</div></div></div><div style="background:var(--card);border-radius:var(--r);border:3px solid var(--sun);padding:14px 8px;cursor:pointer;box-shadow:var(--sh);text-align:center" onclick="showSeals()"><span style="font-size:36px;display:block;margin-bottom:5px">📖</span><div style="font-size:14px;font-weight:700;color:#333">シールブック</div><div style="font-size:10px;color:#999;margin-top:2px" id="sl-cnt">あつめたシール：0まい</div></div></div></div>
 <!-- FLASH -->
 <div class="screen" id="s-flash"><div class="fw"><div class="srow"><span id="fc-n">1/10</span><span class="spts" id="fc-p">⭐ 0</span></div><div class="pw"><div class="pb" id="fc-pb" style="width:0%"></div></div><div class="fcc" id="fc-card" onclick="fcFlip()"><img class="fc-flag" id="fc-fi" src="" alt="こっき"><div class="fc-name" id="fc-nm" style="display:none"></div><div class="fc-ruby" id="fc-rb" style="display:none"></div><div class="fc-reg" id="fc-rg"></div><button class="vbtn" id="fc-vb" style="display:none" onclick="event.stopPropagation();speak(curSpeak)">🔊 よみあげ</button><div class="fc-hint" id="fc-ht">タップでこたえをみる</div></div><div class="fcnav"><button class="navbtn" onclick="fcMv(-1)">◀</button><span style="font-size:14px;font-weight:700;color:#888" id="fc-ct">1/10</span><button class="navbtn" onclick="fcMv(1)">▶</button></div><div style="margin-top:14px;display:flex;gap:8px"><button class="bbtn bm" style="flex:1" onclick="startFill()">✏️ もじあわせにチャレンジ！</button></div></div></div>
 <!-- FILL -->
@@ -188,70 +203,71 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);min-height:100vh
 
 <script>
 const IMG='https://www.asahi-net.or.jp/~yq3t-hruc/img/';
+const WK='https://commons.wikimedia.org/wiki/Special:FilePath/';
 const countries=[
-  {n:'にほん',k:'日本',img:'JPL.GIF',r:'アジア',d:'しろいはたに あかいおひさまがあるよ。にほんは「ひのでるくに」ともよばれていて、おひさまのはたをもっているんだ。'},
-  {n:'かんこく',k:'韓国',img:'KRL.GIF',r:'アジア',d:'しろいはたに あおとあかのうずまきともようがあるよ。まわりの4つのもようは てん・ち・みず・ひをあらわしているんだ。'},
-  {n:'ちゅうごく',k:'中国',img:'CNL.GIF',r:'アジア',d:'あかいはたに きんいろのほしが5つあるよ。おおきなほしがしどうしゃ、4つのちいさなほしはこくみんをあらわすんだ。'},
-  {n:'インド',k:'インド',img:'INL.GIF',r:'アジア',d:'みどり・しろ・オレンジのよこしまで、まんなかに「ほうりんのしゃりん」があるよ。24ほんのやからなるしゃりんなんだ。'},
-  {n:'タイ',k:'タイ',img:'THL.GIF',r:'アジア',d:'あか・しろ・あお・しろ・あかのよこしまで、まんなかのふといあおはタイのおうけをあらわしているよ。'},
-  {n:'インドネシア',k:'インドネシア',img:'IDL.GIF',r:'アジア',d:'うえがあか、したがしろのシンプルなはただよ。あかはゆうき、しろはせいじゅんさをあらわすんだ。'},
-  {n:'ベトナム',k:'ベトナム',img:'VNL.GIF',r:'アジア',d:'あかいはたのまんなかに きいろいほしがひとつあるよ。あかはかくめい、きいろいほしはひとびとをあらわすんだ。'},
-  {n:'マレーシア',k:'マレーシア',img:'MYL.GIF',r:'アジア',d:'あかとしろのしましまと みかづきとほしがあるよ。しましまは14のちほうをあらわしているんだ。'},
-  {n:'シンガポール',k:'シンガポール',img:'SGL.GIF',r:'アジア',d:'あかとしろのはたに しろいみかづきと5つのほしがあるよ。5つのほしはびょうどう・みんしゅ・へいわ・こうふく・りそうをあらわすんだ。'},
-  {n:'フィリピン',k:'フィリピン',img:'PHL.GIF',r:'アジア',d:'さんかくにたいようとほしがあるはただよ。せんそうのときはあかを上に、へいわなときはあおを上にするんだ。'},
-  {n:'ミャンマー',k:'ミャンマー',img:'MML.GIF',r:'アジア',d:'きいろ・みどり・あかのしましまに しろいほしがあるよ。3しょくはだんけつ・へいわ・ゆうきをあらわすんだ。'},
-  {n:'カンボジア',k:'カンボジア',img:'KHL.GIF',r:'アジア',d:'あかいはたのまんなかに しろいアンコールワットがあるよ。アンコールワットはカンボジアのゆうめいなおてらなんだ！'},
-  {n:'モンゴル',k:'モンゴル',img:'MNL.GIF',r:'アジア',d:'あか・あお・あかのたてしまに きんいろのソヨンボもようがあるよ。ソヨンボはひ・つき・たき火などをあらわすんだ。'},
-  {n:'パキスタン',k:'パキスタン',img:'PKL.GIF',r:'アジア',d:'みどりのはたに しろいみかづきとほしがあるよ。みどりはイスラムきょう、ひだりのしろいたいはほかのしゅうきょうのひとをあらわすんだ。'},
-  {n:'バングラデシュ',k:'バングラデシュ',img:'BDL.GIF',r:'アジア',d:'みどりのはたのまんなかに あかいまるがあるよ。みどりはのはら、あかいまるはのぼるおひさまをあらわすんだ。'},
-  {n:'ネパール',k:'ネパール',img:'NPL.GIF',r:'アジア',d:'せかいでゆいいつ、しかくじゃないはたをもつくにだよ！さんかくを2つかさねたかたちでヒマラヤのやまをあらわすんだ。'},
-  {n:'サウジアラビア',k:'サウジアラビア',img:'SAL.GIF',r:'アジア',d:'みどりのはたに しろいもじとけんがあるよ。もじは「アッラーのほかにかみはなし」というイスラムきょうのことばなんだ。'},
-  {n:'イスラエル',k:'イスラエル',img:'ILL.GIF',r:'アジア',d:'しろいはたに あおいよこしまとダビデのほし（6かくのほし）があるよ。ユダヤきょうのたいせつなしんぼるなんだ。'},
-  {n:'イラン',k:'イラン',img:'IRL.GIF',r:'アジア',d:'みどり・しろ・あかのしましまで、まんなかにアラビアもじのもんしょうがあるよ。しましまのさかいめにもアラビアもじがならんでいるんだ。'},
-  {n:'イラク',k:'イラク',img:'IQL.GIF',r:'アジア',d:'あか・しろ・くろのしましまで、まんなかにアラビアもじで「アッラーはおおいなり」とかいてあるよ。'},
-  {n:'イギリス',k:'イギリス',img:'GBL.GIF',r:'ヨーロッパ',d:'「ユニオンジャック」とよばれるはたで、イングランド・スコットランド・アイルランドの3つのじゅうじをくみあわせているんだ。'},
-  {n:'イタリア',k:'イタリア',img:'ITL.GIF',r:'ヨーロッパ',d:'みどり・しろ・あかのたてしまだよ。みどりはきぼう、しろはしんこう、あかはあいをあらわすんだ。'},
-  {n:'ウクライナ',k:'ウクライナ',img:'UAL.GIF',r:'ヨーロッパ',d:'うえがそらいろ、したがきいろのシンプルなはただよ。あおいそら、きいろいこむぎばたけがウクライナのけしきをあらわしているんだ。'},
-  {n:'オーストリア',k:'オーストリア',img:'ATL.GIF',r:'ヨーロッパ',d:'あか・しろ・あかのよこしまのはただよ。むかしのせんそうでよろいのまわりにちがついたすがたをもとにしたといわれているんだ。'},
-  {n:'オランダ',k:'オランダ',img:'NLL.GIF',r:'ヨーロッパ',d:'あか・しろ・あおのよこしまのはただよ。もとはオレンジ・しろ・あおだったんだけど、いつのまにかあかになったんだ。'},
-  {n:'ギリシャ',k:'ギリシャ',img:'GRL.GIF',r:'ヨーロッパ',d:'あおとしろのしましまが9ほんと、ひだりうえにじゅうじがあるよ。しましまは「じゆうかしぬか」の9もじをあらわすといわれているんだ。'},
-  {n:'スイス',k:'スイス',img:'CHL.GIF',r:'ヨーロッパ',d:'あかいはたにしろいじゅうじ。せかいでもめずらしいほぼしかくのはたなんだよ！じゅうじはキリストきょうをあらわすんだ。'},
-  {n:'スウェーデン',k:'スウェーデン',img:'SEL.GIF',r:'ヨーロッパ',d:'あおいはたにきいろいじゅうじ。このじゅうじもようはきたヨーロッパのくにぐにでよく使われているんだよ。'},
-  {n:'スペイン',k:'スペイン',img:'ESL.GIF',r:'ヨーロッパ',d:'あか・きいろ・あかのよこしまで、まんなかにおうけのもんしょうがあるよ。きいろのたいはふたつのおうこくをあわせたことをあらわしているんだ。'},
-  {n:'チェコ',k:'チェコ',img:'CZL.GIF',r:'ヨーロッパ',d:'しろとあかのよこしまに あおいさんかくがついたはただよ。もともとチェコスロバキアのはただったのをそのままつかっているんだ。'},
-  {n:'デンマーク',k:'デンマーク',img:'DKL.GIF',r:'ヨーロッパ',d:'あかいはたにしろいじゅうじ。「ダンネブロ」とよばれ、せかいでいちばんふるい「いまもつかわれているはた」といわれているんだよ！'},
-  {n:'ドイツ',k:'ドイツ',img:'DEL.GIF',r:'ヨーロッパ',d:'くろ・あか・きんのよこしまのはただよ。このさんしょくは19せいきのじゆうをもとめたうんどうのいろからきているんだ。'},
-  {n:'ノルウェー',k:'ノルウェー',img:'NOL.GIF',r:'ヨーロッパ',d:'あかいはたにあおとしろのじゅうじだよ。デンマークのはたをもとにして あおいたてすじをくわえてつくったんだ。'},
-  {n:'ハンガリー',k:'ハンガリー',img:'HUL.GIF',r:'ヨーロッパ',d:'あか・しろ・みどりのよこしまのはただよ。みどりはきぼう、しろはせいじつ、あかはちからをあらわすんだ。'},
-  {n:'フィンランド',k:'フィンランド',img:'FIL.GIF',r:'ヨーロッパ',d:'しろいはたにあおいじゅうじ。しろはゆき、あおはみずうみをあらわすよ。フィンランドにはみずうみが18まんこもあるんだ！'},
-  {n:'フランス',k:'フランス',img:'FRL.GIF',r:'ヨーロッパ',d:'あお・しろ・あかのたてしま「トリコロール」だよ。じゆう・びょうどう・はっきゅうをあらわし、フランスかくめいのときにうまれたんだ。'},
-  {n:'ポーランド',k:'ポーランド',img:'PLL.GIF',r:'ヨーロッパ',d:'しろとあかのよこしまのはただよ。しろとあかはポーランドおうこくのもんしょうにいるしろいわしからきているんだ。'},
-  {n:'ポルトガル',k:'ポルトガル',img:'PTL.GIF',r:'ヨーロッパ',d:'みどりとあかのたてしまで、まんなかにおうかんとちきゅうぎのもんしょうがあるよ。ちきゅうぎはだいこうかいじだいをあらわすんだ。'},
-  {n:'ロシア',k:'ロシア',img:'RUL.GIF',r:'ヨーロッパ',d:'しろ・あお・あかのよこしまだよ。17せいきにピョートルだいていがオランダのはたをもとにつくったといわれているんだ。'},
-  {n:'ルーマニア',k:'ルーマニア',img:'ROL.GIF',r:'ヨーロッパ',d:'あお・きいろ・あかのたてしまのはただよ。もとはフランスのはたのえいきょうをうけているよ。'},
-  {n:'アメリカ',k:'アメリカ',img:'USL.GIF',r:'アメリカ',d:'あかとしろのしましまが13ほんと、あおいしかくに50このほしがあるよ。しましまははじめの13しゅう、50このほしはいまの50しゅうをあらわすんだ。'},
-  {n:'アルゼンチン',k:'アルゼンチン',img:'ARL.GIF',r:'アメリカ',d:'そらいろ・しろ・そらいろのよこしまで、まんなかに「5がつのたいよう」があるよ。このおひさまはどくりつのシンボルなんだ。'},
-  {n:'ウルグアイ',k:'ウルグアイ',img:'URL.GIF',r:'アメリカ',d:'しろいはたにしましまとたいようがあるよ。「5がつのたいよう」はアルゼンチンのはたとにているんだ。'},
-  {n:'カナダ',k:'カナダ',img:'CAL.GIF',r:'アメリカ',d:'あかいたてしまにまっかなかえでのはがあるよ。かえでのははカナダのシンボルで、おかねやスポーツのユニフォームにもつかわれているんだ！'},
-  {n:'キューバ',k:'キューバ',img:'CUL.GIF',r:'アメリカ',d:'あおとしろのしましまにあかいさんかくとしろいほしがあるよ。さんかくはじゆう・びょうどう・はっきゅうをあらわすんだ。'},
-  {n:'コロンビア',k:'コロンビア',img:'COL.GIF',r:'アメリカ',d:'きいろ・あお・あかのよこしまだよ。きいろはゆたかさ、あおはうみとそら、あかはゆうきとけつをあらわすんだ。'},
-  {n:'ジャマイカ',k:'ジャマイカ',img:'JML.GIF',r:'アメリカ',d:'くろ・きいろ・みどりのX（バッテン）もようのはただよ。くろはつよさ、みどりはのうぎょう、きいろはひのひかりをあらわすんだ。'},
-  {n:'チリ',k:'チリ',img:'CLL.GIF',r:'アメリカ',d:'あか・しろのよこしまとあおいしかくにしろいほしがひとつあるよ。ほしは「みちびきのほし」をあらわすんだ。'},
-  {n:'ブラジル',k:'ブラジル',img:'BRL.GIF',r:'アメリカ',d:'みどりのはたにきいろいひしがたとあおいまるがあるよ。まるにはブラジルのもりをあらわすほしぼしとことばがかいてあるんだ。'},
-  {n:'ペルー',k:'ペルー',img:'PEL.GIF',r:'アメリカ',d:'あか・しろ・あかのたてしまのシンプルなはただよ。あかはあつちのちのいろ、しろはアンデスのゆきをあらわすんだ。'},
-  {n:'メキシコ',k:'メキシコ',img:'MXL.GIF',r:'アメリカ',d:'みどり・しろ・あかのたてしまで、まんなかに「わしがへびをくわえてサボテンにとまっている」もようがあるよ。むかしのアステカのでんせつなんだ。'},
-  {n:'エジプト',k:'エジプト',img:'EGL.GIF',r:'アフリカ',d:'あか・しろ・くろのよこしまで、まんなかに「サラーフ・アッディーンのわし」があるよ。このわしはつよさのシンボルなんだ。'},
-  {n:'エチオピア',k:'エチオピア',img:'ETL.GIF',r:'アフリカ',d:'みどり・きいろ・あかのよこしまで、まんなかにあおいまるとほしがあるよ。このさんしょくはアフリカどくりつのシンボルとして ほかのくにのはたにもえいきょうをあたえたんだよ！'},
-  {n:'ガーナ',k:'ガーナ',img:'GHL.GIF',r:'アフリカ',d:'あか・きいろ・みどりのよこしまで まんなかにくろいほしがひとつあるよ。くろいほしは「アフリカのじゆう」をあらわすんだ。'},
-  {n:'ケニア',k:'ケニア',img:'KEL.GIF',r:'アフリカ',d:'くろ・あか・みどりのよこしまに マサイぞくのたてとやりがえがかれているよ。くろはひとびと、あかはけつ、みどりはしぜんをあらわすんだ。'},
-  {n:'タンザニア',k:'タンザニア',img:'TZL.GIF',r:'アフリカ',d:'みどり・きいろ・くろ・あおののぼりしまがあるよ。みどりはのはら、きいろはしげん、くろはひとびと、あおはうみをあらわすんだ。'},
-  {n:'ナイジェリア',k:'ナイジェリア',img:'NGL.GIF',r:'アフリカ',d:'みどり・しろ・みどりのたてしまだよ。みどりはのうぎょうとゆたかなしぜん、しろはへいわをあらわすんだ。'},
-  {n:'みなみアフリカ',k:'南アフリカ',img:'ZAL.GIF',r:'アフリカ',d:'みどり・くろ・きいろ・あか・あおの6しょくでYのかたちをしているよ。いろんなみんぞくがひとつになることをあらわしているんだ。'},
-  {n:'モロッコ',k:'モロッコ',img:'MAL.GIF',r:'アフリカ',d:'あかいはたのまんなかにみどりのほしがひとつあるよ。あかはおうけ、みどりのほしはイスラムきょうのシンボルなんだ。'},
-  {n:'オーストラリア',k:'オーストラリア',img:'AUL.GIF',r:'オセアニア',d:'あおいはたにユニオンジャック・みなみじゅうじのほし・おおきなほしがあるよ。みなみじゅうじはなんてんのほしぼし、おおきなほしはれんぽうのしゅうをあらわすんだ。'},
-  {n:'ニュージーランド',k:'ニュージーランド',img:'NZL.GIF',r:'オセアニア',d:'あおいはたにユニオンジャックとみなみじゅうじがあるよ。オーストラリアのはたとにているけど、ほしのいろがちがうんだ！'},
-  {n:'フィジー',k:'フィジー',img:'FJL.GIF',r:'オセアニア',d:'あおいはたにユニオンジャックとたてのもようがあるよ。たてにはさとうきび・やしのき・はとなどフィジーのしぜんがえがかれているんだ。'},
-  {n:'トンガ',k:'トンガ',img:'TOL.GIF',r:'オセアニア',d:'あかいはたのひだりうえに、しろいしかくにあかいじゅうじがあるよ。トンガのおうさまが「キリストきょうをたいせつにする」とちかったことをあらわしているんだ。'},
+  {n:'にほん',k:'日本',img:'JPL.GIF',r:'アジア',d:'しろいはたに あかいおひさまがあるよ。にほんは「ひのでるくに」ともよばれていて、おひさまのはたをもっているんだ。',f:{n:'すし',k:'寿司',i:'Sushi_platter.jpg'}},
+  {n:'かんこく',k:'韓国',img:'KRL.GIF',r:'アジア',d:'しろいはたに あおとあかのうずまきともようがあるよ。まわりの4つのもようは てん・ち・みず・ひをあらわしているんだ。',f:{n:'ビビンバ',k:'ビビンバ',i:'Dolsot-bibimbap.jpg'}},
+  {n:'ちゅうごく',k:'中国',img:'CNL.GIF',r:'アジア',d:'あかいはたに きんいろのほしが5つあるよ。おおきなほしがしどうしゃ、4つのちいさなほしはこくみんをあらわすんだ。',f:{n:'ぎょうざ',k:'餃子',i:'Jiaozi_on_a_plate.jpg'}},
+  {n:'インド',k:'インド',img:'INL.GIF',r:'アジア',d:'みどり・しろ・オレンジのよこしまで、まんなかに「ほうりんのしゃりん」があるよ。24ほんのやからなるしゃりんなんだ。',f:{n:'ナン',k:'ナン',i:'Nan_Artisan_Flatbreads.jpg'}},
+  {n:'タイ',k:'タイ',img:'THL.GIF',r:'アジア',d:'あか・しろ・あお・しろ・あかのよこしまで、まんなかのふといあおはタイのおうけをあらわしているよ。',f:{n:'パッタイ',k:'パッタイ',i:'Pad_Thai_kung_Chang_Khien_street_stall.jpg'}},
+  {n:'インドネシア',k:'インドネシア',img:'IDL.GIF',r:'アジア',d:'うえがあか、したがしろのシンプルなはただよ。あかはゆうき、しろはせいじゅんさをあらわすんだ。',f:{n:'ナシゴレン',k:'ナシゴレン',i:'Nasi_goreng_2.jpg'}},
+  {n:'ベトナム',k:'ベトナム',img:'VNL.GIF',r:'アジア',d:'あかいはたのまんなかに きいろいほしがひとつあるよ。あかはかくめい、きいろいほしはひとびとをあらわすんだ。',f:{n:'フォー',k:'フォー',i:'Pho_bo_Hanoi.jpg'}},
+  {n:'マレーシア',k:'マレーシア',img:'MYL.GIF',r:'アジア',d:'あかとしろのしましまと みかづきとほしがあるよ。しましまは14のちほうをあらわしているんだ。',f:{n:'ナシレマ',k:'ナシレマ',i:'Nasi_lemak_on_banana_leaf.jpg'}},
+  {n:'シンガポール',k:'シンガポール',img:'SGL.GIF',r:'アジア',d:'あかとしろのはたに しろいみかづきと5つのほしがあるよ。5つのほしはびょうどう・みんしゅ・へいわ・こうふく・りそうをあらわすんだ。',f:{n:'チリクラブ',k:'チリクラブ',i:'Singapore_Chilli_Crab.jpg'}},
+  {n:'フィリピン',k:'フィリピン',img:'PHL.GIF',r:'アジア',d:'さんかくにたいようとほしがあるはただよ。せんそうのときはあかを上に、へいわなときはあおを上にするんだ。',f:{n:'アドボ',k:'アドボ',i:'Chicken_adobo.jpg'}},
+  {n:'ミャンマー',k:'ミャンマー',img:'MML.GIF',r:'アジア',d:'きいろ・みどり・あかのしましまに しろいほしがあるよ。3しょくはだんけつ・へいわ・ゆうきをあらわすんだ。',f:{n:'モヒンガー',k:'モヒンガー',i:'Mohinga.jpg'}},
+  {n:'カンボジア',k:'カンボジア',img:'KHL.GIF',r:'アジア',d:'あかいはたのまんなかに しろいアンコールワットがあるよ。アンコールワットはカンボジアのゆうめいなおてらなんだ！',f:{n:'アモック',k:'アモック',i:'Fish_amok.jpg'}},
+  {n:'モンゴル',k:'モンゴル',img:'MNL.GIF',r:'アジア',d:'あか・あお・あかのたてしまに きんいろのソヨンボもようがあるよ。ソヨンボはひ・つき・たき火などをあらわすんだ。',f:{n:'ブーズ',k:'ブーズ',i:'Buuz.jpg'}},
+  {n:'パキスタン',k:'パキスタン',img:'PKL.GIF',r:'アジア',d:'みどりのはたに しろいみかづきとほしがあるよ。みどりはイスラムきょう、ひだりのしろいたいはほかのしゅうきょうのひとをあらわすんだ。',f:{n:'ビリヤニ',k:'ビリヤニ',i:'Biryani_in_Pakistan.jpg'}},
+  {n:'バングラデシュ',k:'バングラデシュ',img:'BDL.GIF',r:'アジア',d:'みどりのはたのまんなかに あかいまるがあるよ。みどりはのはら、あかいまるはのぼるおひさまをあらわすんだ。',f:{n:'イリッシュカレー',k:'イリッシュカレー',i:'Ilish.jpg'}},
+  {n:'ネパール',k:'ネパール',img:'NPL.GIF',r:'アジア',d:'せかいでゆいいつ、しかくじゃないはたをもつくにだよ！さんかくを2つかさねたかたちでヒマラヤのやまをあらわすんだ。',f:{n:'ダルバート',k:'ダルバート',i:'Dal_bhat.jpg'}},
+  {n:'サウジアラビア',k:'サウジアラビア',img:'SAL.GIF',r:'アジア',d:'みどりのはたに しろいもじとけんがあるよ。もじは「アッラーのほかにかみはなし」というイスラムきょうのことばなんだ。',f:{n:'カブサ',k:'カブサ',i:'Kabsa.jpg'}},
+  {n:'イスラエル',k:'イスラエル',img:'ILL.GIF',r:'アジア',d:'しろいはたに あおいよこしまとダビデのほし（6かくのほし）があるよ。ユダヤきょうのたいせつなしんぼるなんだ。',f:{n:'ファラフェル',k:'ファラフェル',i:'Falafel_balls.jpg'}},
+  {n:'イラン',k:'イラン',img:'IRL.GIF',r:'アジア',d:'みどり・しろ・あかのしましまで、まんなかにアラビアもじのもんしょうがあるよ。しましまのさかいめにもアラビアもじがならんでいるんだ。',f:{n:'ゴルメサブジ',k:'ゴルメサブジ',i:'Ghormeh_sabzi.jpg'}},
+  {n:'イラク',k:'イラク',img:'IQL.GIF',r:'アジア',d:'あか・しろ・くろのしましまで、まんなかにアラビアもじで「アッラーはおおいなり」とかいてあるよ。',f:{n:'マスグーフ',k:'マスグーフ',i:'Masgouf.jpg'}},
+  {n:'イギリス',k:'イギリス',img:'GBL.GIF',r:'ヨーロッパ',d:'「ユニオンジャック」とよばれるはたで、イングランド・スコットランド・アイルランドの3つのじゅうじをくみあわせているんだ。',f:{n:'フィッシュアンドチップス',k:'フィッシュ＆チップス',i:'Fish_and_chips_blackpool.jpg'}},
+  {n:'イタリア',k:'イタリア',img:'ITL.GIF',r:'ヨーロッパ',d:'みどり・しろ・あかのたてしまだよ。みどりはきぼう、しろはしんこう、あかはあいをあらわすんだ。',f:{n:'ピッツァ',k:'ピッツァ',i:'Pizza-3007395.jpg'}},
+  {n:'ウクライナ',k:'ウクライナ',img:'UAL.GIF',r:'ヨーロッパ',d:'うえがそらいろ、したがきいろのシンプルなはただよ。あおいそら、きいろいこむぎばたけがウクライナのけしきをあらわしているんだ。',f:{n:'ボルシチ',k:'ボルシチ',i:'Borscht.jpg'}},
+  {n:'オーストリア',k:'オーストリア',img:'ATL.GIF',r:'ヨーロッパ',d:'あか・しろ・あかのよこしまのはただよ。むかしのせんそうでよろいのまわりにちがついたすがたをもとにしたといわれているんだ。',f:{n:'ウィンナーシュニッツェル',k:'シュニッツェル',i:'Schnitzel.jpg'}},
+  {n:'オランダ',k:'オランダ',img:'NLL.GIF',r:'ヨーロッパ',d:'あか・しろ・あおのよこしまのはただよ。もとはオレンジ・しろ・あおだったんだけど、いつのまにかあかになったんだ。',f:{n:'ストロープワッフェル',k:'ストロープワッフェル',i:'Stroopwafels.jpg'}},
+  {n:'ギリシャ',k:'ギリシャ',img:'GRL.GIF',r:'ヨーロッパ',d:'あおとしろのしましまが9ほんと、ひだりうえにじゅうじがあるよ。しましまは「じゆうかしぬか」の9もじをあらわすといわれているんだ。',f:{n:'ムサカ',k:'ムサカ',i:'Moussaka.jpg'}},
+  {n:'スイス',k:'スイス',img:'CHL.GIF',r:'ヨーロッパ',d:'あかいはたにしろいじゅうじ。せかいでもめずらしいほぼしかくのはたなんだよ！じゅうじはキリストきょうをあらわすんだ。',f:{n:'チーズフォンデュ',k:'フォンデュ',i:'Cheese_fondue_in_a_caquelon.jpg'}},
+  {n:'スウェーデン',k:'スウェーデン',img:'SEL.GIF',r:'ヨーロッパ',d:'あおいはたにきいろいじゅうじ。このじゅうじもようはきたヨーロッパのくにぐにでよく使われているんだよ。',f:{n:'ミートボール',k:'ミートボール',i:'Swedish_meatballs.jpg'}},
+  {n:'スペイン',k:'スペイン',img:'ESL.GIF',r:'ヨーロッパ',d:'あか・きいろ・あかのよこしまで、まんなかにおうけのもんしょうがあるよ。きいろのたいはふたつのおうこくをあわせたことをあらわしているんだ。',f:{n:'パエリャ',k:'パエリャ',i:'Paella_in_a_frying_pan.jpg'}},
+  {n:'チェコ',k:'チェコ',img:'CZL.GIF',r:'ヨーロッパ',d:'しろとあかのよこしまに あおいさんかくがついたはただよ。もともとチェコスロバキアのはただったのをそのままつかっているんだ。',f:{n:'スビチュコバー',k:'スビチュコバー',i:'Svickova.jpg'}},
+  {n:'デンマーク',k:'デンマーク',img:'DKL.GIF',r:'ヨーロッパ',d:'あかいはたにしろいじゅうじ。「ダンネブロ」とよばれ、せかいでいちばんふるい「いまもつかわれているはた」といわれているんだよ！',f:{n:'スモーブロー',k:'スモーブロー',i:'Smorrebrod.jpg'}},
+  {n:'ドイツ',k:'ドイツ',img:'DEL.GIF',r:'ヨーロッパ',d:'くろ・あか・きんのよこしまのはただよ。このさんしょくは19せいきのじゆうをもとめたうんどうのいろからきているんだ。',f:{n:'ブラートヴルスト',k:'ブラートヴルスト',i:'Bratwurst_1.jpg'}},
+  {n:'ノルウェー',k:'ノルウェー',img:'NOL.GIF',r:'ヨーロッパ',d:'あかいはたにあおとしろのじゅうじだよ。デンマークのはたをもとにして あおいたてすじをくわえてつくったんだ。',f:{n:'サーモングリル',k:'グリルサーモン',i:'Grilled_salmon_fish_2.jpg'}},
+  {n:'ハンガリー',k:'ハンガリー',img:'HUL.GIF',r:'ヨーロッパ',d:'あか・しろ・みどりのよこしまのはただよ。みどりはきぼう、しろはせいじつ、あかはちからをあらわすんだ。',f:{n:'グヤーシュ',k:'グヤーシュ',i:'Goulash_Eger_(edit).jpg'}},
+  {n:'フィンランド',k:'フィンランド',img:'FIL.GIF',r:'ヨーロッパ',d:'しろいはたにあおいじゅうじ。しろはゆき、あおはみずうみをあらわすよ。フィンランドにはみずうみが18まんこもあるんだ！',f:{n:'カレリアンパイ',k:'カレリアンパイ',i:'Karelian_pasties.jpg'}},
+  {n:'フランス',k:'フランス',img:'FRL.GIF',r:'ヨーロッパ',d:'あお・しろ・あかのたてしま「トリコロール」だよ。じゆう・びょうどう・はっきゅうをあらわし、フランスかくめいのときにうまれたんだ。',f:{n:'クロワッサン',k:'クロワッサン',i:'Croissant_auTbeurre.jpg'}},
+  {n:'ポーランド',k:'ポーランド',img:'PLL.GIF',r:'ヨーロッパ',d:'しろとあかのよこしまのはただよ。しろとあかはポーランドおうこくのもんしょうにいるしろいわしからきているんだ。',f:{n:'ピエロギ',k:'ピエロギ',i:'Pierogi_z_miesem.jpg'}},
+  {n:'ポルトガル',k:'ポルトガル',img:'PTL.GIF',r:'ヨーロッパ',d:'みどりとあかのたてしまで、まんなかにおうかんとちきゅうぎのもんしょうがあるよ。ちきゅうぎはだいこうかいじだいをあらわすんだ。',f:{n:'パステルデナタ',k:'エッグタルト',i:'Pastel_de_nata.jpg'}},
+  {n:'ロシア',k:'ロシア',img:'RUL.GIF',r:'ヨーロッパ',d:'しろ・あお・あかのよこしまだよ。17せいきにピョートルだいていがオランダのはたをもとにつくったといわれているんだ。',f:{n:'ブリヌイ',k:'ブリヌイ',i:'Blini.jpg'}},
+  {n:'ルーマニア',k:'ルーマニア',img:'ROL.GIF',r:'ヨーロッパ',d:'あお・きいろ・あかのたてしまのはただよ。もとはフランスのはたのえいきょうをうけているよ。',f:{n:'サルマーレ',k:'サルマーレ',i:'Sarmale_de_porc.jpg'}},
+  {n:'アメリカ',k:'アメリカ',img:'USL.GIF',r:'アメリカ',d:'あかとしろのしましまが13ほんと、あおいしかくに50このほしがあるよ。しましまははじめの13しゅう、50このほしはいまの50しゅうをあらわすんだ。',f:{n:'ハンバーガー',k:'ハンバーガー',i:'Hamburger_(black_bg).jpg'}},
+  {n:'アルゼンチン',k:'アルゼンチン',img:'ARL.GIF',r:'アメリカ',d:'そらいろ・しろ・そらいろのよこしまで、まんなかに「5がつのたいよう」があるよ。このおひさまはどくりつのシンボルなんだ。',f:{n:'アサード',k:'アサード',i:'Asado_de_tira.jpg'}},
+  {n:'ウルグアイ',k:'ウルグアイ',img:'URL.GIF',r:'アメリカ',d:'しろいはたにしましまとたいようがあるよ。「5がつのたいよう」はアルゼンチンのはたとにているんだ。',f:{n:'チビート',k:'チビート',i:'Chivito_Uruguayo.jpg'}},
+  {n:'カナダ',k:'カナダ',img:'CAL.GIF',r:'アメリカ',d:'あかいたてしまにまっかなかえでのはがあるよ。かえでのははカナダのシンボルで、おかねやスポーツのユニフォームにもつかわれているんだ！',f:{n:'プーティン',k:'プーティン',i:'Montreal_poutine.jpg'}},
+  {n:'キューバ',k:'キューバ',img:'CUL.GIF',r:'アメリカ',d:'あおとしろのしましまにあかいさんかくとしろいほしがあるよ。さんかくはじゆう・びょうどう・はっきゅうをあらわすんだ。',f:{n:'ロパビエハ',k:'ロパビエハ',i:'Ropa_vieja_plate.jpg'}},
+  {n:'コロンビア',k:'コロンビア',img:'COL.GIF',r:'アメリカ',d:'きいろ・あお・あかのよこしまだよ。きいろはゆたかさ、あおはうみとそら、あかはゆうきとけつをあらわすんだ。',f:{n:'バンデハパイサ',k:'バンデハパイサ',i:'Bandeja_paisa.jpg'}},
+  {n:'ジャマイカ',k:'ジャマイカ',img:'JML.GIF',r:'アメリカ',d:'くろ・きいろ・みどりのX（バッテン）もようのはただよ。くろはつよさ、みどりはのうぎょう、きいろはひのひかりをあらわすんだ。',f:{n:'ジャークチキン',k:'ジャークチキン',i:'Jerk_chicken_imported_from_flickr.jpg'}},
+  {n:'チリ',k:'チリ',img:'CLL.GIF',r:'アメリカ',d:'あか・しろのよこしまとあおいしかくにしろいほしがひとつあるよ。ほしは「みちびきのほし」をあらわすんだ。',f:{n:'エンパナーダ',k:'エンパナーダ',i:'Empanadas_de_pino.jpg'}},
+  {n:'ブラジル',k:'ブラジル',img:'BRL.GIF',r:'アメリカ',d:'みどりのはたにきいろいひしがたとあおいまるがあるよ。まるにはブラジルのもりをあらわすほしぼしとことばがかいてあるんだ。',f:{n:'フェイジョアーダ',k:'フェイジョアーダ',i:'Feijoada_-_20-11-2006.jpg'}},
+  {n:'ペルー',k:'ペルー',img:'PEL.GIF',r:'アメリカ',d:'あか・しろ・あかのたてしまのシンプルなはただよ。あかはあつちのちのいろ、しろはアンデスのゆきをあらわすんだ。',f:{n:'セビーチェ',k:'セビーチェ',i:'Ceviche_peruano.jpg'}},
+  {n:'メキシコ',k:'メキシコ',img:'MXL.GIF',r:'アメリカ',d:'みどり・しろ・あかのたてしまで、まんなかに「わしがへびをくわえてサボテンにとまっている」もようがあるよ。むかしのアステカのでんせつなんだ。',f:{n:'タコス',k:'タコス',i:'Tacos_de_carnitas,_Toluca.jpg'}},
+  {n:'エジプト',k:'エジプト',img:'EGL.GIF',r:'アフリカ',d:'あか・しろ・くろのよこしまで、まんなかに「サラーフ・アッディーンのわし」があるよ。このわしはつよさのシンボルなんだ。',f:{n:'コシャリ',k:'コシャリ',i:'Koshary.jpg'}},
+  {n:'エチオピア',k:'エチオピア',img:'ETL.GIF',r:'アフリカ',d:'みどり・きいろ・あかのよこしまで、まんなかにあおいまるとほしがあるよ。このさんしょくはアフリカどくりつのシンボルとして ほかのくにのはたにもえいきょうをあたえたんだよ！',f:{n:'インジェラ',k:'インジェラ',i:'Injera_with_tibs_and_ayib.jpg'}},
+  {n:'ガーナ',k:'ガーナ',img:'GHL.GIF',r:'アフリカ',d:'あか・きいろ・みどりのよこしまで まんなかにくろいほしがひとつあるよ。くろいほしは「アフリカのじゆう」をあらわすんだ。',f:{n:'ジョロフライス',k:'ジョロフライス',i:'Jollof_Rice.jpg'}},
+  {n:'ケニア',k:'ケニア',img:'KEL.GIF',r:'アフリカ',d:'くろ・あか・みどりのよこしまに マサイぞくのたてとやりがえがかれているよ。くろはひとびと、あかはけつ、みどりはしぜんをあらわすんだ。',f:{n:'ウガリ',k:'ウガリ',i:'Ugali_Sukuma.jpg'}},
+  {n:'タンザニア',k:'タンザニア',img:'TZL.GIF',r:'アフリカ',d:'みどり・きいろ・くろ・あおののぼりしまがあるよ。みどりはのはら、きいろはしげん、くろはひとびと、あおはうみをあらわすんだ。',f:{n:'ニャマチョマ',k:'ニャマチョマ',i:'Nyama_Choma.jpg'}},
+  {n:'ナイジェリア',k:'ナイジェリア',img:'NGL.GIF',r:'アフリカ',d:'みどり・しろ・みどりのたてしまだよ。みどりはのうぎょうとゆたかなしぜん、しろはへいわをあらわすんだ。',f:{n:'ジョロフライス',k:'ジョロフライス',i:'Jollof_Rice.jpg'}},
+  {n:'みなみアフリカ',k:'南アフリカ',img:'ZAL.GIF',r:'アフリカ',d:'みどり・くろ・きいろ・あか・あおの6しょくでYのかたちをしているよ。いろんなみんぞくがひとつになることをあらわしているんだ。',f:{n:'ブラーイ',k:'ブラーイ',i:'Braai_fire.jpg'}},
+  {n:'モロッコ',k:'モロッコ',img:'MAL.GIF',r:'アフリカ',d:'あかいはたのまんなかにみどりのほしがひとつあるよ。あかはおうけ、みどりのほしはイスラムきょうのシンボルなんだ。',f:{n:'タジン',k:'タジン',i:'Tajine_poulet_citron_confit.jpg'}},
+  {n:'オーストラリア',k:'オーストラリア',img:'AUL.GIF',r:'オセアニア',d:'あおいはたにユニオンジャック・みなみじゅうじのほし・おおきなほしがあるよ。みなみじゅうじはなんてんのほしぼし、おおきなほしはれんぽうのしゅうをあらわすんだ。',f:{n:'ミートパイ',k:'ミートパイ',i:'Australian_meat_pie.jpg'}},
+  {n:'ニュージーランド',k:'ニュージーランド',img:'NZL.GIF',r:'オセアニア',d:'あおいはたにユニオンジャックとみなみじゅうじがあるよ。オーストラリアのはたとにているけど、ほしのいろがちがうんだ！',f:{n:'ハンギ',k:'ハンギ',i:'Hangi_food.jpg'}},
+  {n:'フィジー',k:'フィジー',img:'FJL.GIF',r:'オセアニア',d:'あおいはたにユニオンジャックとたてのもようがあるよ。たてにはさとうきび・やしのき・はとなどフィジーのしぜんがえがかれているんだ。',f:{n:'ロボ',k:'ロボ',i:'Lovo_food.jpg'}},
+  {n:'トンガ',k:'トンガ',img:'TOL.GIF',r:'オセアニア',d:'あかいはたのひだりうえに、しろいしかくにあかいじゅうじがあるよ。トンガのおうさまが「キリストきょうをたいせつにする」とちかったことをあらわしているんだ。',f:{n:'ルプル',k:'ルプル',i:'Lu_pulu.jpg'}},
 ];
 
 // STATE
@@ -278,7 +294,7 @@ function showScreen(id,ti){
 function showHome(){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('s-home').classList.add('active');
-  document.getElementById('tb-title').innerHTML='🌍 くにのはたクイズ';
+  document.getElementById('tb-title').innerHTML='🌍 せかいのこっきクイズ';
   updSeal();buildChips();window.scrollTo(0,0);
 }
 function buildChips(){
@@ -325,7 +341,7 @@ function bKbd(w){
   kbd.style.gridTemplateColumns=`repeat(${Math.min(bs.length,6)},1fr)`;
   bs.forEach(c=>{const b=document.createElement('button');b.className='kbtn'+(c==='⌫'?' kdel':'');b.textContent=c;b.onclick=()=>fiType(c);kbd.appendChild(b)});
 }
-function startFill(){fiL=shuf(pool());fiI=0;fiPt=0;fiSC=0;showScreen('s-fill','✏️ もじあわせ');rFiQ()}
+function startFill(){fiL=shuf(pool());fiI=0;fiPt=0;fiSC=0;showScreen('s-fill','🇯🇵 にほ◯');rFiQ()}
 function rFiQ(){
   fiSolv=false;hiCnt=0;const c=fiL[fiI];const w=c.n;
   document.getElementById('fi-fl').src=IMG+c.img;
@@ -384,16 +400,80 @@ function endFill(){save();updSeal();const s=earnSeal(fiL[Math.floor(Math.random(
 
 // MILESTONE
 let msAnim=null;
+// SOUNDS via Web Audio API
+function getAC(){if(!window._ac)window._ac=new(window.AudioContext||window.webkitAudioContext)();return window._ac}
+function playGJSound(){
+  try{
+    const ac=getAC();
+    // キラキラ上昇音：短い音符が連続して上がる
+    const notes=[523,659,784,1047,1319];
+    notes.forEach((freq,i)=>{
+      const t=ac.currentTime+i*0.08;
+      const o=ac.createOscillator();const g=ac.createGain();
+      o.connect(g);g.connect(ac.destination);
+      o.type='sine';o.frequency.setValueAtTime(freq,t);
+      g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(0.3,t+0.03);
+      g.gain.exponentialRampToValueAtTime(0.001,t+0.25);
+      o.start(t);o.stop(t+0.25);
+    });
+    // キラキラ高音スパークル
+    [1568,2093,2637].forEach((freq,i)=>{
+      const t=ac.currentTime+0.35+i*0.07;
+      const o=ac.createOscillator();const g=ac.createGain();
+      o.connect(g);g.connect(ac.destination);
+      o.type='triangle';o.frequency.setValueAtTime(freq,t);
+      g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(0.18,t+0.02);
+      g.gain.exponentialRampToValueAtTime(0.001,t+0.3);
+      o.start(t);o.stop(t+0.3);
+    });
+  }catch(e){}
+}
+function playRKSound(){
+  try{
+    const ac=getAC();
+    // ロケット発射音：低音のブォーン
+    const launch=ac.createOscillator();const lg=ac.createGain();
+    launch.connect(lg);lg.connect(ac.destination);
+    launch.type='sawtooth';
+    launch.frequency.setValueAtTime(80,ac.currentTime);
+    launch.frequency.exponentialRampToValueAtTime(400,ac.currentTime+0.6);
+    lg.gain.setValueAtTime(0.3,ac.currentTime);
+    lg.gain.exponentialRampToValueAtTime(0.001,ac.currentTime+0.7);
+    launch.start(ac.currentTime);launch.stop(ac.currentTime+0.7);
+    // 豪華な上昇アルペジオ
+    const chord=[262,330,392,523,659,784,1047,1319,1568];
+    chord.forEach((freq,i)=>{
+      const t=ac.currentTime+0.4+i*0.07;
+      const o=ac.createOscillator();const g=ac.createGain();
+      o.connect(g);g.connect(ac.destination);
+      o.type='sine';o.frequency.setValueAtTime(freq,t);
+      g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(0.25,t+0.04);
+      g.gain.exponentialRampToValueAtTime(0.001,t+0.5);
+      o.start(t);o.stop(t+0.5);
+    });
+    // 最後にキラキラ輝き音
+    [2093,2637,3136].forEach((freq,i)=>{
+      const t=ac.currentTime+1.1+i*0.09;
+      const o=ac.createOscillator();const g=ac.createGain();
+      o.connect(g);g.connect(ac.destination);
+      o.type='triangle';o.frequency.setValueAtTime(freq,t);
+      g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(0.2,t+0.03);
+      g.gain.exponentialRampToValueAtTime(0.001,t+0.4);
+      o.start(t);o.stop(t+0.4);
+    });
+  }catch(e){}
+}
+
 function showMS(type,country){
   if(type==='gj'){
     const ov=document.getElementById('gj-ov');
     document.getElementById('gj-sub').textContent=`${fiSC}もんせいかい！🎉`;
-    ov.classList.add('show');earnSeal(country);save();updSeal();runGJ();
+    ov.classList.add('show');earnSeal(country);save();updSeal();runGJ();playGJSound();
     const done=()=>{ov.classList.remove('show');stopGJ();advFi()};
     document.getElementById('gj-cont').onclick=done;setTimeout(done,5000);
   } else {
     const ov=document.getElementById('rk-ov');ov.classList.add('show');
-    earnGold(country);save();updSeal();runRK();
+    earnGold(country);save();updSeal();runRK();playRKSound();
     const done=()=>{ov.classList.remove('show');stopRK();advFi()};
     document.getElementById('rk-cont').onclick=done;setTimeout(done,6000);
   }
@@ -423,7 +503,7 @@ function stopRK(){if(rkA){cancelAnimationFrame(rkA);rkA=null}const cv=document.g
 let trL=[],trI=0,trPt=0,trDr=false,trCtx=null;
 const TC=['#FF4757','#2ed573','#1e90ff','#ffa502','#a29bfe','#fd79a8','#000'];
 let tCol='#2ed573',tSz=12;
-function startTrace(){trL=shuf(pool());trI=0;trPt=0;showScreen('s-trace','🖊️ なぞりがき');bCrow();bSzrow();initTr();rTrQ()}
+function startTrace(){trL=shuf(pool());trI=0;trPt=0;showScreen('s-trace','✏️ なぞりがき');bCrow();bSzrow();initTr();rTrQ()}
 function bCrow(){const el=document.getElementById('crow');el.innerHTML='';TC.forEach(c=>{const d=document.createElement('div');d.className='cdot'+(c===tCol?' on':'');d.style.background=c;d.onclick=()=>{tCol=c;bCrow()};el.appendChild(d)})}
 function bSzrow(){const el=document.getElementById('szrow');el.innerHTML='';[8,12,18].forEach(s=>{const b=document.createElement('button');b.className='szbtn'+(s===tSz?' on':'');const d=document.createElement('div');d.style.cssText=`width:${s*.85}px;height:${s*.85}px;border-radius:50%;background:${s===tSz?'#fff':'#555'}`;b.appendChild(d);b.onclick=()=>{tSz=s;bSzrow()};el.appendChild(b)})}
 function initTr(){
@@ -433,7 +513,7 @@ function initTr(){
   ['mouseup','touchend','mouseleave'].forEach(e=>cv.addEventListener(e,()=>trDr=false));
 }
 function gPos(e,cv){const r=cv.getBoundingClientRect(),sx=cv.width/r.width,sy=cv.height/r.height,s=e.touches?e.touches[0]:e;return{x:(s.clientX-r.left)*sx,y:(s.clientY-r.top)*sy}}
-function trClear(){if(!trCtx)return;const cv=document.getElementById('tr-cv');trCtx.clearRect(0,0,cv.width,cv.height);if(!trL[trI])return;trCtx.font=`bold ${Math.floor(cv.height*.5)}px 'Noto Sans JP',sans-serif`;trCtx.textAlign='center';trCtx.textBaseline='middle';trCtx.fillStyle='rgba(200,200,200,.4)';trCtx.fillText(trL[trI].n,cv.width/2,cv.height/2)}
+function trClear(){if(!trCtx)return;const cv=document.getElementById('tr-cv');trCtx.clearRect(0,0,cv.width,cv.height);if(!trL[trI])return;trCtx.font=`bold ${Math.floor(cv.height*.5)}px 'Zen Maru Gothic',sans-serif`;trCtx.textAlign='center';trCtx.textBaseline='middle';trCtx.fillStyle='rgba(200,200,200,.4)';trCtx.fillText(trL[trI].n,cv.width/2,cv.height/2)}
 function rTrQ(){const c=trL[trI];if(!c)return;document.getElementById('tr-fl').src=IMG+c.img;document.getElementById('tr-gd').textContent=c.n;document.getElementById('tr-pr').textContent=`「${c.n}」をなぞってかいてみよう！`;document.getElementById('tr-n').textContent=`${trI+1} / ${trL.length}`;document.getElementById('tr-pb').style.width=((trI/trL.length)*100)+'%';document.getElementById('tr-p').textContent=`⭐ ${trPt}`;trClear();speak(c.n)}
 function trNext(){trPt++;document.getElementById('tr-p').textContent=`⭐ ${trPt}`;floatStar();trI++;if(trI>=trL.length){save();updSeal();const s=earnSeal(trL[Math.floor(Math.random()*trL.length)]);showResult(`${trL.length}このくにをかいたよ！`,trPt,s,startTrace)}else rTrQ()}
 
@@ -467,12 +547,74 @@ function rDict(){
   if(!sorted.length){const p=document.createElement('p');p.style.cssText='color:#aaa;font-size:13px;text-align:center;grid-column:1/-1;padding:20px';p.textContent='このぎょうのくには ないよ';g.appendChild(p);return}
   sorted.forEach(c=>{const card=document.createElement('div');card.className='dt-card';card.innerHTML=`<img src="${IMG+c.img}" alt="${c.n}"><div class="dt-kana">（${c.n}）</div><div class="dt-name">${c.k}</div>`;card.onclick=()=>openDM(c);g.appendChild(card)});
 }
+// TIMEZONE DATA (UTC offset in minutes)
+const TZ={
+  'にほん':540,'かんこく':540,'ちゅうごく':480,'インド':330,'タイ':420,
+  'インドネシア':420,'ベトナム':420,'マレーシア':480,'シンガポール':480,
+  'フィリピン':480,'ミャンマー':390,'カンボジア':420,'モンゴル':480,
+  'パキスタン':300,'バングラデシュ':360,'ネパール':345,'サウジアラビア':180,
+  'イスラエル':120,'イラン':210,'イラク':180,
+  'イギリス':0,'フランス':60,'ドイツ':60,'イタリア':60,'スペイン':60,
+  'ロシア':180,'ポルトガル':0,'オランダ':60,'スウェーデン':60,'ノルウェー':60,
+  'デンマーク':60,'フィンランド':120,'スイス':60,'オーストリア':60,
+  'ポーランド':60,'ギリシャ':120,'ウクライナ':120,'チェコ':60,
+  'ハンガリー':60,'ルーマニア':120,
+  'アメリカ':-300,'カナダ':-300,'メキシコ':-360,'ブラジル':-180,
+  'アルゼンチン':-180,'チリ':-180,'ペルー':-300,'キューバ':-300,
+  'コロンビア':-300,'ジャマイカ':-300,'ウルグアイ':-180,
+  'エジプト':120,'みなみアフリカ':120,'ナイジェリア':60,'ケニア':180,
+  'エチオピア':180,'ガーナ':0,'タンザニア':180,'モロッコ':60,
+  'オーストラリア':600,'ニュージーランド':720,'フィジー':720,'トンガ':780,
+};
+let ckTimer=null;
 function openDM(c){
-  document.getElementById('dm-fl').src=IMG+c.img;document.getElementById('dm-na').textContent=c.k;document.getElementById('dm-ru').textContent='（'+c.n+'）';document.getElementById('dm-re').textContent=c.r;document.getElementById('dm-de').textContent=c.d;
+  document.getElementById('dm-fl').src=IMG+c.img;
+  document.getElementById('dm-na').textContent=c.k;
+  document.getElementById('dm-ru').textContent='（'+c.n+'）';
+  document.getElementById('dm-re').textContent=c.r;
+  document.getElementById('dm-de').textContent=c.d;
   document.getElementById('dm-map').onclick=()=>window.open('https://www.google.com/maps/place/'+encodeURIComponent(c.k),'_blank');
+  // food
+  if(c.f){
+    const fi=document.getElementById('dm-fi');
+    fi.style.display='block';
+    document.getElementById('dm-fe').style.display='none';
+    fi.src=WK+encodeURIComponent(c.f.i)+'?width=400';
+    document.getElementById('dm-fn').textContent=c.f.k;
+    document.getElementById('dm-fk').textContent='（'+c.f.n+'）';
+  }
+  // clock setup
+  document.getElementById('dm-ck-flag').src=IMG+c.img;
+  document.getElementById('dm-ck-name').textContent=c.n;
+  if(ckTimer)clearInterval(ckTimer);
+  function tick(){
+    const now=new Date();
+    const utc=now.getTime()+now.getTimezoneOffset()*60000;
+    const jpOff=TZ['にほん']??540;
+    const cOff=TZ[c.n]??null;
+    const jpTime=new Date(utc+jpOff*60000);
+    const fmt=d=>`${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+    document.getElementById('dm-ck-jp').textContent=fmt(jpTime);
+    if(cOff!==null){
+      const ct=new Date(utc+cOff*60000);
+      document.getElementById('dm-ck-time').textContent=fmt(ct);
+      const diff=Math.round((cOff-jpOff)/60*10)/10;
+      const ds=diff===0?'にほんとおなじじこく':diff>0?`にほんより ${diff}じかんすすんでいる`:`にほんより ${Math.abs(diff)}じかんおくれている`;
+      document.getElementById('dm-ck-diff').textContent=ds;
+    } else {
+      document.getElementById('dm-ck-time').textContent='ー';
+      document.getElementById('dm-ck-diff').textContent='';
+    }
+  }
+  tick();ckTimer=setInterval(tick,5000);
   document.getElementById('dm-bg').classList.add('show');speak(c.n);
 }
-function closeDM(e){if(!e||e.target===document.getElementById('dm-bg'))document.getElementById('dm-bg').classList.remove('show')}
+function closeDM(e){
+  if(!e||e.target===document.getElementById('dm-bg')){
+    document.getElementById('dm-bg').classList.remove('show');
+    if(ckTimer){clearInterval(ckTimer);ckTimer=null;}
+  }
+}
 
 // RESULT
 function showResult(msg,pts,s,ag,pf=false){
