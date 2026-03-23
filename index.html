@@ -84,7 +84,7 @@ body>*{position:relative;z-index:1}
 .trw{max-width:480px;margin:0 auto;padding:14px;text-align:center}
 .tr-flag{max-width:150px;max-height:95px;width:100%;object-fit:contain;border-radius:8px;border:1px solid #eee;margin:0 auto 10px;display:block}
 .tr-prompt{font-size:14px;color:#888;margin-bottom:8px}
-.tr-guide{font-size:26px;color:#ddd;letter-spacing:3px;font-weight:700;margin-bottom:7px}
+.tr-guide{font-size:clamp(14px,5vw,26px);color:#ddd;letter-spacing:1px;font-weight:700;margin-bottom:7px;word-break:break-all}
 .tr-canvas{border-radius:14px;border:3px solid #e5e7eb;background:#fff;display:block;width:100%;touch-action:none}
 .crow{display:flex;gap:7px;justify-content:center;margin-bottom:10px}
 .cdot{width:30px;height:30px;border-radius:50%;border:3px solid transparent;cursor:pointer;transition:transform .15s}
@@ -121,15 +121,15 @@ body>*{position:relative;z-index:1}
 .dt-kana{font-size:11px;color:#888;margin-bottom:2px}
 .dt-name{font-size:13px;font-weight:700;color:#333}
 /* MODAL */
-.modal-bg{position:fixed;top:0;left:0;right:0;bottom:0;width:100%;height:100%;background:rgba(0,0,0,.55);z-index:500;display:none;align-items:center;justify-content:center;padding:12px;box-sizing:border-box;overflow-y:auto}
+.modal-bg{position:fixed;top:0;left:0;right:0;bottom:0;width:100%;height:100%;background:rgba(0,0,0,.55);z-index:500;display:none;align-items:flex-start;justify-content:center;padding:16px;box-sizing:border-box;overflow-y:auto}
 .modal-bg.show{display:flex}
-.modal{background:#fff;border-radius:20px;padding:20px 18px 24px;width:100%;max-width:460px;max-height:90vh;overflow-y:auto;animation:mc .25s ease;box-shadow:0 8px 40px rgba(0,0,0,.3);box-sizing:border-box;-webkit-overflow-scrolling:touch;margin:auto}
+.modal{background:#fff;border-radius:20px;padding:20px 16px 24px;width:min(92vw,460px);max-height:none;overflow-y:visible;animation:mc .25s ease;box-shadow:0 8px 40px rgba(0,0,0,.3);box-sizing:border-box;margin:auto;word-break:break-all;word-wrap:break-word;overflow-wrap:break-word}
 @keyframes mc{from{transform:scale(.92);opacity:0}to{transform:scale(1);opacity:1}}
 .mo-flag{max-width:200px;max-height:120px;width:100%;object-fit:contain;border-radius:8px;border:1px solid #eee;display:block;margin:0 auto 10px}
-.mo-name{font-family:'Kaisei Decol',serif;font-size:24px;font-weight:700;color:#222;text-align:center}
+.mo-name{font-family:'Kaisei Decol',serif;font-size:clamp(18px,5vw,24px);font-weight:700;color:#222;text-align:center;word-break:keep-all}
 .mo-ruby{font-size:13px;color:#888;text-align:center;margin-bottom:6px}
 .mo-reg{font-size:11px;background:#f0f4ff;color:#4338ca;border-radius:99px;padding:3px 10px;display:inline-block;margin-bottom:14px}
-.mo-desc{font-size:14px;color:#333;line-height:2.2;background:#fffbeb;border-radius:12px;padding:12px 14px;margin-bottom:14px;word-break:keep-all}
+.mo-desc{font-size:14px;color:#333;line-height:2.2;background:#fffbeb;border-radius:12px;padding:12px 14px;margin-bottom:14px;word-break:keep-all;overflow-wrap:break-word;white-space:normal}
 .mo-desc ruby{ruby-align:center}
 .mo-desc rt{font-size:10px;color:#888;letter-spacing:0}
 .mapbtn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:13px;border-radius:14px;border:none;background:#34a853;color:#fff;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer}
@@ -607,17 +607,40 @@ function endFill(){save();updSeal();const s=earnSeal(fiL[Math.floor(Math.random(
 // MILESTONE
 let msAnim=null;
 // SOUNDS via Web Audio API
+// AudioContext - iOS対応
+window._ac=null;
+window._acUnlocked=false;
 function getAC(){
-  if(!window._ac)window._ac=new(window.AudioContext||window.webkitAudioContext)();
-  if(window._ac.state==='suspended')window._ac.resume();
-  return window._ac
+  if(!window._ac){
+    try{window._ac=new(window.AudioContext||window.webkitAudioContext)()}catch(e){return null}
+  }
+  if(window._ac.state==='suspended'){
+    window._ac.resume();
+  }
+  return window._ac;
 }
-// iOSのために最初のタッチでAudioContextを起こす
-document.addEventListener('touchstart',()=>{getAC()},{once:true,passive:true});
-document.addEventListener('click',()=>{getAC()},{once:true,passive:true});
+function unlockAC(){
+  if(window._acUnlocked)return;
+  const ac=getAC();
+  if(!ac)return;
+  // 無音バッファを再生してiOSのロックを解除
+  try{
+    const buf=ac.createBuffer(1,1,22050);
+    const src=ac.createBufferSource();
+    src.buffer=buf;
+    src.connect(ac.destination);
+    src.start(0);
+    src.stop(0.001);
+    ac.resume().then(()=>{window._acUnlocked=true});
+  }catch(e){}
+}
+// あらゆるユーザー操作でAudioContextを解除
+['touchstart','touchend','mousedown','click','keydown'].forEach(ev=>{
+  document.addEventListener(ev, unlockAC, {passive:true});
+});
 function playGJSound(){
   try{
-    const ac=getAC();
+    unlockAC();const ac=getAC();if(!ac||ac.state==='suspended'){ac&&ac.resume();setTimeout(playGJSound,200);return}
     // キラキラ上昇音：短い音符が連続して上がる
     const notes=[523,659,784,1047,1319];
     notes.forEach((freq,i)=>{
@@ -643,7 +666,7 @@ function playGJSound(){
 }
 function playRKSound(){
   try{
-    const ac=getAC();
+    unlockAC();const ac=getAC();if(!ac||ac.state==='suspended'){ac&&ac.resume();setTimeout(playRKSound,200);return}
     // ロケット発射音：低音のブォーン
     const launch=ac.createOscillator();const lg=ac.createGain();
     launch.connect(lg);lg.connect(ac.destination);
@@ -726,7 +749,25 @@ function initTr(){
   ['mouseup','touchend','mouseleave'].forEach(e=>cv.addEventListener(e,()=>trDr=false));
 }
 function gPos(e,cv){const r=cv.getBoundingClientRect(),sx=cv.width/r.width,sy=cv.height/r.height,s=e.touches?e.touches[0]:e;return{x:(s.clientX-r.left)*sx,y:(s.clientY-r.top)*sy}}
-function trClear(){if(!trCtx)return;const cv=document.getElementById('tr-cv');trCtx.clearRect(0,0,cv.width,cv.height);if(!trL[trI])return;trCtx.font=`bold ${Math.floor(cv.height*.5)}px 'Zen Maru Gothic',sans-serif`;trCtx.textAlign='center';trCtx.textBaseline='middle';trCtx.fillStyle='rgba(200,200,200,.4)';trCtx.fillText(trL[trI].n,cv.width/2,cv.height/2)}
+function trClear(){
+  if(!trCtx)return;
+  const cv=document.getElementById('tr-cv');
+  trCtx.clearRect(0,0,cv.width,cv.height);
+  if(!trL[trI])return;
+  const txt=trL[trI].n;
+  // 文字数に応じてフォントサイズを自動調整
+  let fs=Math.floor(cv.height*.5);
+  trCtx.textAlign='center';trCtx.textBaseline='middle';
+  // フォントをセットして幅を測り、はみ出すなら縮小
+  do {
+    trCtx.font=`bold ${fs}px 'Zen Maru Gothic',sans-serif`;
+    const w=trCtx.measureText(txt).width;
+    if(w<=cv.width*0.92)break;
+    fs=Math.floor(fs*0.85);
+  } while(fs>12);
+  trCtx.fillStyle='rgba(200,200,200,.4)';
+  trCtx.fillText(txt,cv.width/2,cv.height/2);
+}
 function rTrQ(){const c=trL[trI];if(!c)return;const tfl=document.getElementById('tr-fl');tfl.src=flagUrl(c);document.getElementById('tr-gd').textContent=c.n;document.getElementById('tr-pr').textContent=`「${c.n}」をなぞってかいてみよう！`;document.getElementById('tr-n').textContent=`${trI+1} / ${trL.length}`;document.getElementById('tr-pb').style.width=((trI/trL.length)*100)+'%';document.getElementById('tr-p').textContent=`⭐ ${trPt}`;trClear();speak(c.n)}
 function trNext(){trPt++;document.getElementById('tr-p').textContent=`⭐ ${trPt}`;floatStar();trI++;if(trI>=trL.length){save();updSeal();const s=earnSeal(trL[Math.floor(Math.random()*trL.length)]);showResult(`${trL.length}このくにをかいたよ！`,trPt,s,startTrace)}else rTrQ()}
 
@@ -820,9 +861,9 @@ let ckTimer=null;
 function openDM(c){
   // モーダル位置をJSで強制セット（CSS無視）
   const bg=document.getElementById('dm-bg');
-  bg.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.55);z-index:9000;display:flex;align-items:center;justify-content:center;padding:12px;box-sizing:border-box;overflow-y:auto';
+  bg.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.55);z-index:9000;display:flex;align-items:flex-start;justify-content:center;padding:16px;box-sizing:border-box;overflow-y:auto';
   const md=bg.querySelector('.modal');
-  md.style.cssText='background:#fff;border-radius:20px;padding:20px 18px 24px;width:100%;max-width:460px;max-height:90vh;overflow-y:auto;box-shadow:0 8px 40px rgba(0,0,0,0.3);box-sizing:border-box;margin:auto';
+  md.style.cssText='background:#fff;border-radius:20px;padding:20px 16px 24px;width:min(92vw,460px);box-shadow:0 8px 40px rgba(0,0,0,0.3);box-sizing:border-box;margin:auto;word-break:break-all;overflow-wrap:break-word';
 
   document.getElementById('dm-fl').src=flagUrl(c);
   document.getElementById('dm-na').textContent=c.k;
