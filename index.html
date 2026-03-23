@@ -827,7 +827,7 @@ function openDM(c){
     fi.onerror=function(){this.style.display='none';fe.style.display='flex';};
     fi.onload=function(){this.style.display='block';};
     // 少し遅らせてsrcをセット
-    setTimeout(()=>{fi.src=c.f.i.startsWith('foods/')?c.f.i:WK+c.f.i+'?width=400';},50);
+    setTimeout(()=>{fi.src=(c.f.i.startsWith('data:')||c.f.i.startsWith('foods/'))?c.f.i:WK+c.f.i+'?width=400';},50);
     document.getElementById('dm-fn').style.display='block';
     document.getElementById('dm-fk').style.display='block';
   } else {
