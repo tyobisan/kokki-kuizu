@@ -191,15 +191,15 @@ body{font-family:'Zen Maru Gothic',sans-serif;background:var(--bg);min-height:10
 <!-- RESULT -->
 <div class="res-bg" id="res-bg"><div class="res-card"><span class="res-em" id="res-em">🌟</span><div class="res-title" id="res-ti"></div><div class="res-body" id="res-bo"></div><div class="nsw" id="nsw" style="display:none"><div style="font-size:11px;color:#888;margin-bottom:4px">🎁 あたらしいシールをゲット！</div><img id="nsi" src="" alt=""></div><div class="rbtns"><button class="rbtn p" id="res-next">もう一回！</button><button class="rbtn s" onclick="showHome()">ホーム</button></div></div></div>
 <!-- DICT MODAL -->
-<div class="modal-bg" id="dm-bg" onclick="closeDM(event)"><div class="modal"><img class="mo-flag" id="dm-fl" src="" alt=""><div class="mo-name" id="dm-na"></div><div class="mo-ruby" id="dm-ru"></div><div style="text-align:center"><span class="mo-reg" id="dm-re"></span></div><div style="height:10px"></div><div class="mo-desc" id="dm-de"></div><div class="mo-food"><div class="mo-food-title">🍽️ <ruby>有名<rt>ゆうめい</rt></ruby>なたべもの</div><img class="mo-food-img" id="dm-fi" src="" alt="" onerror="this.style.display='none';document.getElementById('dm-fe').style.display='flex'"><div class="mo-food-img-err" id="dm-fe" style="display:none">🍴</div><div class="mo-food-name" id="dm-fn"></div><div class="mo-food-kana" id="dm-fk"></div></div><div class="mo-clock-title">🕐 いまの<ruby>時刻<rt>じこく</rt></ruby></div><div class="mo-clock-row"><div class="mo-clock-label"><img class="mo-clock-flag-sm" id="dm-ck-flag" src="" alt=""><span id="dm-ck-name">ー</span></div><div style="text-align:right"><div class="mo-clock-time" id="dm-ck-time">--:--</div></div></div><hr class="mo-clock-divider"><div class="mo-clock-row"><div class="mo-clock-label">🇯🇵 にほん</div><div style="text-align:right"><div class="mo-clock-time" id="dm-ck-jp">--:--</div></div></div><div class="mo-clock-diff" id="dm-ck-diff"></div></div><button class="mapbtn" id="dm-map">🗺️ グーグルマップでみる</button><button class="mo-close" onclick="closeDM()">とじる ✕</button></div></div>
+<div class="modal-bg" id="dm-bg" onclick="closeDM(event)"><div class="modal"><img class="mo-flag" id="dm-fl" src="" alt=""><div class="mo-name" id="dm-na"></div><div class="mo-ruby" id="dm-ru"></div><div style="text-align:center"><span class="mo-reg" id="dm-re"></span></div><div style="height:10px"></div><div class="mo-desc" id="dm-de"></div><div class="mo-food"><div class="mo-food-title">🍽️ <ruby>有名<rt>ゆうめい</rt></ruby>なたべもの</div><img class="mo-food-img" id="dm-fi" src="" alt="" ><div class="mo-food-img-err" id="dm-fe" style="display:none">🍴</div><div class="mo-food-name" id="dm-fn"></div><div class="mo-food-kana" id="dm-fk"></div></div><div class="mo-clock-title">🕐 いまの<ruby>時刻<rt>じこく</rt></ruby></div><div class="mo-clock-row"><div class="mo-clock-label"><img class="mo-clock-flag-sm" id="dm-ck-flag" src="" alt=""><span id="dm-ck-name">ー</span></div><div style="text-align:right"><div class="mo-clock-time" id="dm-ck-time">--:--</div></div></div><hr class="mo-clock-divider"><div class="mo-clock-row"><div class="mo-clock-label">🇯🇵 にほん</div><div style="text-align:right"><div class="mo-clock-time" id="dm-ck-jp">--:--</div></div></div><div class="mo-clock-diff" id="dm-ck-diff"></div></div><button class="mapbtn" id="dm-map">🗺️ グーグルマップでみる</button><button class="mo-close" onclick="closeDM()">とじる ✕</button></div></div>
 <!-- TOPBAR -->
 <div class="topbar"><div class="topbar-title" id="tb-title">🌍 せかいのこっきクイズ</div><div style="display:flex;align-items:center;gap:4px;font-size:13px;font-weight:700;color:#555">🏷️<span class="seal-badge" id="seal-n">0</span></div></div>
 <!-- HOME -->
-<div class="screen active" id="s-home"><div class="hw"><span class="mascot">🌎</span><div class="htitle">せかいのこっき<br>クイズ！</div><div class="hsub">せかいのくにをおぼえよう</div><div class="rl">ちいきをえらぼう</div><div class="chips" id="rchips"></div><div class="mgrid"><div class="mcard cf" onclick="startFlash()"><span class="icon">🃏</span><div class="lbl">フラッシュカード</div><div class="sub">みておぼえよう</div></div><div class="mcard ci" onclick="startFill()"><span class="icon">🇯🇵</span><div class="lbl">にほ◯</div><div class="sub">こたえをいれよう</div></div><div class="mcard ct" onclick="startTrace()"><span class="icon">✏️</span><div class="lbl">なぞりがき</div><div class="sub">もじをかこう</div></div><div class="mcard cd" onclick="startDict()"><span class="icon">📚</span><div class="lbl">じてん</div><div class="sub">あいうえおでしらべる</div></div></div><div style="background:var(--card);border-radius:var(--r);border:3px solid var(--sun);padding:14px 8px;cursor:pointer;box-shadow:var(--sh);text-align:center" onclick="showSeals()"><span style="font-size:36px;display:block;margin-bottom:5px">📖</span><div style="font-size:14px;font-weight:700;color:#333">シールブック</div><div style="font-size:10px;color:#999;margin-top:2px" id="sl-cnt">あつめたシール：0まい</div></div></div></div>
+<div class="screen active" id="s-home"><div class="hw"><span class="mascot">🌎</span><div class="htitle">せかいのこっき<br>クイズ！</div><div class="hsub">せかいのくにをおぼえよう</div><div style="color:#ccc;font-size:10px">v15</div><div class="rl">ちいきをえらぼう</div><div class="chips" id="rchips"></div><div class="mgrid"><div class="mcard cf" onclick="startFlash()"><span class="icon">🃏</span><div class="lbl">フラッシュカード</div><div class="sub">みておぼえよう</div></div><div class="mcard ci" onclick="startFill()"><span class="icon">🇯🇵</span><div class="lbl">にほ◯</div><div class="sub">こたえをいれよう</div></div><div class="mcard ct" onclick="startTrace()"><span class="icon">✏️</span><div class="lbl">なぞりがき</div><div class="sub">もじをかこう</div></div><div class="mcard cd" onclick="startDict()"><span class="icon">📚</span><div class="lbl">じてん</div><div class="sub">あいうえおでしらべる</div></div></div><div style="background:var(--card);border-radius:var(--r);border:3px solid var(--sun);padding:14px 8px;cursor:pointer;box-shadow:var(--sh);text-align:center" onclick="showSeals()"><span style="font-size:36px;display:block;margin-bottom:5px">📖</span><div style="font-size:14px;font-weight:700;color:#333">シールブック</div><div style="font-size:10px;color:#999;margin-top:2px" id="sl-cnt">あつめたシール：0まい</div></div></div></div>
 <!-- FLASH -->
 <div class="screen" id="s-flash"><div class="fw"><div class="srow"><span id="fc-n">1/10</span><span class="spts" id="fc-p">⭐ 0</span></div><div class="pw"><div class="pb" id="fc-pb" style="width:0%"></div></div><div class="fcc" id="fc-card" onclick="fcFlip()"><img class="fc-flag" id="fc-fi" src="" alt="こっき"><div class="fc-name" id="fc-nm" style="display:none"></div><div class="fc-ruby" id="fc-rb" style="display:none"></div><div class="fc-reg" id="fc-rg"></div><button class="vbtn" id="fc-vb" style="display:none" onclick="event.stopPropagation();speak(curSpeak)">🔊 よみあげ</button><div class="fc-hint" id="fc-ht">タップでこたえをみる</div></div><div class="fcnav"><button class="navbtn" onclick="fcMv(-1)">◀</button><span style="font-size:14px;font-weight:700;color:#888" id="fc-ct">1/10</span><button class="navbtn" onclick="fcMv(1)">▶</button></div><div style="margin-top:14px;display:flex;gap:8px"><button class="bbtn bm" style="flex:1" onclick="startFill()">✏️ もじあわせにチャレンジ！</button></div></div></div>
 <!-- FILL -->
-<div class="screen" id="s-fill"><div class="fiw"><div class="srow"><span id="fi-n">もんだい 1/?</span><span class="spts" id="fi-p">⭐ 0</span></div><div class="pw"><div class="pb" id="fi-pb" style="width:0%"></div></div><img class="fi-flag" id="fi-fl" src="" alt="こっき"><div class="fi-prompt">この くにの なまえは？</div><div class="fi-word" id="fi-wd"></div><div class="fi-fb" id="fi-fb"></div><div class="hkbd" id="hkbd"></div><div style="display:flex;gap:7px;margin-top:6px"><button class="hintbtn" id="hintbtn" onclick="fillHint()">💡 ヒント</button><button class="vbtn" onclick="speak(curSpeak)" style="margin:0">🔊 よみあげ</button></div></div></div>
+<div class="screen" id="s-fill"><div class="fiw"><div class="srow"><span id="fi-n">もんだい 1/?</span><span class="spts" id="fi-p">⭐ 0</span></div><div class="pw"><div class="pb" id="fi-pb" style="width:0%"></div></div><img class="fi-flag" id="fi-fl" src="" alt="こっき"><div class="fi-prompt">この くにの なまえは？</div><div class="fi-word" id="fi-wd"></div><div class="fi-fb" id="fi-fb"></div><div class="hkbd" id="hkbd"></div><div style="display:flex;gap:7px;margin-top:8px;align-items:center"><button class="hintbtn" id="hintbtn" onclick="fillHint()">💡 ヒント</button><button class="kdel" style="border-radius:99px;padding:6px 14px;height:auto;font-size:12px;font-weight:700;cursor:pointer;border:2px solid #fca5a5;background:#fee2e2;color:#dc2626;font-family:inherit" onclick="fiType('⌫')">← けす</button><button class="vbtn" onclick="speak(curSpeak)" style="margin:0">🔊 よみあげ</button></div></div></div>
 <!-- TRACE -->
 <div class="screen" id="s-trace"><div class="trw"><div class="srow"><span id="tr-n">1/?</span><span class="spts" id="tr-p">⭐ 0</span></div><div class="pw"><div class="pb" id="tr-pb" style="width:0%"></div></div><img class="tr-flag" id="tr-fl" src="" alt="こっき"><div class="tr-prompt" id="tr-pr"></div><div class="tr-guide" id="tr-gd"></div><div class="crow" id="crow"></div><div class="szrow" id="szrow"></div><canvas class="tr-canvas" id="tr-cv" height="155"></canvas><div style="display:flex;gap:7px;margin-top:11px;justify-content:center"><button class="clrbtn" onclick="trClear()">🗑️ けす</button><button class="bbtn bm" style="flex:1;padding:11px" onclick="trNext()">つぎへ ▶</button></div></div></div>
 <!-- SEALS -->
@@ -395,6 +395,14 @@ const countries=[
   {n:'マーシャルしょとう',k:'マーシャル諸島',cc:'mh',r:'オセアニア',d:`あおい<ruby>旗<rt>はた</rt></ruby>にたいかくせんと<ruby>星<rt>ほし</rt></ruby>があるよ。ふたつのたいかくせんはあかとしろで<ruby>州<rt>しゅう</rt></ruby>のバンドをあらわすんだ。`,f:{n:'ウム',k:'ウム',i:''}},
   {n:'ナウル',k:'ナウル',cc:'nr',r:'オセアニア',d:`あおい<ruby>旗<rt>はた</rt></ruby>にきいろのよこしまとしろい<ruby>星<rt>ほし</rt></ruby>があるよ。きいろのたいはせきどう、<ruby>星<rt>ほし</rt></ruby>はナウルのいちをあらわすんだ。<ruby>世界<rt>せかい</rt></ruby>でいちばんちいさい<ruby>共和国<rt>きょうわこく</rt></ruby>なんだ！`,f:{n:'ナウル料理',k:'ナウル料理',i:''}},
   {n:'ツバル',k:'ツバル',cc:'tv',r:'オセアニア',d:`そらいろの<ruby>旗<rt>はた</rt></ruby>にユニオンジャックと9つの<ruby>星<rt>ほし</rt></ruby>があるよ。9つの<ruby>星<rt>ほし</rt></ruby>はツバルの9つのしまをあらわすんだ。`,f:{n:'プルアカ',k:'プルアカ',i:''}},
+  {n:'バハマ',k:'バハマ',cc:'bs',r:'アメリカ',d:'<ruby>青<rt>あお</rt></ruby>・<ruby>金<rt>きん</rt></ruby>・<ruby>青<rt>あお</rt></ruby>のよこしまでひだりに<ruby>黒<rt>くろ</rt></ruby>いさんかくがあるよ。<ruby>青<rt>あお</rt></ruby>はうみ、<ruby>金<rt>きん</rt></ruby>はすな、<ruby>黒<rt>くろ</rt></ruby>はちからをあらわすんだ。',f:{n:'コンク貝',k:'コンク貝スープ',i:''}},
+  {n:'アンティグアバーブーダ',k:'アンティグア・バーブーダ',cc:'ag',r:'アメリカ',d:'<ruby>黒<rt>くろ</rt></ruby>・<ruby>青<rt>あお</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>のしましまでうえに<ruby>赤<rt>あか</rt></ruby>いたいかくときいろいたいようがあるよ。<ruby>太陽<rt>たいよう</rt></ruby>はあたらしいじだいをあらわすんだ。',f:{n:'ペッパーポット',k:'ペッパーポット',i:''}},
+  {n:'ドミニカこく',k:'ドミニカ国',cc:'dm',r:'アメリカ',d:'<ruby>緑<rt>みどり</rt></ruby>のはたに<ruby>黒<rt>くろ</rt></ruby>・<ruby>白<rt>しろ</rt></ruby>・<ruby>黄色<rt>きいろ</rt></ruby>のじゅうじとまんなかにシシボダイインコがいるよ。このとりはドミニカにしかいないめずらしいとりなんだ！',f:{n:'カラウ',k:'カラウ',i:''}},
+  {n:'セントクリストファーネイビス',k:'セントクリストファー・ネイビス',cc:'kn',r:'アメリカ',d:'<ruby>緑<rt>みどり</rt></ruby>・<ruby>黒<rt>くろ</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>のたいかくせんで、<ruby>黒<rt>くろ</rt></ruby>いおびに<ruby>白<rt>しろ</rt></ruby>いほしがふたつあるよ。ふたつのほしはふたつのしまをあらわすんだ。',f:{n:'ゴートウォーター',k:'ゴートウォーター',i:''}},
+  {n:'セントルシア',k:'セントルシア',cc:'lc',r:'アメリカ',d:'<ruby>青<rt>あお</rt></ruby>いはたのまんなかに<ruby>黒<rt>くろ</rt></ruby>と<ruby>白<rt>しろ</rt></ruby>のふちどりのある<ruby>黄色<rt>きいろ</rt></ruby>いさんかくがあるよ。さんかくはセントルシアのゆうめいなピトンさんをあらわすんだ。',f:{n:'グリーンフィグ',k:'グリーンフィグ',i:''}},
+  {n:'セントビンセントグレナディーン',k:'セントビンセント・グレナディーン',cc:'vc',r:'アメリカ',d:'<ruby>青<rt>あお</rt></ruby>・<ruby>金<rt>きん</rt></ruby>・<ruby>緑<rt>みどり</rt></ruby>のたてしまで、まんなかの<ruby>金<rt>きん</rt></ruby>に<ruby>緑<rt>みどり</rt></ruby>のひしがた3つがあるよ。「ジェムズ（ほうせき）のしま」とよばれているんだ。',f:{n:'ローステッドブレッドフルーツ',k:'ブレッドフルーツ',i:''}},
+  {n:'グレナダ',k:'グレナダ',cc:'gd',r:'アメリカ',d:'<ruby>赤<rt>あか</rt></ruby>・<ruby>黄色<rt>きいろ</rt></ruby>・<ruby>緑<rt>みどり</rt></ruby>のしましまでまんなかにほしがあって、ひだりにはにくずくのみがえがかれているよ。にくずくのゆうめいなさんちなんだ！',f:{n:'オイルダウン',k:'オイルダウン',i:''}},
+  {n:'みなみスーダン',k:'南スーダン',cc:'ss',r:'アフリカ',d:'<ruby>黒<rt>くろ</rt></ruby>・<ruby>赤<rt>あか</rt></ruby>・<ruby>緑<rt>みどり</rt></ruby>のよこしまでひだりに<ruby>青<rt>あお</rt></ruby>いさんかくと<ruby>黄色<rt>きいろ</rt></ruby>いほしがあるよ。2011<ruby>年<rt>ねん</rt></ruby>に<ruby>独立<rt>どくりつ</rt></ruby>したせかいでいちばんあたらしいくにのひとつなんだ。',f:{n:'アスィーダ',k:'アスィーダ',i:''}},
 ];
 
 // STATE
@@ -465,13 +473,21 @@ const KR=[['あ','い','う','え','お'],['か','き','く','け','こ'],['さ'
 const KT=[['ア','イ','ウ','エ','オ'],['カ','キ','ク','ケ','コ'],['サ','シ','ス','セ','ソ'],['タ','チ','ツ','テ','ト'],['ナ','ニ','ヌ','ネ','ノ'],['ハ','ヒ','フ','ヘ','ホ'],['マ','ミ','ム','メ','モ'],['ヤ','ユ','ヨ','ワ','ヲ'],['ラ','リ','ル','レ','ロ'],['ァ','ィ','ゥ','ェ','ォ','ャ','ュ','ョ','ッ','ン','ー','⌫'],['ガ','ギ','グ','ゲ','ゴ'],['ザ','ジ','ズ','ゼ','ゾ'],['ダ','ヂ','ヅ','デ','ド'],['バ','ビ','ブ','ベ','ボ'],['パ','ピ','プ','ペ','ポ']];
 function isKt(c){return/[\u30A0-\u30FF]/.test(c)}
 function bKbd(w){
-  const rows=[...w].some(isKt)?KT:KR;const nd=new Set([...w]);
+  const isKata=[...w].some(isKt);
+  const rows=isKata?KT:KR;
+  const nd=new Set([...w]);
   const kbd=document.getElementById('hkbd');kbd.innerHTML='';
   let bs=[];const seen=new Set();
-  rows.forEach(r=>r.forEach(c=>{if((c==='⌫'||nd.has(c))&&!seen.has(c)){seen.add(c);bs.push(c)}}));
-  if(!bs.includes('⌫'))bs.push('⌫');
-  kbd.style.gridTemplateColumns=`repeat(${Math.min(bs.length,6)},1fr)`;
-  bs.forEach(c=>{const b=document.createElement('button');b.className='kbtn'+(c==='⌫'?' kdel':'');b.textContent=c==='⌫'?'← けす':c;b.onclick=()=>fiType(c);kbd.appendChild(b)});
+  // ⌫は除外して文字だけ集める
+  rows.forEach(r=>r.forEach(c=>{
+    if(c==='⌫')return;
+    if(nd.has(c)&&!seen.has(c)){seen.add(c);bs.push(c)}
+  }));
+  kbd.style.gridTemplateColumns=`repeat(${Math.min(bs.length,5)},1fr)`;
+  bs.forEach(c=>{
+    const b=document.createElement('button');b.className='kbtn';
+    b.textContent=c;b.onclick=()=>fiType(c);kbd.appendChild(b);
+  });
 }
 function startFill(){fiL=shuf(pool());fiI=0;fiPt=0;fiSC=0;showScreen('s-fill','🇯🇵 にほ◯');rFiQ()}
 function rFiQ(){
@@ -759,6 +775,32 @@ const TZ={
 };
 let ckTimer=null;
 function openDM(c){
+  // モーダル位置をJSで強制セット（CSS無視）
+  const bg=document.getElementById('dm-bg');
+  bg.style.position='fixed';
+  bg.style.top='0';
+  bg.style.left='0';
+  bg.style.width='100vw';
+  bg.style.height='100vh';
+  bg.style.background='rgba(0,0,0,0.55)';
+  bg.style.zIndex='9000';
+  bg.style.display='flex';
+  bg.style.alignItems='center';
+  bg.style.justifyContent='center';
+  bg.style.padding='20px';
+  bg.style.boxSizing='border-box';
+  const md=bg.querySelector('.modal');
+  md.style.background='#fff';
+  md.style.borderRadius='20px';
+  md.style.padding='20px 18px 28px';
+  md.style.width='100%';
+  md.style.maxWidth='400px';
+  md.style.maxHeight='82vh';
+  md.style.overflowY='auto';
+  md.style.boxSizing='border-box';
+  md.style.boxShadow='0 8px 40px rgba(0,0,0,0.3)';
+  md.style.margin='0 auto';
+
   document.getElementById('dm-fl').src=flagUrl(c);
   document.getElementById('dm-na').textContent=c.k;
   document.getElementById('dm-ru').textContent='（'+c.n+'）';
@@ -766,13 +808,29 @@ function openDM(c){
   document.getElementById('dm-de').innerHTML=c.d;
   document.getElementById('dm-map').onclick=()=>window.open('https://www.google.com/maps/place/'+encodeURIComponent(c.k),'_blank');
   // food
-  if(c.f){
+  if(c.f && c.f.i){
     const fi=document.getElementById('dm-fi');
+    const fe=document.getElementById('dm-fe');
+    // 前の状態をリセット
     fi.style.display='block';
-    document.getElementById('dm-fe').style.display='none';
-    fi.src=WK+encodeURIComponent(c.f.i)+'?width=400';
+    fi.src='';
+    fi.removeAttribute('src');
+    fe.style.display='none';
     document.getElementById('dm-fn').textContent=c.f.k;
     document.getElementById('dm-fk').textContent='（'+c.f.n+'）';
+    // referrerPolicy追加でブロック回避
+    fi.referrerPolicy='no-referrer';
+    fi.onerror=function(){this.style.display='none';fe.style.display='flex';};
+    fi.onload=function(){this.style.display='block';};
+    // 少し遅らせてsrcをセット
+    setTimeout(()=>{fi.src=WK+c.f.i+'?width=400';},50);
+    document.getElementById('dm-fn').style.display='block';
+    document.getElementById('dm-fk').style.display='block';
+  } else {
+    document.getElementById('dm-fi').style.display='none';
+    document.getElementById('dm-fe').style.display='flex';
+    document.getElementById('dm-fn').textContent='';
+    document.getElementById('dm-fk').textContent='';
   }
   // clock setup
   document.getElementById('dm-ck-flag').src=flagUrl(c);
@@ -798,11 +856,11 @@ function openDM(c){
     }
   }
   tick();ckTimer=setInterval(tick,5000);
-  document.getElementById('dm-bg').classList.add('show');speak(c.n);
+  // classList managed by JS style abovespeak(c.n);
 }
 function closeDM(e){
   if(!e||e.target===document.getElementById('dm-bg')){
-    document.getElementById('dm-bg').classList.remove('show');
+    const bg=document.getElementById('dm-bg');bg.style.display='none';bg.style.cssText='';
     if(ckTimer){clearInterval(ckTimer);ckTimer=null;}
   }
 }
