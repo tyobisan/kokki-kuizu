@@ -14,12 +14,7 @@
 <link rel="manifest" href="manifest.json">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@400;700&family=Zen+Maru+Gothic:wght@400;700;900&display=swap');
-@font-face{
-  font-family:'KanjiStrokeOrders';
-  src:url('https://cdn.jsdelivr.net/gh/stroke-order-font/kanjistrokes@master/KanjiStrokeOrders_v4.004.ttf') format('truetype'),
-      url('https://raw.githubusercontent.com/stroke-order-font/kanjistrokes/master/KanjiStrokeOrders_v4.004.ttf') format('truetype');
-  font-display:swap
-}
+
 :root{--sun:#FFD93D;--pink:#FF6B9D;--mint:#4ECDC4;--purple:#9B59B6;--orange:#FF8C42;--green:#6BCB77;--red:#FF4757;--bg:#FFF9F0;--card:#fff;--sh:0 4px 16px rgba(0,0,0,.10);--r:20px}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:'Zen Maru Gothic',sans-serif;background-color:var(--bg);min-height:100vh;overflow-x:hidden;position:relative}
@@ -90,9 +85,9 @@ body>*{position:relative;z-index:1}
 .trw{max-width:480px;margin:0 auto;padding:14px;text-align:center}
 .tr-flag{max-width:150px;max-height:95px;width:100%;object-fit:contain;border-radius:8px;border:1px solid #eee;margin:0 auto 10px;display:block}
 .tr-prompt{font-size:14px;color:#888;margin-bottom:8px}
-.tr-guide{font-size:clamp(40px,10vw,80px);color:rgba(100,120,200,0.35);letter-spacing:4px;font-weight:400;margin-bottom:4px;word-break:break-all;font-family:"KanjiStrokeOrders","Zen Maru Gothic",sans-serif;line-height:1.1}
+.tr-guide{font-size:clamp(40px,10vw,80px);color:rgba(100,120,200,0.35);letter-spacing:4px;font-weight:400;margin-bottom:4px;word-break:break-all;font-family:"Zen Maru Gothic",sans-serif;line-height:1.1}
 .tr-canvas-wrap{position:relative;margin-bottom:10px}
-.tr-guide-bg{font-family:"KanjiStrokeOrders","Zen Maru Gothic",sans-serif;font-size:clamp(60px,18vw,110px);color:rgba(80,100,200,0.2);letter-spacing:6px;text-align:center;line-height:1.2;padding:8px 4px;word-break:break-all;user-select:none;pointer-events:none;background:#fff;border-radius:14px;border:3px solid #e5e7eb}
+.tr-guide-bg{background:#fff;border-radius:14px;border:3px solid #e5e7eb;position:absolute;top:0;left:0;width:100%;height:100%}
 .tr-canvas{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:14px;touch-action:none;background:transparent}
 .tr-stroke-guide{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:10px;padding:10px;background:#f8f9ff;border-radius:12px}
 .tr-stroke-char{display:flex;flex-direction:column;align-items:center;gap:3px}
@@ -218,7 +213,7 @@ body>*{position:relative;z-index:1}
 <!-- FILL -->
 <div class="screen" id="s-fill"><div class="fiw"><div class="srow"><span id="fi-n">もんだい 1/?</span><span class="spts" id="fi-p">⭐ 0</span></div><div class="pw"><div class="pb" id="fi-pb" style="width:0%"></div></div><img class="fi-flag" id="fi-fl" src="" alt="こっき"><div class="fi-prompt">この くにの なまえは？</div><div class="fi-word" id="fi-wd"></div><div class="fi-fb" id="fi-fb"></div><div class="hkbd" id="hkbd"></div><div style="display:flex;gap:7px;margin-top:8px;align-items:center"><button class="hintbtn" id="hintbtn" onclick="fillHint()">💡 ヒント</button><button class="kdel" style="border-radius:99px;padding:6px 14px;height:auto;font-size:12px;font-weight:700;cursor:pointer;border:2px solid #fca5a5;background:#fee2e2;color:#dc2626;font-family:inherit" onclick="fiType('⌫')">← けす</button><button class="vbtn" onclick="speak(curSpeak)" style="margin:0">🔊 よみあげ</button></div></div></div>
 <!-- TRACE -->
-<div class="screen" id="s-trace"><div class="trw"><div class="srow"><span id="tr-n">1/?</span><span class="spts" id="tr-p">⭐ 0</span></div><div class="pw"><div class="pb" id="tr-pb" style="width:0%"></div></div><img class="tr-flag" id="tr-fl" src="" alt="こっき"><div class="tr-prompt" id="tr-pr"></div><div class="tr-guide" id="tr-gd"></div><div class="crow" id="crow"></div><div class="szrow" id="szrow"></div><div class="tr-canvas-wrap" id="tr-cv-wrap"><div class="tr-guide-bg" id="tr-guide-bg"></div><canvas class="tr-canvas" id="tr-cv"></canvas></div><div style="display:flex;gap:7px;margin-top:11px;justify-content:center"><button class="clrbtn" onclick="trClear()">🗑️ けす</button><button class="bbtn bm" style="flex:1;padding:11px" onclick="trNext()">つぎへ ▶</button></div></div></div>
+<div class="screen" id="s-trace"><div class="trw"><div class="srow"><span id="tr-n">1/?</span><span class="spts" id="tr-p">⭐ 0</span></div><div class="pw"><div class="pb" id="tr-pb" style="width:0%"></div></div><img class="tr-flag" id="tr-fl" src="" alt="こっき"><div class="tr-prompt" id="tr-pr"></div><div class="tr-guide" id="tr-gd"></div><div class="crow" id="crow"></div><div class="szrow" id="szrow"></div><div class="tr-canvas-wrap" id="tr-cv-wrap"><canvas class="tr-guide-bg" id="tr-guide-bg"></canvas><canvas class="tr-canvas" id="tr-cv"></canvas></div><div style="display:flex;gap:7px;margin-top:11px;justify-content:center"><button class="clrbtn" onclick="trClear()">🗑️ けす</button><button class="bbtn bm" style="flex:1;padding:11px" onclick="trNext()">つぎへ ▶</button></div></div></div>
 <!-- SEALS -->
 <div class="screen" id="s-seals"><div class="slw"><div class="sl-hd"><div class="sl-title">🏷️ シールブック</div><div class="sl-sub" id="sl-sub">0まい</div></div><div class="sl-book" id="sl-book"></div><div style="margin-top:18px"><button class="bbtn bp" onclick="showHome()">🏠 ホームへ</button></div></div></div>
 <!-- DICT -->
@@ -752,7 +747,7 @@ function stopRK(){if(rkA){cancelAnimationFrame(rkA);rkA=null}const cv=document.g
 let trL=[],trI=0,trPt=0,trDr=false,trCtx=null;
 const TC=['#FF4757','#2ed573','#1e90ff','#ffa502','#a29bfe','#fd79a8','#000'];
 let tCol='#2ed573',tSz=12;
-function startTrace(){trL=shuf(pool());trI=0;trPt=0;showScreen('s-trace','✏️ なぞりがき');bCrow();bSzrow();initTr();preloadStrokeFont();rTrQ()}
+function startTrace(){trL=shuf(pool());trI=0;trPt=0;showScreen('s-trace','✏️ なぞりがき');bCrow();bSzrow();initTr();rTrQ()}
 function bCrow(){const el=document.getElementById('crow');el.innerHTML='';TC.forEach(c=>{const d=document.createElement('div');d.className='cdot'+(c===tCol?' on':'');d.style.background=c;d.onclick=()=>{tCol=c;bCrow()};el.appendChild(d)})}
 function bSzrow(){const el=document.getElementById('szrow');el.innerHTML='';[8,12,18].forEach(s=>{const b=document.createElement('button');b.className='szbtn'+(s===tSz?' on':'');const d=document.createElement('div');d.style.cssText=`width:${s*.85}px;height:${s*.85}px;border-radius:50%;background:${s===tSz?'#fff':'#555'}`;b.appendChild(d);b.onclick=()=>{tSz=s;bSzrow()};el.appendChild(b)})}
 function initTr(){
@@ -768,14 +763,29 @@ function trClear(){
   trCtx.clearRect(0,0,cv.width,cv.height);
 }
 // 筆順フォントを事前ロード
-function preloadStrokeFont(){
-  if(document.fonts){
-    document.fonts.load('80px KanjiStrokeOrders','あ').then(()=>{
-      console.log('KanjiStrokeOrders loaded');
-      // フォント読み込み完了後にガイドを再描画
-      const gb=document.getElementById('tr-guide-bg');
-      if(gb&&gb.textContent)gb.style.fontFamily='"KanjiStrokeOrders","Zen Maru Gothic",sans-serif';
-    });
+function drawGuide(name,canvas,w,h){
+  const ctx=canvas.getContext('2d');
+  ctx.clearRect(0,0,w,h);
+  const chars=Array.from(name);
+  const n=chars.length;
+  // フォントサイズを文字数に応じて調整
+  const fs=Math.min(Math.floor(w/(n+0.5)),Math.floor(h*0.75),120);
+  ctx.font=`900 ${fs}px "Zen Maru Gothic",sans-serif`;
+  ctx.textAlign='center';
+  ctx.textBaseline='middle';
+  // 薄いグレーのアウトラインで筆順ガイド風に
+  ctx.strokeStyle='rgba(100,120,220,0.18)';
+  ctx.lineWidth=fs*0.08;
+  ctx.lineJoin='round';
+  // まず薄いフィルで
+  ctx.fillStyle='rgba(100,120,220,0.13)';
+  const totalW=n*fs;
+  const startX=w/2 - totalW/2 + fs/2;
+  for(let i=0;i<n;i++){
+    const x=startX+i*fs;
+    const y=h/2;
+    ctx.strokeText(chars[i],x,y);
+    ctx.fillText(chars[i],x,y);
   }
 }
 function rTrQ(){
@@ -786,15 +796,16 @@ function rTrQ(){
   document.getElementById('tr-n').textContent=`${trI+1} / ${trL.length}`;
   document.getElementById('tr-pb').style.width=((trI/trL.length)*100)+'%';
   document.getElementById('tr-p').textContent=`⭐ ${trPt}`;
-  // 筆順フォントでガイドを表示
-  const gb=document.getElementById('tr-guide-bg');
-  gb.textContent=c.n;
-  // canvasをガイドに合わせてリサイズ
+  // canvasにガイド文字を薄く描く
   requestAnimationFrame(()=>{
     const wrap=document.getElementById('tr-cv-wrap');
     const cv=document.getElementById('tr-cv');
-    cv.width=wrap.offsetWidth;cv.height=wrap.offsetHeight;
+    const gb=document.getElementById('tr-guide-bg');
+    const w=wrap.offsetWidth,h=wrap.offsetHeight;
+    cv.width=w;cv.height=h;
+    gb.width=w;gb.height=h;
     trClear();
+    drawGuide(c.n,gb,w,h);
   });
   speak(c.n);
 }
