@@ -17,7 +17,9 @@
 :root{--sun:#FFD93D;--pink:#FF6B9D;--mint:#4ECDC4;--purple:#9B59B6;--orange:#FF8C42;--green:#6BCB77;--red:#FF4757;--bg:#FFF9F0;--card:#fff;--sh:0 4px 16px rgba(0,0,0,.10);--r:20px}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:'Zen Maru Gothic',sans-serif;background-color:var(--bg);min-height:100vh;overflow-x:hidden;position:relative}
-body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:url('foods/bg_kids.png');background-size:600px auto;background-repeat:repeat-y;background-position:center top;opacity:0.07;z-index:0;pointer-events:none}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:url('foods/bg_kids.png');background-size:480px auto;background-repeat:repeat-y;background-position:center top;opacity:0.07;z-index:0;pointer-events:none}
+body>*{position:relative;z-index:1}
+
 body>*{position:relative;z-index:1}
 .screen{display:none}.screen.active{display:block}
 .topbar{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;position:sticky;top:0;z-index:100;background:rgba(255,249,240,.95);backdrop-filter:blur(8px);border-bottom:2px solid #FFE0B2}
@@ -235,7 +237,7 @@ const countries=[
   {n:'スリランカ',k:'スリランカ',cc:'lk',r:'アジア',d:`あかい<ruby>旗<rt>はた</rt></ruby>にきいろいライオンが<ruby>剣<rt>けん</rt></ruby>をもっているよ。ライオンは<ruby>勇気<rt>ゆうき</rt></ruby>をあらわし、みどりとオレンジのたてしまもあるんだ。`,f:{n:'ライスアンドカレー',k:'ライスカレー',i:'Sri_Lankan_cuisine.jpg'}},
   {n:'モルジブ',k:'モルディブ',cc:'mv',r:'アジア',d:`あかい<ruby>旗<rt>はた</rt></ruby>にみどりのしかくとしろいみかづきがあるよ。うつくしい<ruby>海<rt>うみ</rt></ruby>にかこまれたしまのくになんだ。`,f:{n:'マスリハ',k:'マスリハ',i:''}},
   {n:'ブータン',k:'ブータン',cc:'bt',r:'アジア',d:`オレンジとあかのたいかくせんの<ruby>旗<rt>はた</rt></ruby>にしろいりゅうがあるよ。りゅうはほうせきをにぎっていて、くにをまもっているんだ。`,f:{n:'エマダッシ',k:'エマダッシ',i:''}},
-  {n:'アフガニスタン',k:'アフガニスタン',cc:'af',r:'アジア',d:`くろ・あか・みどりのたてしまで、まんなかにもんしょうがあるよ。もんしょうにはモスクとアラビアもじがかかれているんだ。`,f:{n:'カブリパラウ・マントゥ・ボルニ',k:'カブリパラウなど',i:'foods/afghanistan_food.png'},
+  {n:'アフガニスタン',k:'アフガニスタン',cc:'af',r:'アジア',d:`くろ・あか・みどりのたてしまで、まんなかにもんしょうがあるよ。もんしょうにはモスクとアラビアもじがかかれているんだ。`,f:{n:'カブリパラウ・マントゥ・ボルニ',k:'カブリパラウなど',i:'foods/afghanistan_food.png'}},
   {n:'サウジアラビア',k:'サウジアラビア',cc:'sa',r:'アジア',d:`みどりの<ruby>旗<rt>はた</rt></ruby>にしろいもじと<ruby>剣<rt>けん</rt></ruby>があるよ。もじは「アッラーのほかにかみはなし」というイスラム<ruby>教<rt>きょう</rt></ruby>のことばなんだ。`,f:{n:'カブサ',k:'カブサ',i:'Kabsa.jpg'}},
   {n:'アラブしゅちょうこくれんぽう',k:'アラブ首長国連邦',cc:'ae',r:'アジア',d:`みどり・しろ・くろのよこしまとひだりにあかいたてしまがあるよ。7つの<ruby>首長国<rt>しゅちょうこく</rt></ruby>があつまってできたくになんだ。`,f:{n:'マチュブース',k:'マチュブース',i:'Machboos_laham.jpg'}},
   {n:'イスラエル',k:'イスラエル',cc:'il',r:'アジア',d:`しろい<ruby>旗<rt>はた</rt></ruby>にあおいよこしまとダビデの<ruby>星<rt>ほし</rt></ruby>（6<ruby>角<rt>かく</rt></ruby>の<ruby>星<rt>ほし</rt></ruby>）があるよ。ユダヤ<ruby>教<rt>きょう</rt></ruby>のたいせつなシンボルなんだ。`,f:{n:'ファラフェル',k:'ファラフェル',i:'Falafel_balls.jpg'}},
@@ -255,7 +257,7 @@ const countries=[
   {n:'キルギス',k:'キルギス',cc:'kg',r:'アジア',d:`あかい<ruby>旗<rt>はた</rt></ruby>にきいろい<ruby>太陽<rt>たいよう</rt></ruby>とそのまんなかにゲルの<ruby>天井<rt>てんじょう</rt></ruby>のもようがあるよ。ゲルはキルギスのテントの<ruby>家<rt>いえ</rt></ruby>なんだ。`,f:{n:'ベシュバルマク',k:'ベシュバルマク',i:'Beshbarmak.jpg'}},
   {n:'タジキスタン',k:'タジキスタン',cc:'tj',r:'アジア',d:`あか・しろ・みどりのよこしまで、まんなかにきんの<ruby>冠<rt>かんむり</rt></ruby>と7つの<ruby>星<rt>ほし</rt></ruby>があるよ。<ruby>冠<rt>かんむり</rt></ruby>は<ruby>国家<rt>こっか</rt></ruby>をあらわすんだ。`,f:{n:'クルティテ',k:'クルティテ',i:''}},
   {n:'トルクメニスタン',k:'トルクメニスタン',cc:'tm',r:'アジア',d:`みどりの<ruby>旗<rt>はた</rt></ruby>にひだりのたてしまにじゅうたんのもようがあって、5つのじゅうたんもようは<ruby>地方<rt>ちほう</rt></ruby>をあらわすんだ。`,f:{n:'プロフ',k:'プロフ',i:'Plov_osh.jpg'}},
-  {n:'アゼルバイジャン',k:'アゼルバイジャン',cc:'az',r:'アジア',d:`そらいろ・あか・みどりのよこしまにみかづきと<ruby>星<rt>ほし</rt></ruby>があるよ。そらいろはトルコ<ruby>系<rt>けい</rt></ruby>の<ruby>民族<rt>みんぞく</rt></ruby>、みどりはイスラム<ruby>教<rt>きょう</rt></ruby>をあらわすんだ。`,f:{n:'シャフプラフ（ライスのピラフ）',k:'シャフプラフ',i:'foods/azerbaijan_food.png'},
+  {n:'アゼルバイジャン',k:'アゼルバイジャン',cc:'az',r:'アジア',d:`そらいろ・あか・みどりのよこしまにみかづきと<ruby>星<rt>ほし</rt></ruby>があるよ。そらいろはトルコ<ruby>系<rt>けい</rt></ruby>の<ruby>民族<rt>みんぞく</rt></ruby>、みどりはイスラム<ruby>教<rt>きょう</rt></ruby>をあらわすんだ。`,f:{n:'シャフプラフ（ライスのピラフ）',k:'シャフプラフ',i:'foods/azerbaijan_food.png'}},
   {n:'アルメニア',k:'アルメニア',cc:'am',r:'アジア',d:`あか・あお・オレンジのよこしまの<ruby>旗<rt>はた</rt></ruby>だよ。あかはかこの<ruby>苦難<rt>くなん</rt></ruby>、あおは<ruby>希望<rt>きぼう</rt></ruby>、オレンジは<ruby>勇気<rt>ゆうき</rt></ruby>と<ruby>仕事<rt>しごと</rt></ruby>をあらわすんだ。`,f:{n:'ドルマ',k:'ドルマ',i:'Dolma_from_Armenia.jpg'}},
   {n:'ジョージア',k:'ジョージア',cc:'ge',r:'アジア',d:`しろい<ruby>旗<rt>はた</rt></ruby>にあかい<ruby>十字<rt>じゅうじ</rt></ruby>がひとつおおきくあって、4すみにもちいさい<ruby>十字<rt>じゅうじ</rt></ruby>があるよ。「5<ruby>十字<rt>じゅうじ</rt></ruby>の<ruby>旗<rt>はた</rt></ruby>」とよばれているんだ。`,f:{n:'ヒンカリ',k:'ヒンカリ',i:'Khinkali.jpg'}},
   {n:'パレスチナ',k:'パレスチナ',cc:'ps',r:'アジア',d:`くろ・しろ・みどりのよこしまにひだりあかいさんかくがあるよ。アラブのくにぐにのいろをつかっているんだ。`,f:{n:'マクルーバ',k:'マクルーバ',i:''}},
@@ -273,7 +275,7 @@ const countries=[
   {n:'ノルウェー',k:'ノルウェー',cc:'no',r:'ヨーロッパ',d:`あかい<ruby>旗<rt>はた</rt></ruby>にあおとしろの<ruby>十字<rt>じゅうじ</rt></ruby>だよ。デンマークの<ruby>旗<rt>はた</rt></ruby>をもとにしてあおいたてすじをくわえてつくったんだ。`,f:{n:'グリルサーモン',k:'グリルサーモン',i:'Grilled_salmon_fish_2.jpg'}},
   {n:'デンマーク',k:'デンマーク',cc:'dk',r:'ヨーロッパ',d:`あかい<ruby>旗<rt>はた</rt></ruby>にしろい<ruby>十字<rt>じゅうじ</rt></ruby>。「ダンネブロ」とよばれ、<ruby>世界<rt>せかい</rt></ruby>でいちばんふるい「いまもつかわれている<ruby>旗<rt>はた</rt></ruby>」といわれているんだよ！`,f:{n:'スモーブロー',k:'スモーブロー',i:'Smorrebrod.jpg'}},
   {n:'フィンランド',k:'フィンランド',cc:'fi',r:'ヨーロッパ',d:`しろい<ruby>旗<rt>はた</rt></ruby>にあおい<ruby>十字<rt>じゅうじ</rt></ruby>。しろはゆき、あおは<ruby>湖<rt>みずうみ</rt></ruby>をあらわすよ。フィンランドには<ruby>湖<rt>みずうみ</rt></ruby>が18<ruby>万<rt>まん</rt></ruby>こもあるんだ！`,f:{n:'カレリアンパイ',k:'カレリアンパイ',i:'Karelian_pasties.jpg'}},
-  {n:'アイスランド',k:'アイスランド',cc:'is',r:'ヨーロッパ',d:`あおい<ruby>旗<rt>はた</rt></ruby>にあかとしろの<ruby>十字<rt>じゅうじ</rt></ruby>があるよ。あおは<ruby>海<rt>うみ</rt></ruby>、あかは<ruby>火山<rt>かざん</rt></ruby>、しろはこおりをあらわすんだ。アイスランドには<ruby>火山<rt>かざん</rt></ruby>がたくさんあるんだよ！`,f:{n:'キョッツーパ・ハンギキョート・プロックフィスクル',k:'キョッツーパなど',i:'foods/iceland_food.png'},
+  {n:'アイスランド',k:'アイスランド',cc:'is',r:'ヨーロッパ',d:`あおい<ruby>旗<rt>はた</rt></ruby>にあかとしろの<ruby>十字<rt>じゅうじ</rt></ruby>があるよ。あおは<ruby>海<rt>うみ</rt></ruby>、あかは<ruby>火山<rt>かざん</rt></ruby>、しろはこおりをあらわすんだ。アイスランドには<ruby>火山<rt>かざん</rt></ruby>がたくさんあるんだよ！`,f:{n:'キョッツーパ・ハンギキョート・プロックフィスクル',k:'キョッツーパなど',i:'foods/iceland_food.png'}},
   {n:'アイルランド',k:'アイルランド',cc:'ie',r:'ヨーロッパ',d:`みどり・しろ・オレンジのたてしまだよ。みどりはカトリック<ruby>教<rt>きょう</rt></ruby>、オレンジはプロテスタント、しろは<ruby>平和<rt>へいわ</rt></ruby>をあらわすんだ。`,f:{n:'アイリッシュシチュー',k:'アイリッシュシチュー',i:'Irish_stew.jpg'}},
   {n:'ルクセンブルク',k:'ルクセンブルク',cc:'lu',r:'ヨーロッパ',d:`あか・しろ・みずいろのよこしまだよ。オランダの<ruby>旗<rt>はた</rt></ruby>とにているけど、したのあおがもっとあさいんだ。`,f:{n:'ジュッド',k:'ジュッド',i:'Judd_mat_gaardebounen.jpg'}},
   {n:'モナコ',k:'モナコ',cc:'mc',r:'ヨーロッパ',d:`うえがあか、したがしろのシンプルな<ruby>旗<rt>はた</rt></ruby>だよ。インドネシアの<ruby>旗<rt>はた</rt></ruby>とそっくりだけど、モナコのほうがちょっとよこながなんだ。`,f:{n:'バルバジュアン',k:'バルバジュアン',i:''}},
