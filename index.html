@@ -121,9 +121,9 @@ body>*{position:relative;z-index:1}
 .dt-kana{font-size:11px;color:#888;margin-bottom:2px}
 .dt-name{font-size:13px;font-weight:700;color:#333}
 /* MODAL */
-.modal-bg{position:fixed;top:0;left:0;right:0;bottom:0;width:100%;height:100%;background:rgba(0,0,0,.55);z-index:500;display:none;align-items:center;justify-content:center;padding:20px;box-sizing:border-box}
+.modal-bg{position:fixed;top:0;left:0;right:0;bottom:0;width:100%;height:100%;background:rgba(0,0,0,.55);z-index:500;display:none;align-items:center;justify-content:center;padding:12px;box-sizing:border-box;overflow-y:auto}
 .modal-bg.show{display:flex}
-.modal{background:#fff;border-radius:20px;padding:20px 18px 28px;width:calc(100% - 0px);max-width:400px;max-height:82vh;overflow-y:auto;animation:mc .25s ease;box-shadow:0 8px 40px rgba(0,0,0,.3);box-sizing:border-box;-webkit-overflow-scrolling:touch}
+.modal{background:#fff;border-radius:20px;padding:20px 18px 24px;width:100%;max-width:460px;max-height:90vh;overflow-y:auto;animation:mc .25s ease;box-shadow:0 8px 40px rgba(0,0,0,.3);box-sizing:border-box;-webkit-overflow-scrolling:touch;margin:auto}
 @keyframes mc{from{transform:scale(.92);opacity:0}to{transform:scale(1);opacity:1}}
 .mo-flag{max-width:200px;max-height:120px;width:100%;object-fit:contain;border-radius:8px;border:1px solid #eee;display:block;margin:0 auto 10px}
 .mo-name{font-family:'Kaisei Decol',serif;font-size:24px;font-weight:700;color:#222;text-align:center}
@@ -195,7 +195,7 @@ body>*{position:relative;z-index:1}
 <!-- RESULT -->
 <div class="res-bg" id="res-bg"><div class="res-card"><span class="res-em" id="res-em">🌟</span><div class="res-title" id="res-ti"></div><div class="res-body" id="res-bo"></div><div class="nsw" id="nsw" style="display:none"><div style="font-size:11px;color:#888;margin-bottom:4px">🎁 あたらしいシールをゲット！</div><img id="nsi" src="" alt=""></div><div class="rbtns"><button class="rbtn p" id="res-next">もう一回！</button><button class="rbtn s" onclick="showHome()">ホーム</button></div></div></div>
 <!-- DICT MODAL -->
-<div class="modal-bg" id="dm-bg" onclick="closeDM(event)"><div class="modal"><img class="mo-flag" id="dm-fl" src="" alt=""><div class="mo-name" id="dm-na"></div><div class="mo-ruby" id="dm-ru"></div><div style="text-align:center"><span class="mo-reg" id="dm-re"></span></div><div style="height:10px"></div><div class="mo-desc" id="dm-de"></div><div class="mo-food"><div class="mo-food-title">🍽️ <ruby>有名<rt>ゆうめい</rt></ruby>なたべもの</div><img class="mo-food-img" id="dm-fi" src="" alt="" ><div class="mo-food-img-err" id="dm-fe" style="display:none">🍴</div><div class="mo-food-name" id="dm-fn"></div><div class="mo-food-kana" id="dm-fk"></div></div><div class="mo-clock-title">🕐 いまの<ruby>時刻<rt>じこく</rt></ruby></div><div class="mo-clock-row"><div class="mo-clock-label"><img class="mo-clock-flag-sm" id="dm-ck-flag" src="" alt=""><span id="dm-ck-name">ー</span></div><div style="text-align:right"><div class="mo-clock-time" id="dm-ck-time">--:--</div></div></div><hr class="mo-clock-divider"><div class="mo-clock-row"><div class="mo-clock-label">🇯🇵 にほん</div><div style="text-align:right"><div class="mo-clock-time" id="dm-ck-jp">--:--</div></div></div><div class="mo-clock-diff" id="dm-ck-diff"></div></div><button class="mapbtn" id="dm-map">🗺️ グーグルマップでみる</button><button class="mo-close" onclick="closeDM()">とじる ✕</button></div></div>
+<div class="modal-bg" id="dm-bg" onclick="closeDM(event)"><div class="modal"><img class="mo-flag" id="dm-fl" src="" alt=""><div class="mo-name" id="dm-na"></div><div class="mo-ruby" id="dm-ru"></div><div style="text-align:center"><span class="mo-reg" id="dm-re"></span></div><div style="height:10px"></div><div class="mo-desc" id="dm-de"></div><div class="mo-food"><div class="mo-food-title">🍽️ <ruby>有名<rt>ゆうめい</rt></ruby>なたべもの</div><img class="mo-food-img" id="dm-fi" src="" alt="" ><div class="mo-food-img-err" id="dm-fe" style="display:none">🍴</div><div class="mo-food-name" id="dm-fn"></div><div class="mo-food-kana" id="dm-fk"></div></div><div class="mo-clock-title">🕐 いまの<ruby>時刻<rt>じこく</rt></ruby></div><div class="mo-clock-row"><div class="mo-clock-label"><img class="mo-clock-flag-sm" id="dm-ck-flag" src="" alt=""><span id="dm-ck-name">ー</span></div><div style="text-align:right"><div class="mo-clock-time" id="dm-ck-time">--:--</div></div></div><hr class="mo-clock-divider"><div class="mo-clock-row"><div class="mo-clock-label">🇯🇵 にほん</div><div style="text-align:right"><div class="mo-clock-time" id="dm-ck-jp">--:--</div></div></div><div class="mo-clock-diff" id="dm-ck-diff"></div></div><div style="display:flex;flex-direction:column;gap:8px;margin-top:16px"><button class="mapbtn" id="dm-map">🗺️ グーグルマップでみる</button><button class="mo-close" onclick="closeDM()">とじる ✕</button></div></div></div>
 <!-- TOPBAR -->
 <div class="topbar"><div class="topbar-title" id="tb-title">🌍 せかいのこっきクイズ</div><div style="display:flex;align-items:center;gap:4px;font-size:13px;font-weight:700;color:#555">🏷️<span class="seal-badge" id="seal-n">0</span></div></div>
 <!-- HOME -->
@@ -820,29 +820,9 @@ let ckTimer=null;
 function openDM(c){
   // モーダル位置をJSで強制セット（CSS無視）
   const bg=document.getElementById('dm-bg');
-  bg.style.position='fixed';
-  bg.style.top='0';
-  bg.style.left='0';
-  bg.style.width='100vw';
-  bg.style.height='100vh';
-  bg.style.background='rgba(0,0,0,0.55)';
-  bg.style.zIndex='9000';
-  bg.style.display='flex';
-  bg.style.alignItems='center';
-  bg.style.justifyContent='center';
-  bg.style.padding='20px';
-  bg.style.boxSizing='border-box';
+  bg.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.55);z-index:9000;display:flex;align-items:center;justify-content:center;padding:12px;box-sizing:border-box;overflow-y:auto';
   const md=bg.querySelector('.modal');
-  md.style.background='#fff';
-  md.style.borderRadius='20px';
-  md.style.padding='20px 18px 28px';
-  md.style.width='100%';
-  md.style.maxWidth='400px';
-  md.style.maxHeight='82vh';
-  md.style.overflowY='auto';
-  md.style.boxSizing='border-box';
-  md.style.boxShadow='0 8px 40px rgba(0,0,0,0.3)';
-  md.style.margin='0 auto';
+  md.style.cssText='background:#fff;border-radius:20px;padding:20px 18px 24px;width:100%;max-width:460px;max-height:90vh;overflow-y:auto;box-shadow:0 8px 40px rgba(0,0,0,0.3);box-sizing:border-box;margin:auto';
 
   document.getElementById('dm-fl').src=flagUrl(c);
   document.getElementById('dm-na').textContent=c.k;
