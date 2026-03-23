@@ -763,103 +763,29 @@ function trClear(){
   trCtx.clearRect(0,0,cv.width,cv.height);
 }
 // 筆順フォントを事前ロード
-// KanjiVG SVGで筆順を色付き矢印番号付きで描画（全文字同時）
-const SC=['#4da6ff','#44cc88','#ff9933','#ff6655','#9966ff','#ff66aa','#00cccc','#ffcc00'];
+// 全文字を薄く表示するガイド
 async function drawGuideAll(name,canvas,w,h){
   const ctx=canvas.getContext('2d');
   ctx.clearRect(0,0,w,h);
   const chars=Array.from(name);
   const n=chars.length;
-  const cellW=Math.floor(w/n);
+  const fs=Math.min(Math.floor(w/(n+0.3)),Math.floor(h*0.72),130);
+  const totalW=n*fs*1.05;
+  const startX=(w-totalW)/2+fs/2;
+  ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillStyle='rgba(100,120,220,0.16)';
+  ctx.strokeStyle='rgba(100,120,220,0.22)';
+  ctx.lineWidth=Math.max(2,fs*0.045);
+  ctx.lineJoin='round';
   for(let i=0;i<n;i++){
-    const ch=chars[i];
-    const ox=i*cellW;
-    const cp=ch.codePointAt(0).toString(16).padStart(5,'0');
-    const url=`https://raw.githubusercontent.com/KanjiVG/kanjivg/master/kanji/${cp}.svg`;
-    try{
-      const res=await fetch(url);
-      if(!res.ok)throw new Error('no svg');
-      const txt=await res.text();
-      drawStrokeSVG(ctx,txt,ox,0,cellW,h);
-    }catch(e){
-      const fs=Math.min(cellW*0.72,h*0.65,130);
-      ctx.font=`900 ${fs}px "Zen Maru Gothic",sans-serif`;
-      ctx.textAlign='center';ctx.textBaseline='middle';
-      ctx.fillStyle='rgba(100,120,220,0.15)';
-      ctx.strokeStyle='rgba(100,120,220,0.22)';
-      ctx.lineWidth=fs*0.05;
-      ctx.strokeText(ch,ox+cellW/2,h/2);
-      ctx.fillText(ch,ox+cellW/2,h/2);
-    }
+    ctx.font=`900 ${fs}px "Zen Maru Gothic",sans-serif`;
+    const x=startX+i*fs*1.05;
+    ctx.strokeText(chars[i],x,h/2);
+    ctx.fillText(chars[i],x,h/2);
   }
 }
-async function drawGuide(ch,canvas,w,h){
-  return drawGuideAll(ch,canvas,w,h);
-}
-function drawStrokeSVG(ctx,svgTxt,ox,oy,w,h){
-  const parser=new DOMParser();
-  const doc=parser.parseFromString(svgTxt,'image/svg+xml');
-  const margin=10;
-  const S=(Math.min(w,h)-margin*2)/109;
-  const px=ox+(w-109*S)/2,py=oy+(h-109*S)/2;
-  // グリッド線
-  ctx.save();
-  ctx.strokeStyle='rgba(80,160,255,0.2)';ctx.lineWidth=1;
-  ctx.setLineDash([5,4]);
-  ctx.beginPath();ctx.moveTo(ox+w/2,oy+4);ctx.lineTo(ox+w/2,oy+h-4);ctx.stroke();
-  ctx.beginPath();ctx.moveTo(ox+4,oy+h/2);ctx.lineTo(ox+w-4,oy+h/2);ctx.stroke();
-  ctx.setLineDash([]);ctx.restore();
-  const paths=[...doc.querySelectorAll('path[d]')];
-  paths.forEach((p,i)=>{
-    const d=p.getAttribute('d');if(!d)return;
-    const col=SC[i%SC.length];
-    // ストローク描画
-    ctx.save();
-    ctx.translate(px,py);ctx.scale(S,S);
-    ctx.strokeStyle=col+'cc';ctx.lineWidth=4.5/S;
-    ctx.lineCap='round';ctx.lineJoin='round';
-    ctx.stroke(new Path2D(d));
-    ctx.restore();
-    // 始点・方向取得
-    const pt=pathStart(d);
-    if(!pt)return;
-    const bx=px+pt.x*S,by=py+pt.y*S;
-    const dx=px+pt.dx*S,dy=py+pt.dy*S;
-    const ang=Math.atan2(dy-by,dx-bx);
-    const al=16,ah=5;
-    // 矢印
-    ctx.save();
-    ctx.strokeStyle=col;ctx.lineWidth=2;ctx.lineCap='round';
-    ctx.beginPath();
-    ctx.moveTo(bx+Math.cos(ang)*9,by+Math.sin(ang)*9);
-    ctx.lineTo(bx+Math.cos(ang)*al,by+Math.sin(ang)*al);
-    ctx.lineTo(bx+Math.cos(ang-0.55)*(al-ah),by+Math.sin(ang-0.55)*(al-ah));
-    ctx.moveTo(bx+Math.cos(ang)*al,by+Math.sin(ang)*al);
-    ctx.lineTo(bx+Math.cos(ang+0.55)*(al-ah),by+Math.sin(ang+0.55)*(al-ah));
-    ctx.stroke();ctx.restore();
-    // 番号丸
-    const r=9;
-    ctx.beginPath();ctx.arc(bx,by,r,0,Math.PI*2);
-    ctx.fillStyle=col;ctx.fill();
-    ctx.font=`bold 11px sans-serif`;
-    ctx.textAlign='center';ctx.textBaseline='middle';
-    ctx.fillStyle='#fff';ctx.fillText(i+1,bx,by);
-  });
-}
-function pathStart(d){
-  const re=/([MLCQSml])\s*([\d.\s,-]+)/g;
-  let m,sx,sy,dx,dy,first=true;
-  while((m=re.exec(d))!==null){
-    const cmd=m[1];
-    const nums=m[2].trim().split(/[\s,]+/).map(Number).filter(n=>!isNaN(n));
-    if((cmd==='M')&&first){sx=nums[0];sy=nums[1];first=false;}
-    else if(!first&&sx!==undefined){
-      dx=nums[0];dy=nums[1];
-      return{x:sx,y:sy,dx:dx||sx+8,dy:dy||sy};
-    }
-  }
-  return sx!==undefined?{x:sx,y:sy,dx:sx+8,dy:sy}:null;
-}
+async function drawGuide(ch,canvas,w,h){return drawGuideAll(ch,canvas,w,h);}
+
 
 function rTrQ(){
   const c=trL[trI];if(!c)return;
