@@ -210,7 +210,7 @@ body>*{position:relative;z-index:1}
 <!-- FILL -->
 <div class="screen" id="s-fill"><div class="fiw"><div class="srow"><span id="fi-n">もんだい 1/?</span><span class="spts" id="fi-p">⭐ 0</span></div><div class="pw"><div class="pb" id="fi-pb" style="width:0%"></div></div><img class="fi-flag" id="fi-fl" src="" alt="こっき"><div class="fi-prompt">この くにの なまえは？</div><div class="fi-word" id="fi-wd"></div><div class="fi-fb" id="fi-fb"></div><div class="hkbd" id="hkbd"></div><div style="display:flex;gap:7px;margin-top:8px;align-items:center"><button class="hintbtn" id="hintbtn" onclick="fillHint()">💡 ヒント</button><button class="kdel" style="border-radius:99px;padding:6px 14px;height:auto;font-size:12px;font-weight:700;cursor:pointer;border:2px solid #fca5a5;background:#fee2e2;color:#dc2626;font-family:inherit" onclick="fiType('⌫')">← けす</button><button class="vbtn" onclick="speak(curSpeak)" style="margin:0">🔊 よみあげ</button></div></div></div>
 <!-- TRACE -->
-<div class="screen" id="s-trace"><div class="trw"><div class="srow"><span id="tr-n">1/?</span><span class="spts" id="tr-p">⭐ 0</span></div><div class="pw"><div class="pb" id="tr-pb" style="width:0%"></div></div><img class="tr-flag" id="tr-fl" src="" alt="こっき"><div class="tr-prompt" id="tr-pr"></div><div class="tr-guide" id="tr-gd"></div><div class="crow" id="crow"></div><div class="szrow" id="szrow"></div><canvas class="tr-canvas" id="tr-cv" height="155"></canvas><div class="tr-stroke-guide" id="tr-stroke-guide"></div><div style="display:flex;gap:7px;margin-top:11px;justify-content:center"><button class="clrbtn" onclick="trClear()">🗑️ けす</button><button class="bbtn bm" style="flex:1;padding:11px" onclick="trNext()">つぎへ ▶</button></div></div></div>
+<div class="screen" id="s-trace"><div class="trw"><div class="srow"><span id="tr-n">1/?</span><span class="spts" id="tr-p">⭐ 0</span></div><div class="pw"><div class="pb" id="tr-pb" style="width:0%"></div></div><img class="tr-flag" id="tr-fl" src="" alt="こっき"><div class="tr-prompt" id="tr-pr"></div><div class="tr-guide" id="tr-gd"></div><div class="crow" id="crow"></div><div class="szrow" id="szrow"></div><canvas class="tr-canvas" id="tr-cv" height="200"></canvas><div style="display:flex;gap:7px;margin-top:11px;justify-content:center"><button class="clrbtn" onclick="trClear()">🗑️ けす</button><button class="bbtn bm" style="flex:1;padding:11px" onclick="trNext()">つぎへ ▶</button></div></div></div>
 <!-- SEALS -->
 <div class="screen" id="s-seals"><div class="slw"><div class="sl-hd"><div class="sl-title">🏷️ シールブック</div><div class="sl-sub" id="sl-sub">0まい</div></div><div class="sl-book" id="sl-book"></div><div style="margin-top:18px"><button class="bbtn bp" onclick="showHome()">🏠 ホームへ</button></div></div></div>
 <!-- DICT -->
@@ -754,103 +754,142 @@ function initTr(){
   ['mouseup','touchend','mouseleave'].forEach(e=>cv.addEventListener(e,()=>trDr=false));
 }
 function gPos(e,cv){const r=cv.getBoundingClientRect(),sx=cv.width/r.width,sy=cv.height/r.height,s=e.touches?e.touches[0]:e;return{x:(s.clientX-r.left)*sx,y:(s.clientY-r.top)*sy}}
+// KanjiVG筆順データ
+const KANJIVG='https://raw.githubusercontent.com/KanjiVG/kanjivg/master/kanji/';
+const STROKE_COLORS=['#4A90D9','#27AE60','#E67E22','#8E44AD','#E74C3C','#16A085','#D35400','#2980B9'];
+let _strokePaths=[]; // 現在の文字の全筆順パス
+let _strokeReady=false;
+
+// KanjiVGからSVGを取得して筆順パスを読み込む
+function loadCharStrokes(ch){
+  const cp=ch.codePointAt(0).toString(16).padStart(5,'0');
+  return fetch(KANJIVG+cp+'.svg')
+    .then(r=>r.ok?r.text():null)
+    .then(svgText=>{
+      if(!svgText)return[];
+      const parser=new DOMParser();
+      const doc=parser.parseFromString(svgText,'image/svg+xml');
+      return[...doc.querySelectorAll('path')].map(p=>p.getAttribute('d')).filter(Boolean);
+    })
+    .catch(()=>[]);
+}
+
+// 1文字分の筆順をcanvasに描画（KanjiVGは109x109座標）
+function renderStrokesOnCanvas(ctx, cw, ch_h, paths, offsetX){
+  const S=Math.min(cw/(paths.length||1)*0.85, ch_h*0.85, 90);
+  const scale=S/109;
+  paths.forEach((d,i)=>{
+    const cx=offsetX + S*(i+0.5) + S*i*0.15;
+    const cy=ch_h/2;
+    ctx.save();
+    ctx.translate(cx - S/2, cy - S/2);
+    ctx.scale(scale,scale);
+    // 背景小枠
+    ctx.strokeStyle='#e8eaf6';ctx.lineWidth=1/scale;
+    ctx.strokeRect(0,0,109,109);
+    // 前の画（薄く）
+    for(let j=0;j<i;j++){
+      const pp=new Path2D(paths[j]);
+      ctx.strokeStyle='rgba(180,200,220,0.5)';ctx.lineWidth=5;
+      ctx.lineCap='round';ctx.lineJoin='round';ctx.stroke(pp);
+    }
+    // 今の画（色付き・太く）
+    const col=STROKE_COLORS[i%STROKE_COLORS.length];
+    const pp=new Path2D(d);
+    ctx.strokeStyle=col;ctx.lineWidth=7;
+    ctx.lineCap='round';ctx.lineJoin='round';ctx.stroke(pp);
+    // 始点に番号丸
+    const m=d.match(/M\s*([\d.]+)[,\s]+([\d.]+)/);
+    if(m){
+      const sx=parseFloat(m[1]),sy=parseFloat(m[2]);
+      ctx.fillStyle=col;
+      ctx.beginPath();ctx.arc(sx,sy,9,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle='#fff';ctx.font='bold 9px sans-serif';
+      ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillText(i+1,sx,sy);
+      // 矢印（始点から少し進んだ方向）
+      const m2=d.match(/[CLQ]\s*([\d.]+)[,\s]+([\d.]+)/);
+      if(m2){
+        const ex=parseFloat(m2[1]),ey=parseFloat(m2[2]);
+        const ang=Math.atan2(ey-sy,ex-sx);
+        const aLen=14;
+        ctx.strokeStyle=col;ctx.lineWidth=3;ctx.lineCap='round';
+        ctx.beginPath();
+        ctx.moveTo(sx+Math.cos(ang)*12,sy+Math.sin(ang)*12);
+        ctx.lineTo(sx+Math.cos(ang)*12+Math.cos(ang)*aLen,sy+Math.sin(ang)*12+Math.sin(ang)*aLen);
+        ctx.stroke();
+        // 矢じり
+        ctx.fillStyle=col;ctx.beginPath();
+        const ax=sx+Math.cos(ang)*(12+aLen),ay=sy+Math.sin(ang)*(12+aLen);
+        ctx.moveTo(ax,ay);
+        ctx.lineTo(ax+Math.cos(ang-2.4)*6,ay+Math.sin(ang-2.4)*6);
+        ctx.lineTo(ax+Math.cos(ang+2.4)*6,ay+Math.sin(ang+2.4)*6);
+        ctx.closePath();ctx.fill();
+      }
+    }
+    // 画番号ラベル（下）
+    ctx.restore();
+    ctx.save();
+    ctx.fillStyle=col;
+    ctx.font=`bold ${Math.max(10,S*0.18)}px sans-serif`;
+    ctx.textAlign='center';ctx.textBaseline='top';
+    ctx.fillText(`${i+1}`,offsetX+S*(i+0.5)+S*i*0.15, cy+S/2+3);
+    ctx.restore();
+  });
+}
+
+async function loadWordStrokes(word){
+  _strokeReady=false;
+  _strokePaths=[];
+  const chars=[...word];
+  for(const ch of chars){
+    const paths=await loadCharStrokes(ch);
+    _strokePaths.push({ch,paths});
+  }
+  _strokeReady=true;
+  trClear(); // 読み込み完了後に再描画
+}
+
 function trClear(){
   if(!trCtx)return;
   const cv=document.getElementById('tr-cv');
   trCtx.clearRect(0,0,cv.width,cv.height);
   if(!trL[trI])return;
   const txt=trL[trI].n;
-  // 文字数に応じてフォントサイズを自動調整
-  let fs=Math.floor(cv.height*.5);
-  trCtx.textAlign='center';trCtx.textBaseline='middle';
-  // フォントをセットして幅を測り、はみ出すなら縮小
-  do {
-    trCtx.font=`bold ${fs}px 'Zen Maru Gothic',sans-serif`;
-    const w=trCtx.measureText(txt).width;
-    if(w<=cv.width*0.92)break;
-    fs=Math.floor(fs*0.85);
-  } while(fs>12);
-  trCtx.fillStyle='rgba(200,200,200,.4)';
-  trCtx.fillText(txt,cv.width/2,cv.height/2);
-}
-const KANJIVG='https://raw.githubusercontent.com/KanjiVG/kanjivg/master/kanji/';
-// SVGのpath座標を変換してcanvasに描画するスケール
-function drawStrokesOnCanvas(cv, paths, highlightIdx){
-  const ctx=cv.getContext('2d');
-  const S=cv.width;
-  ctx.clearRect(0,0,S,S);
-  ctx.fillStyle='#fff';ctx.fillRect(0,0,S,S);
-  const scale=S/109; // KanjiVGは109x109座標系
-  paths.forEach((d,i)=>{
-    const p=new Path2D(d);
-    ctx.save();ctx.scale(scale,scale);
-    if(i<highlightIdx){
-      // 書き終えた線：薄いグレー
-      ctx.strokeStyle='#ccc';ctx.lineWidth=3;ctx.lineCap='round';ctx.lineJoin='round';
-      ctx.stroke(p);
-    } else if(i===highlightIdx){
-      // 今の線：濃いオレンジ
-      ctx.strokeStyle='#E65100';ctx.lineWidth=4;ctx.lineCap='round';ctx.lineJoin='round';
-      ctx.stroke(p);
-      // 始点に番号丸
-      const m=d.match(/M\s*([\d.]+)[,\s]+([\d.]+)/);
-      if(m){
-        const x=parseFloat(m[1]),y=parseFloat(m[2]);
-        ctx.restore();ctx.save();ctx.scale(scale,scale);
-        ctx.fillStyle='#E65100';
-        ctx.beginPath();ctx.arc(x,y,5.5,0,Math.PI*2);ctx.fill();
-        ctx.fillStyle='#fff';ctx.font='bold 6px sans-serif';
-        ctx.textAlign='center';ctx.textBaseline='middle';
-        ctx.fillText(i+1,x,y);
+
+  if(_strokeReady && _strokePaths.length>0){
+    // 筆順ガイドをcanvasに直接描画
+    const chars=[...txt];
+    const totalChars=chars.length;
+    const maxStrokes=Math.max(..._strokePaths.map(c=>c.paths.length||1));
+    // キャンバスを文字数×最大画数で分割
+    const cellW=cv.width/totalChars;
+    const cellH=cv.height;
+    _strokePaths.forEach((charData,ci)=>{
+      if(!charData.paths.length){
+        // 筆順データなし→文字だけ表示
+        trCtx.font=`bold ${Math.floor(cellH*0.55)}px 'Zen Maru Gothic',sans-serif`;
+        trCtx.textAlign='center';trCtx.textBaseline='middle';
+        trCtx.fillStyle='rgba(180,180,180,0.35)';
+        trCtx.fillText(charData.ch, cellW*(ci+0.5), cellH/2);
+        return;
       }
-    }
-    ctx.restore();
-  });
+      renderStrokesOnCanvas(trCtx, cellW, cellH, charData.paths, cellW*ci);
+    });
+  } else {
+    // 筆順未読み込み時はテキストガイドのみ
+    let fs=Math.floor(cv.height*.5);
+    trCtx.textAlign='center';trCtx.textBaseline='middle';
+    do{
+      trCtx.font=`bold ${fs}px 'Zen Maru Gothic',sans-serif`;
+      if(trCtx.measureText(txt).width<=cv.width*0.92)break;
+      fs=Math.floor(fs*0.85);
+    }while(fs>12);
+    trCtx.fillStyle='rgba(200,200,200,.3)';
+    trCtx.fillText(txt,cv.width/2,cv.height/2);
+  }
 }
-function loadStrokeGuide(word){
-  const el=document.getElementById('tr-stroke-guide');
-  el.innerHTML='';
-  [...word].forEach(ch=>{
-    const cp=ch.codePointAt(0).toString(16).padStart(5,'0');
-    const wrap=document.createElement('div');wrap.className='tr-stroke-char';
-    const lbl=document.createElement('span');lbl.textContent=ch;
-    fetch(KANJIVG+cp+'.svg')
-      .then(r=>r.ok?r.text():null)
-      .then(svgText=>{
-        if(!svgText){throw new Error('no svg')}
-        // pathタグを全部抽出（kvg:element属性つき、stroke順）
-        const parser=new DOMParser();
-        const doc=parser.parseFromString(svgText,'image/svg+xml');
-        const paths=[...doc.querySelectorAll('path')].map(p=>p.getAttribute('d')).filter(Boolean);
-        if(!paths.length){throw new Error('no paths')}
-        // 各筆順ステップのcanvasを生成
-        const container=document.createElement('div');
-        container.style.cssText='display:flex;gap:4px;flex-wrap:wrap;justify-content:center';
-        paths.forEach((_,i)=>{
-          const cv=document.createElement('canvas');
-          cv.width=60;cv.height=60;cv.className='';
-          cv.style.cssText='border-radius:8px;border:1.5px solid #e0e7ff;background:#fff';
-          drawStrokesOnCanvas(cv,paths,i);
-          // 番号ラベル
-          const numDiv=document.createElement('div');
-          numDiv.style.cssText='display:flex;flex-direction:column;align-items:center;gap:1px';
-          const num=document.createElement('span');
-          num.style.cssText='font-size:9px;color:#E65100;font-weight:900';
-          num.textContent=`${i+1}かく目`;
-          numDiv.appendChild(cv);numDiv.appendChild(num);
-          container.appendChild(numDiv);
-        });
-        wrap.appendChild(container);
-      })
-      .catch(()=>{
-        const fb=document.createElement('div');fb.className='no-svg';fb.textContent=ch;
-        wrap.appendChild(fb);
-      });
-    wrap.appendChild(lbl);
-    el.appendChild(wrap);
-  });
-}
-function rTrQ(){const c=trL[trI];if(!c)return;const tfl=document.getElementById('tr-fl');tfl.src=flagUrl(c);document.getElementById('tr-gd').textContent=c.n;document.getElementById('tr-pr').textContent=`「${c.n}」をなぞってかいてみよう！`;document.getElementById('tr-n').textContent=`${trI+1} / ${trL.length}`;document.getElementById('tr-pb').style.width=((trI/trL.length)*100)+'%';document.getElementById('tr-p').textContent=`⭐ ${trPt}`;loadStrokeGuide(c.n);trClear();speak(c.n)}
+function rTrQ(){const c=trL[trI];if(!c)return;const tfl=document.getElementById('tr-fl');tfl.src=flagUrl(c);document.getElementById('tr-gd').textContent='';document.getElementById('tr-pr').textContent=`「${c.n}」をなぞってかいてみよう！`;document.getElementById('tr-n').textContent=`${trI+1} / ${trL.length}`;document.getElementById('tr-pb').style.width=((trI/trL.length)*100)+'%';document.getElementById('tr-p').textContent=`⭐ ${trPt}`;trClear();speak(c.n);loadWordStrokes(c.n);}
 function trNext(){trPt++;document.getElementById('tr-p').textContent=`⭐ ${trPt}`;floatStar();trI++;if(trI>=trL.length){save();updSeal();const s=earnSeal(trL[Math.floor(Math.random()*trL.length)]);showResult(`${trL.length}このくにをかいたよ！`,trPt,s,startTrace)}else rTrQ()}
 
 // SEALS
