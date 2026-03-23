@@ -419,9 +419,48 @@ function shuf(a){return[...a].sort(()=>Math.random()-.5)}
 function k2h(s){return s.replace(/[\u30A1-\u30F6]/g,m=>String.fromCharCode(m.charCodeAt(0)-0x60))}
 let curSpeak='';
 let _jaVoice=null;
-function _loadVoice(){const vs=speechSynthesis.getVoices();_jaVoice=vs.find(v=>v.lang==='ja-JP'&&v.localService)||vs.find(v=>v.lang==='ja-JP')||vs.find(v=>v.lang.startsWith('ja'))||null}
-if('speechSynthesis'in window){speechSynthesis.onvoiceschanged=_loadVoice;_loadVoice()}
-function speak(t){if(!('speechSynthesis'in window))return;const u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';if(_jaVoice)u.voice=_jaVoice;u.rate=0.85;u.pitch=1.05;speechSynthesis.cancel();setTimeout(()=>speechSynthesis.speak(u),50)}
+function _loadVoice(){
+  const vs=speechSynthesis.getVoices();
+  if(!vs.length)return;
+  // 優先順位: Enhanced/Premium > ローカル > オンライン の順で最良の日本語音声を選ぶ
+  const ja=vs.filter(v=>v.lang==='ja-JP'||v.lang==='ja');
+  // 1. Enhanced / Premium 音声（iOS「Kyoko（拡張版）」など）
+  _jaVoice=ja.find(v=>/enhanced|premium/i.test(v.name))
+  // 2. ローカル音声（Kyoko, O-Ren, Otoya など）
+  ||ja.find(v=>v.localService&&/kyoko|o.ren|otoya|haruka/i.test(v.name))
+  // 3. その他のローカル日本語音声
+  ||ja.find(v=>v.localService)
+  // 4. オンライン音声
+  ||ja.find(v=>!v.localService)
+  ||null;
+}
+if('speechSynthesis'in window){
+  speechSynthesis.onvoiceschanged=_loadVoice;
+  // iOSは遅延してvoicesが来ることがある
+  setTimeout(_loadVoice,500);
+  setTimeout(_loadVoice,1500);
+  _loadVoice();
+}
+function speak(t){
+  if(!('speechSynthesis'in window))return;
+  if(!_jaVoice)_loadVoice();
+  speechSynthesis.cancel();
+  setTimeout(()=>{
+    const u=new SpeechSynthesisUtterance(t);
+    u.lang='ja-JP';
+    if(_jaVoice){
+      u.voice=_jaVoice;
+      // Enhanced音声はrate/pitchをよりナチュラルに
+      const isEnhanced=/enhanced|premium/i.test(_jaVoice.name);
+      u.rate=isEnhanced?0.9:0.82;
+      u.pitch=isEnhanced?1.0:1.0;
+    } else {
+      u.rate=0.82;u.pitch=1.0;
+    }
+    u.volume=1.0;
+    speechSynthesis.speak(u);
+  },80);
+}
 function updSeal(){
   const n=new Set([...seals,...golds]).size;
   document.getElementById('seal-n').textContent=n;
