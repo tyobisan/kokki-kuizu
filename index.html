@@ -598,9 +598,9 @@ function chkFi(){
 }
 function advFi(){fiI++;if(fiI>=fiL.length)endFill();else rFiQ()}
 function fillHint(){
-  if(hiCnt>=2)return;hiCnt++;
+  hiCnt++;
   const un=sBl().filter(i=>!fiIn[i]);
-  if(un.length){fiIn[un[0]]=fiAns[un[0]];rFiW();if(hiCnt>=2){document.getElementById('hintbtn').disabled=true;document.getElementById('hintbtn').textContent='💡 つかいきった'}if(sBl().every(i=>fiIn[i]))chkFi()}
+  if(un.length){fiIn[un[0]]=fiAns[un[0]];rFiW();if(sBl().every(i=>fiIn[i]))chkFi()}
 }
 function endFill(){save();updSeal();const s=earnSeal(fiL[Math.floor(Math.random()*fiL.length)]);showResult(`${fiL.length}もんとけたよ！`,fiPt,s,startFill,fiPt>=fiL.length*2)}
 
