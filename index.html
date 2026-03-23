@@ -14,7 +14,12 @@
 <link rel="manifest" href="manifest.json">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@400;700&family=Zen+Maru+Gothic:wght@400;700;900&display=swap');
-@font-face{font-family:'KanjiStrokeOrders';src:url('https://cdn.jsdelivr.net/gh/KSO-Font/KanjiStrokeOrders/KanjiStrokeOrders_v4.004.ttf') format('truetype');font-display:swap}
+@font-face{
+  font-family:'KanjiStrokeOrders';
+  src:url('https://cdn.jsdelivr.net/gh/stroke-order-font/kanjistrokes@master/KanjiStrokeOrders_v4.004.ttf') format('truetype'),
+      url('https://raw.githubusercontent.com/stroke-order-font/kanjistrokes/master/KanjiStrokeOrders_v4.004.ttf') format('truetype');
+  font-display:swap
+}
 :root{--sun:#FFD93D;--pink:#FF6B9D;--mint:#4ECDC4;--purple:#9B59B6;--orange:#FF8C42;--green:#6BCB77;--red:#FF4757;--bg:#FFF9F0;--card:#fff;--sh:0 4px 16px rgba(0,0,0,.10);--r:20px}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:'Zen Maru Gothic',sans-serif;background-color:var(--bg);min-height:100vh;overflow-x:hidden;position:relative}
@@ -747,7 +752,7 @@ function stopRK(){if(rkA){cancelAnimationFrame(rkA);rkA=null}const cv=document.g
 let trL=[],trI=0,trPt=0,trDr=false,trCtx=null;
 const TC=['#FF4757','#2ed573','#1e90ff','#ffa502','#a29bfe','#fd79a8','#000'];
 let tCol='#2ed573',tSz=12;
-function startTrace(){trL=shuf(pool());trI=0;trPt=0;showScreen('s-trace','✏️ なぞりがき');bCrow();bSzrow();initTr();rTrQ()}
+function startTrace(){trL=shuf(pool());trI=0;trPt=0;showScreen('s-trace','✏️ なぞりがき');bCrow();bSzrow();initTr();preloadStrokeFont();rTrQ()}
 function bCrow(){const el=document.getElementById('crow');el.innerHTML='';TC.forEach(c=>{const d=document.createElement('div');d.className='cdot'+(c===tCol?' on':'');d.style.background=c;d.onclick=()=>{tCol=c;bCrow()};el.appendChild(d)})}
 function bSzrow(){const el=document.getElementById('szrow');el.innerHTML='';[8,12,18].forEach(s=>{const b=document.createElement('button');b.className='szbtn'+(s===tSz?' on':'');const d=document.createElement('div');d.style.cssText=`width:${s*.85}px;height:${s*.85}px;border-radius:50%;background:${s===tSz?'#fff':'#555'}`;b.appendChild(d);b.onclick=()=>{tSz=s;bSzrow()};el.appendChild(b)})}
 function initTr(){
@@ -761,6 +766,17 @@ function trClear(){
   if(!trCtx)return;
   const cv=document.getElementById('tr-cv');
   trCtx.clearRect(0,0,cv.width,cv.height);
+}
+// 筆順フォントを事前ロード
+function preloadStrokeFont(){
+  if(document.fonts){
+    document.fonts.load('80px KanjiStrokeOrders','あ').then(()=>{
+      console.log('KanjiStrokeOrders loaded');
+      // フォント読み込み完了後にガイドを再描画
+      const gb=document.getElementById('tr-guide-bg');
+      if(gb&&gb.textContent)gb.style.fontFamily='"KanjiStrokeOrders","Zen Maru Gothic",sans-serif';
+    });
+  }
 }
 function rTrQ(){
   const c=trL[trI];if(!c)return;
