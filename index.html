@@ -763,40 +763,51 @@ function trClear(){
   trCtx.clearRect(0,0,cv.width,cv.height);
 }
 // 筆順フォントを事前ロード
-// KanjiVG SVGで筆順を色付き矢印番号付きで描画
+// KanjiVG SVGで筆順を色付き矢印番号付きで描画（全文字同時）
 const SC=['#4da6ff','#44cc88','#ff9933','#ff6655','#9966ff','#ff66aa','#00cccc','#ffcc00'];
-async function drawGuide(ch,canvas,w,h){
+async function drawGuideAll(name,canvas,w,h){
   const ctx=canvas.getContext('2d');
   ctx.clearRect(0,0,w,h);
-  const cp=ch.codePointAt(0).toString(16).padStart(5,'0');
-  const url=`https://raw.githubusercontent.com/KanjiVG/kanjivg/master/kanji/${cp}.svg`;
-  try{
-    const res=await fetch(url);
-    if(!res.ok)throw new Error('no svg');
-    const txt=await res.text();
-    drawStrokeSVG(ctx,txt,w,h);
-  }catch(e){
-    const fs=Math.min(w*0.65,h*0.72,180);
-    ctx.font=`900 ${fs}px "Zen Maru Gothic",sans-serif`;
-    ctx.textAlign='center';ctx.textBaseline='middle';
-    ctx.fillStyle='rgba(100,120,220,0.15)';
-    ctx.strokeStyle='rgba(100,120,220,0.22)';
-    ctx.lineWidth=fs*0.05;
-    ctx.strokeText(ch,w/2,h/2);ctx.fillText(ch,w/2,h/2);
+  const chars=Array.from(name);
+  const n=chars.length;
+  const cellW=Math.floor(w/n);
+  for(let i=0;i<n;i++){
+    const ch=chars[i];
+    const ox=i*cellW;
+    const cp=ch.codePointAt(0).toString(16).padStart(5,'0');
+    const url=`https://raw.githubusercontent.com/KanjiVG/kanjivg/master/kanji/${cp}.svg`;
+    try{
+      const res=await fetch(url);
+      if(!res.ok)throw new Error('no svg');
+      const txt=await res.text();
+      drawStrokeSVG(ctx,txt,ox,0,cellW,h);
+    }catch(e){
+      const fs=Math.min(cellW*0.72,h*0.65,130);
+      ctx.font=`900 ${fs}px "Zen Maru Gothic",sans-serif`;
+      ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillStyle='rgba(100,120,220,0.15)';
+      ctx.strokeStyle='rgba(100,120,220,0.22)';
+      ctx.lineWidth=fs*0.05;
+      ctx.strokeText(ch,ox+cellW/2,h/2);
+      ctx.fillText(ch,ox+cellW/2,h/2);
+    }
   }
 }
-function drawStrokeSVG(ctx,svgTxt,w,h){
+async function drawGuide(ch,canvas,w,h){
+  return drawGuideAll(ch,canvas,w,h);
+}
+function drawStrokeSVG(ctx,svgTxt,ox,oy,w,h){
   const parser=new DOMParser();
   const doc=parser.parseFromString(svgTxt,'image/svg+xml');
-  const margin=18;
+  const margin=10;
   const S=(Math.min(w,h)-margin*2)/109;
-  const px=(w-109*S)/2,py=(h-109*S)/2;
+  const px=ox+(w-109*S)/2,py=oy+(h-109*S)/2;
   // グリッド線
   ctx.save();
-  ctx.strokeStyle='rgba(80,160,255,0.22)';ctx.lineWidth=1;
-  ctx.setLineDash([6,4]);
-  ctx.beginPath();ctx.moveTo(w/2,4);ctx.lineTo(w/2,h-4);ctx.stroke();
-  ctx.beginPath();ctx.moveTo(4,h/2);ctx.lineTo(w-4,h/2);ctx.stroke();
+  ctx.strokeStyle='rgba(80,160,255,0.2)';ctx.lineWidth=1;
+  ctx.setLineDash([5,4]);
+  ctx.beginPath();ctx.moveTo(ox+w/2,oy+4);ctx.lineTo(ox+w/2,oy+h-4);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(ox+4,oy+h/2);ctx.lineTo(ox+w-4,oy+h/2);ctx.stroke();
   ctx.setLineDash([]);ctx.restore();
   const paths=[...doc.querySelectorAll('path[d]')];
   paths.forEach((p,i)=>{
@@ -858,15 +869,8 @@ function rTrQ(){
   document.getElementById('tr-n').textContent=`${trI+1} / ${trL.length}`;
   document.getElementById('tr-pb').style.width=((trI/trL.length)*100)+'%';
   document.getElementById('tr-p').textContent=`⭐ ${trPt}`;
-  trChars=Array.from(c.n);trCI=0;
-  rTrChar();
-}
-function rTrChar(){
-  const ch=trChars[trCI];
   const info=document.getElementById('tr-char-info');
-  if(info)info.textContent=`「${ch}」 (${trCI+1} / ${trChars.length}もじめ)`;
-  const btn=document.getElementById('tr-next-btn');
-  if(btn)btn.textContent=(trCI<trChars.length-1)?'次の文字 ▶':'つぎへ ▶';
+  if(info)info.textContent='';
   requestAnimationFrame(()=>{
     const wrap=document.getElementById('tr-cv-wrap');
     const cv=document.getElementById('tr-cv');
@@ -874,19 +878,15 @@ function rTrChar(){
     const w=wrap.offsetWidth,h=wrap.offsetHeight;
     cv.width=w;cv.height=h;gb.width=w;gb.height=h;
     trClear();
-    drawGuide(ch,gb,w,h);
+    drawGuideAll(c.n,gb,w,h);
   });
-  speak(ch);
+  speak(c.n);
 }
 function trNextChar(){
-  trClear();trCI++;
-  if(trCI<trChars.length){rTrChar();}
-  else{
-    trPt++;document.getElementById('tr-p').textContent=`⭐ ${trPt}`;floatStar();
-    trI++;
-    if(trI>=trL.length){save();updSeal();const s=earnSeal(trL[Math.floor(Math.random()*trL.length)]);showResult(`${trL.length}このくにをかいたよ！`,trPt,s,startTrace);}
-    else rTrQ();
-  }
+  trPt++;document.getElementById('tr-p').textContent=`⭐ ${trPt}`;floatStar();
+  trI++;
+  if(trI>=trL.length){save();updSeal();const s=earnSeal(trL[Math.floor(Math.random()*trL.length)]);showResult(`${trL.length}このくにをかいたよ！`,trPt,s,startTrace);}
+  else rTrQ();
 }
 function trNext(){trPt++;document.getElementById('tr-p').textContent=`⭐ ${trPt}`;floatStar();trI++;if(trI>=trL.length){save();updSeal();const s=earnSeal(trL[Math.floor(Math.random()*trL.length)]);showResult(`${trL.length}このくにをかいたよ！`,trPt,s,startTrace)}else rTrQ()}
 
