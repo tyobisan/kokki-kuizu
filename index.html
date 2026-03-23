@@ -763,30 +763,80 @@ function trClear(){
   trCtx.clearRect(0,0,cv.width,cv.height);
 }
 // 筆順フォントを事前ロード
-function drawGuide(name,canvas,w,h){
+// KanjiVG SVGから筆順を取得して描画
+async function drawGuide(name,canvas,w,h){
   const ctx=canvas.getContext('2d');
   ctx.clearRect(0,0,w,h);
   const chars=Array.from(name);
   const n=chars.length;
-  // フォントサイズを文字数に応じて調整
-  const fs=Math.min(Math.floor(w/(n+0.5)),Math.floor(h*0.75),120);
-  ctx.font=`900 ${fs}px "Zen Maru Gothic",sans-serif`;
-  ctx.textAlign='center';
-  ctx.textBaseline='middle';
-  // 薄いグレーのアウトラインで筆順ガイド風に
-  ctx.strokeStyle='rgba(100,120,220,0.18)';
-  ctx.lineWidth=fs*0.08;
-  ctx.lineJoin='round';
-  // まず薄いフィルで
-  ctx.fillStyle='rgba(100,120,220,0.13)';
-  const totalW=n*fs;
-  const startX=w/2 - totalW/2 + fs/2;
+  const cellW=Math.floor(w/n);
+  const cellH=h;
   for(let i=0;i<n;i++){
-    const x=startX+i*fs;
-    const y=h/2;
-    ctx.strokeText(chars[i],x,y);
-    ctx.fillText(chars[i],x,y);
+    const cp=chars[i].codePointAt(0).toString(16).padStart(5,'0');
+    const url=`https://raw.githubusercontent.com/KanjiVG/kanjivg/master/kanji/${cp}.svg`;
+    const ox=i*cellW;
+    try{
+      const res=await fetch(url);
+      if(!res.ok)throw new Error('no svg');
+      const txt=await res.text();
+      drawStrokeSVG(ctx,txt,ox,0,cellW,cellH);
+    }catch(e){
+      // SVGなければシンプル文字表示
+      const fs=Math.min(cellW*0.8,cellH*0.75,110);
+      ctx.font=`900 ${fs}px "Zen Maru Gothic",sans-serif`;
+      ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillStyle='rgba(100,120,220,0.15)';
+      ctx.strokeStyle='rgba(100,120,220,0.2)';
+      ctx.lineWidth=fs*0.06;
+      ctx.strokeText(chars[i],ox+cellW/2,cellH/2);
+      ctx.fillText(chars[i],ox+cellW/2,cellH/2);
+    }
   }
+}
+
+// SVGのpathを解析して筆順番号付きで描画
+function drawStrokeSVG(ctx,svgTxt,ox,oy,cw,ch){
+  const parser=new DOMParser();
+  const doc=parser.parseFromString(svgTxt,'image/svg+xml');
+  const scale=Math.min(cw,ch)/109*0.85;
+  const padX=ox+(cw-109*scale)/2;
+  const padY=oy+(ch-109*scale)/2;
+  const paths=doc.querySelectorAll('path[d]');
+  let num=1;
+  paths.forEach(p=>{
+    const d=p.getAttribute('d');
+    if(!d)return;
+    ctx.save();
+    ctx.translate(padX,padY);
+    ctx.scale(scale,scale);
+    const path2d=new Path2D(d);
+    ctx.strokeStyle='rgba(80,100,200,0.22)';
+    ctx.lineWidth=3/scale;
+    ctx.lineCap='round';ctx.lineJoin='round';
+    ctx.stroke(path2d);
+    const m=d.match(/M\s*([\d.]+)[,\s]([\d.]+)/);
+    if(m){
+      const sx=parseFloat(m[1]);
+      const sy=parseFloat(m[2]);
+      ctx.restore();
+      ctx.save();
+      const bx=padX+sx*scale;
+      const by=padY+sy*scale;
+      const r=6;
+      ctx.beginPath();
+      ctx.arc(bx,by,r,0,Math.PI*2);
+      ctx.fillStyle='rgba(80,100,200,0.65)';
+      ctx.fill();
+      ctx.font=`bold ${r*1.5}px sans-serif`;
+      ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillStyle='#fff';
+      ctx.fillText(num,bx,by);
+      ctx.restore();
+    }else{
+      ctx.restore();
+    }
+    num++;
+  });
 }
 function rTrQ(){
   const c=trL[trI];if(!c)return;
